@@ -1,0 +1,67 @@
+# ============================================================================
+# RAG System for Vietnamese Government Documents
+# ============================================================================
+# Pipeline:
+#   - Embedding: bkai-foundation-models/vietnamese-bi-encoder (local, 768-dim)
+#   - Vector Store: ChromaDB
+#   - LLM: Google Gemini API (gemini-2.0-flash)
+#   - Chunking: Semantic/structural (theo Điều/Khoản)
+#   - API: FastAPI
+# ============================================================================
+
+# --- Web Framework ---
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# --- Config & Validation ---
+pydantic==2.5.0
+pydantic-settings==2.1.0
+python-dotenv==1.0.0
+
+# --- Document Processing (PDF → Markdown) ---
+pymupdf==1.23.8           # Xử lý PDF chính
+pdfplumber==0.10.3        # Trích xuất bảng biểu
+python-docx==1.1.0        # Xử lý DOCX
+markdown==3.5.1           # Parse Markdown
+beautifulsoup4==4.12.2    # Parse HTML/Markdown
+lxml==4.9.3               # Parser nhanh
+
+# --- Vietnamese Text Processing ---
+# underthesea==6.8.0      # Bỏ: lỗi build trên Python 3.12 (cần Rust + maturin)
+pyvi==0.1.1               # Tokenizer tiếng Việt nhẹ
+
+# --- Embedding Model ---
+sentence-transformers==2.3.1  # Fixed version for compatibility
+transformers==4.35.2
+sentencepiece==0.2.1
+accelerate==0.25.0        # Hỗ trợ chạy model hiệu quả
+
+# --- Vector Database ---
+chromadb==0.4.22
+
+# --- LLM Integration ---
+google-generativeai==0.3.2
+
+# --- Utilities ---
+numpy==1.26.2
+tiktoken==0.5.2
+tqdm==4.66.1
+tenacity==8.2.3
+httpx==0.25.2
+
+# --- Logging ---
+structlog==23.2.0
+rich==13.7.0
+
+# --- Testing ---
+pytest==7.4.3
+
+# ============================================================================
+# LƯU Ý VỀ TORCH
+# ============================================================================
+# Không pin torch trong file này vì:
+#   - Máy local: cài bản CPU để nhẹ (~200 MB)
+#     pip install torch==2.1.1 torchvision==0.16.1 --index-url https://download.pytorch.org/whl/cpu
+#   - Google Colab T4: torch đã có sẵn, không cần cài
+# ============================================================================

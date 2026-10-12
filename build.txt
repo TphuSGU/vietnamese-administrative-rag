@@ -1,0 +1,74 @@
+local-government-ai-assistant/
+│
+├── frontend/
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       ├── layouts/
+│       ├── services/
+│       ├── hooks/
+│       ├── routes/
+│       └── utils/
+│
+├── backend/
+│   │
+│   ├── app/
+│   │   ├── main.py
+│   │   │
+│   │   ├── api/
+│   │   │   ├── auth.py
+│   │   │   ├── users.py
+│   │   │   ├── chat.py
+│   │   │   ├── documents.py
+│   │   │   └── admin.py
+│   │   │
+│   │   ├── core/
+│   │   │   ├── config.py
+│   │   │   ├── security.py
+│   │   │   └── dependencies.py
+│   │   │
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── repositories/
+│   │   ├── services/
+│   │   │
+│   │   ├── rag/
+│   │   │   ├── ingestion/
+│   │   │   │   ├── loader.py
+│   │   │   │   ├── cleaner.py
+│   │   │   │   └── chunker.py
+│   │   │   │
+│   │   │   ├── embedding/
+│   │   │   │   └── embedding_service.py
+│   │   │   │
+│   │   │   ├── retrieval/
+│   │   │   │   ├── vector_store.py
+│   │   │   │   └── retriever.py
+│   │   │   │
+│   │   │   ├── generation/
+│   │   │   │   ├── prompt.py
+│   │   │   │   └── llm_service.py
+│   │   │   │
+│   │   │   ├── pipeline/
+│   │   │   │   └── rag_pipeline.py
+│   │   │   │
+│   │   │   └── evaluation/
+│   │   │       ├── evaluator.py
+│   │   │       └── metrics.py
+│   │   │
+│   │   └── database/
+│   │       ├── connection.py
+│   │       └── session.py
+│   │
+│   ├── requirements.txt
+│   └── .env
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── evaluation/
+│
+├── tests/
+├── docs/
+├── docker-compose.yml
+└── README.md

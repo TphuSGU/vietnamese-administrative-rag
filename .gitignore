@@ -1,0 +1,175 @@
+# ============================================================================
+# .gitignore - RAG System for Vietnamese Government Documents
+# ============================================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Virtual Environments ---
+.venv/
+venv/
+ENV/
+env/
+.python-version
+
+# --- Environment Variables ---
+.env
+.env.local
+.env.*.local
+*.env
+
+# --- IDE / Editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# --- Testing / Coverage ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+
+# --- Build Tools ---
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.pytype/
+
+# --- Logs ---
+*.log
+logs/
+*.log.*
+
+# ============================================================================
+# DỰ ÁN RAG - CÁC THƯ MỤC ĐẶC THÙ
+# ============================================================================
+
+# --- Vector Database (ChromaDB / FAISS / Qdrant) ---
+data/chroma/
+data/chromadb/
+data/faiss_index/
+data/qdrant/
+*.sqlite3
+*.db
+chroma.sqlite3
+
+# --- Model Cache (HuggingFace, Sentence-Transformers) ---
+.cache/
+cache/
+models/
+model_cache/
+huggingface/
+.cache/huggingface/
+~/.cache/huggingface/
+
+# --- Dữ liệu tài liệu (KHÔNG commit dữ liệu thô) ---
+data/documents/
+data/raw/
+data/pdf/
+data/docx/
+data/markdown/
+data/processed/
+data/chunks/
+data/embeddings/
+
+# --- Dữ liệu tạm thời ---
+tmp/
+temp/
+.temp/
+*.tmp
+
+# --- File cấu hình nhạy cảm ---
+config/secrets.yaml
+config/credentials.json
+*.pem
+*.key
+
+# --- File output / kết quả thực nghiệm ---
+outputs/
+results/
+reports/
+*.csv
+*.json
+!package.json
+!requirements.json
+
+# ============================================================================
+# HỆ ĐIỀU HÀNH
+# ============================================================================
+
+# --- macOS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# --- Windows ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Linux ---
+*~
+.directory
+.Trash-*
+
+# ============================================================================
+# RIÊNG CHO DỰ ÁN NÀY
+# ============================================================================
+
+# --- Dữ liệu nghị định (28 file PDF) ---
+data/nghi-dinh/
+data/28-nghi-dinh/
+*.pdf
+
+# --- Tập câu hỏi kiểm thử ---
+data/test_questions/
+data/evaluation/
+*.xlsx
+*.xls
+
+# --- Backup ---
+*.bak
+*.backup
+*_backup/
+*_old/
+
+# --- File tạm khi convert PDF ---
+*.aux
+*.toc
+*.out

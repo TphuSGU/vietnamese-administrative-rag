@@ -87,6 +87,11 @@ data/qdrant/
 *.db
 chroma.sqlite3
 
+# --- BM25S Index Persistence ---
+bm25s_index/
+./bm25s_index/
+**/bm25s_index/
+
 # --- Model Cache (HuggingFace, Sentence-Transformers) ---
 .cache/
 cache/

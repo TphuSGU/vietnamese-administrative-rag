@@ -12,6 +12,7 @@ import google.generativeai as genai
 from app.models.data_models import RetrievedChunk, GeneratedAnswer, ChunkReference
 from app.core.logging import get_logger
 from app.models.exceptions import LLMGenerationError
+from app.rag.generation.output_validator import OutputValidator
 
 logger = get_logger(__name__)
 
@@ -67,9 +68,19 @@ LƯU Ý QUAN TRỌNG:
             }
         )
         
+        # Initialize output validator
+        self.validator = OutputValidator(
+            min_evidence_ratio=0.4,
+            strict_mode=False
+        )
+        
         logger.info(
             f"LLMService initialized with {self.MODEL_NAME}",
-            extra={"max_tokens": self.MAX_TOKENS, "temperature": self.TEMPERATURE}
+            extra={
+                "max_tokens": self.MAX_TOKENS,
+                "temperature": self.TEMPERATURE,
+                "validator_enabled": True
+            }
         )
     
     def _build_prompt(
@@ -185,6 +196,26 @@ TRẢ LỜI (bằng tiếng Việt, dựa trên tài liệu trên):"""
         except Exception as e:
             logger.error(f"Answer generation failed after retries: {e}")
             raise LLMGenerationError(f"Failed to generate answer: {e}")
+        
+        # Validate output
+        is_valid, error = self.validator.validate(
+            answer_text,
+            query,
+            retrieved_chunks
+        )
+        
+        if not is_valid:
+            logger.warning(
+                f"Answer validation failed: {error}",
+                extra={"query": query[:50]}
+            )
+            
+            # Fallback to safe response
+            answer_text = (
+                "Tôi không tìm thấy đủ thông tin để trả lời câu hỏi này "
+                "dựa trên tài liệu hiện có. Vui lòng cung cấp thêm chi tiết "
+                "hoặc thử câu hỏi khác."
+            )
         
         # Estimate tokens (Gemini doesn't provide exact count)
         estimated_tokens = len(answer_text.split())

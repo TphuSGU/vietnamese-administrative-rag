@@ -61,6 +61,11 @@ class Settings(BaseSettings):
     max_concurrent_ingestion: int = Field(4, env="MAX_CONCURRENT_INGESTION")
     embedding_batch_size: int = Field(32, env="EMBEDDING_BATCH_SIZE")
     
+    # BM25S Configuration
+    bm25s_persist_dir: str = Field("./bm25s_index", env="BM25S_PERSIST_DIR")
+    bm25s_k1: float = Field(1.5, env="BM25S_K1")
+    bm25s_b: float = Field(0.75, env="BM25S_B")
+    
     @validator("chunk_min_size")
     def validate_chunk_min_size(cls, v, values):
         """Validate chunk_min_size is positive."""

@@ -8,3 +8,6 @@ pip install -r requirements.txt
 
 
 // thay 2.2.2 sentence-transformers==2.3.1 
+
+tóm lại local xài numpy 1.26.2 và  Sentence-Transformers: Local 2.2.2  thì oke 
+colab : 2.0.2 - 	5.6.0

@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     
     # Google Gemini Configuration (replaces OpenAI)
     gemini_api_key: str = Field(..., env="GEMINI_API_KEY")
-    gemini_model: str = Field("gemini-2.0-flash-exp", env="GEMINI_MODEL")
+    gemini_model: str = Field("gemini-3.5-flash-lite", env="GEMINI_MODEL")
     
     # Vietnamese Embedding Model (bkai-foundation-models/vietnamese-bi-encoder)
     embedding_model_name: str = Field(

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trợ lý Tra cứu Hành chính</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🏛️ Trợ lý Tra cứu Hành chính</h1>
+            <p>Hỗ trợ tra cứu thông tin văn bản pháp luật</p>
+        </header>
+
+        <!-- Chat container -->
+        <div id="chat-container">
+            <!-- Welcome message -->
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>Xin chào! Tôi có thể giúp bạn tra cứu thông tin về:</p>
+                    <ul>
+                        <li>Thủ tục hành chính</li>
+                        <li>Văn bản pháp luật</li>
+                        <li>Quy định địa phương</li>
+                    </ul>
+                    <p>Bạn muốn hỏi gì?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input area -->
+        <div class="input-container">
+            <textarea 
+                id="user-input" 
+                placeholder="Nhập câu hỏi của bạn... (ví dụ: Điều 10 quy định gì về hộ khẩu?)"
+                rows="2"
+            ></textarea>
+            <button id="send-btn" onclick="sendMessage()">
+                <span id="send-icon">Gửi</span>
+                <span id="loading-icon" style="display: none;">⏳</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

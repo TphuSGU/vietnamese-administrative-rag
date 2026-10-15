@@ -182,6 +182,16 @@ async def query_rag(
     """
     start_time = time.time()
     
+    # Debug logging
+    logger.info(
+        "Query request received",
+        extra={
+            "query": request.query,
+            "query_length": len(request.query),
+            "k": request.k
+        }
+    )
+    
     logger.info(
         "Received RAG query",
         extra={
@@ -199,6 +209,11 @@ async def query_rag(
         
         # Convert to API response format
         response_dict = rag_response.to_dict()
+        
+        # Ensure timestamp is present (defensive check)
+        if 'timestamp' not in response_dict:
+            from datetime import datetime
+            response_dict['timestamp'] = datetime.utcnow().isoformat()
         
         logger.info(
             "RAG query completed successfully",

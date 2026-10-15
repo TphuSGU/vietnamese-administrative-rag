@@ -26,7 +26,7 @@ class LLMService:
     
     MAX_TOKENS = 500
     TEMPERATURE = 0.3
-    MODEL_NAME = "gemini-2.0-flash-exp"
+    MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
     
     SYSTEM_INSTRUCTION = """Bạn là trợ lý AI hỗ trợ công dân tra cứu thông tin về văn bản chính quyền địa phương.
 

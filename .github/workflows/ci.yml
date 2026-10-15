@@ -107,8 +107,8 @@ jobs:
             2>&1 | tee test-results/coverage.log || true
       
       - name: Upload test results
-        uses: actions/upload-artifact@v3
-        if: always()  # Upload even if tests fail
+        uses: actions/upload-artifact@v4
+        if: always()  
         with:
           name: backend-test-results-py${{ matrix.python-version }}
           path: |
@@ -179,7 +179,7 @@ jobs:
           npx eslint *.js --no-eslintrc --env browser,es2021 2>&1 | tee eslint.log || true
       
       - name: Upload frontend results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: frontend-test-results
@@ -223,7 +223,7 @@ jobs:
           safety check 2>&1 | tee -a test-results/safety.log || true
       
       - name: Upload security results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: security-scan-results
@@ -245,7 +245,7 @@ jobs:
     
     steps:
       - name: Download all artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         continue-on-error: true
       
       - name: Generate summary report
@@ -268,7 +268,7 @@ jobs:
           cat summary.md >> $GITHUB_STEP_SUMMARY
       
       - name: Upload summary
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ci-summary
           path: summary.md

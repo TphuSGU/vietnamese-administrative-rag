@@ -30,7 +30,7 @@ def test_llm_service_initialization(llm_service):
     """
     assert llm_service.api_key is not None
     assert llm_service.model is not None
-    assert llm_service.MODEL_NAME == "gemini-2.0-flash-exp"
+    assert llm_service.MODEL_NAME.startswith("gemini-")
     assert llm_service.MAX_TOKENS == 500
     assert llm_service.TEMPERATURE == 0.3
 
@@ -148,7 +148,7 @@ def test_generate_answer_with_real_api(llm_service):
     assert isinstance(result, GeneratedAnswer)
     assert result.answer is not None
     assert len(result.answer) > 0
-    assert result.model == "gemini-2.0-flash-exp"
+    assert result.model.startswith("gemini-")
     assert result.tokens_used > 0
     assert len(result.source_chunks) > 0
     
@@ -181,7 +181,7 @@ def test_insufficient_information_handling():
     assert "không tìm thấy" in result.answer.lower() or "không có tài liệu" in result.answer.lower()
     assert len(result.source_chunks) == 0
     assert result.tokens_used == 0
-    assert result.model == "gemini-2.0-flash-exp"
+    assert result.model.startswith("gemini-")
 
 
 @pytest.mark.skipif(not os.getenv("GEMINI_API_KEY"), reason="GEMINI_API_KEY not set")

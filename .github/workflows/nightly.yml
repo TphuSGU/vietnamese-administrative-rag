@@ -1,0 +1,10 @@
+name: Nightly Full Test
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 2 AM daily
+  workflow_dispatch:
+
+jobs:
+  full-test:
+    uses: ./.github/workflows/ci.yml

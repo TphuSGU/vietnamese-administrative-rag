@@ -1,0 +1,40 @@
+name: Test Report
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    if: always()
+    
+    permissions:
+      checks: write
+      pull-requests: write
+    
+    steps:
+      - name: Download artifacts
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{ github.event.workflow_run.id }},
+            });
+            
+            for (const artifact of artifacts.data.artifacts) {
+              console.log(`Found artifact: ${artifact.name}`);
+            }
+      
+      - name: Publish test results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            **/test-results/*.xml
+          check_name: Test Results
+          comment_mode: always

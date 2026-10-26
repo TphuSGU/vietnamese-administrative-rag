@@ -5,6 +5,7 @@ Validates: Requirements 6.1, 6.2, 6.3, 6.4, 6.5
 """
 
 from pathlib import Path
+import re
 import uuid
 import asyncio
 from typing import Optional, Dict
@@ -20,6 +21,20 @@ from app.models.data_models import IngestionStatus, IngestionResult
 from app.models.exceptions import RAGException
 
 logger = get_logger(__name__)
+
+
+def derive_document_id(filename: str) -> str:
+    """
+    Derive a stable, filesystem-safe document ID from a filename.
+
+    Example: "150-2025-ND-CP.pdf" -> "150-2025-ND-CP"
+
+    Using a stable ID makes re-ingestion idempotent: chunk IDs are
+    ``{document_id}_{chunk_index}`` and ChromaDB upserts replace them.
+    """
+    stem = Path(filename).stem.strip()
+    doc_id = re.sub(r"[^\w.-]+", "-", stem, flags=re.UNICODE).strip("-._")
+    return doc_id or "document"
 
 
 class IngestionError(RAGException):
@@ -119,13 +134,16 @@ class DocumentIngestionPipeline:
     
     async def ingest_document(
         self, 
-        file_path: Path
+        file_path: Path,
+        document_id: Optional[str] = None
     ) -> IngestionResult:
         """
         Ingest a document through the complete pipeline.
         
         Args:
             file_path: Path to document (PDF/DOCX/TXT)
+            document_id: Optional stable document ID (e.g. "150-2025-ND-CP").
+                         If omitted a random ID is generated.
             
         Returns:
             IngestionResult with job_id, status, chunk_count, document_id
@@ -134,7 +152,8 @@ class DocumentIngestionPipeline:
         """
         # Generate job ID
         job_id = str(uuid.uuid4())
-        document_id = f"doc_{uuid.uuid4().hex[:8]}"
+        if not document_id:
+            document_id = f"doc_{uuid.uuid4().hex[:8]}"
         
         # Create job tracking
         await self.status_tracker.create_job(job_id, str(file_path))
@@ -197,7 +216,9 @@ class DocumentIngestionPipeline:
                 
                 # Stage 5: Store in vector DB
                 try:
-                    self.vector_store.add_chunks(chunks, embeddings)
+                    self.vector_store.add_chunks(
+                        chunks, embeddings, filename=document.filename
+                    )
                     logger.info(
                         f"Stage 5 complete: Chunks stored",
                         extra={"job_id": job_id, "chunk_count": len(chunks)}

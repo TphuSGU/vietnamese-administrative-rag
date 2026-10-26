@@ -10,7 +10,7 @@ Fusion method: Reciprocal Rank Fusion (RRF)
 - Formula: RRF_score(d) = sum(1 / (k + rank_i(d))) for all rankings i
 """
 
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 import numpy as np
 from pathlib import Path
 
@@ -43,8 +43,10 @@ class HybridRetriever(Retriever):
     # RRF constant (recommended value from paper)
     RRF_K = 60
     
-    # Similarity threshold for filtering low-quality results
-    MIN_SIMILARITY_THRESHOLD = 0.7
+    # Cosine-similarity threshold applied to vector candidates before fusion.
+    # NOTE: RRF scores (~1/60) and cross-encoder logits use a different scale,
+    # so this value must NOT be applied to fused/reranked results.
+    MIN_SIMILARITY_THRESHOLD = 0.25
     
     def __init__(
         self,
@@ -52,8 +54,8 @@ class HybridRetriever(Retriever):
         vector_store: VectorStore,
         alpha: float = 0.6,
         min_similarity: float = MIN_SIMILARITY_THRESHOLD,
-        use_reranking: bool = True,
-        bm25s_persist_dir: str = "./bm25s_index"
+        use_reranking: bool = False,
+        bm25s_persist_dir: Optional[str] = None
     ):
         """
         Initialize hybrid retriever.
@@ -69,7 +71,11 @@ class HybridRetriever(Retriever):
             bm25s_persist_dir: Directory to persist BM25S index
         """
         super().__init__(embedding_service, vector_store)
-        self.bm25_index = BM25SIndex(persist_dir=Path(bm25s_persist_dir))
+        # Persistence is opt-in: tests and ad-hoc instances must never
+        # overwrite the production BM25 index on disk.
+        self.bm25_index = BM25SIndex(
+            persist_dir=Path(bm25s_persist_dir) if bm25s_persist_dir else None
+        )
         self.alpha = alpha
         self.min_similarity = min_similarity
         self.use_reranking = use_reranking
@@ -150,7 +156,15 @@ class HybridRetriever(Retriever):
         # 1. Dense retrieval (vector/semantic search)
         logger.debug("Performing vector search")
         vector_results = super().retrieve(query, k=candidate_k)
-        
+
+        # Filter cosine similarity BEFORE fusion. The threshold is meaningless
+        # after RRF (score ~1/60) or reranking (cross-encoder logit).
+        vector_count_before_filter = len(vector_results)
+        vector_results = [
+            chunk for chunk in vector_results
+            if chunk.similarity_score >= self.min_similarity
+        ]
+
         # 2. Sparse retrieval (BM25/keyword search)
         logger.debug("Performing BM25 search")
         bm25_results = self.bm25_index.search(query, k=candidate_k)
@@ -163,10 +177,9 @@ class HybridRetriever(Retriever):
             k=k
         )
         
-        # 4. Apply reranking if enabled
+        # 4. Apply reranking if enabled (ordering only, no score filtering)
         if self.reranker and fused_results:
             logger.debug("Applying cross-encoder reranking")
-            # Rerank with more candidates, then filter
             rerank_k = min(k * 2, len(fused_results))
             fused_results = self.reranker.rerank(
                 query,
@@ -174,21 +187,21 @@ class HybridRetriever(Retriever):
                 top_k=rerank_k
             )
         
-        # 5. Filter by similarity threshold
-        filtered_results = self._filter_by_threshold(fused_results)
+        final_results = fused_results[:k]
         
         logger.info(
             "Hybrid retrieval completed",
             extra={
-                "vector_count": len(vector_results),
+                "vector_count_raw": vector_count_before_filter,
+                "vector_count_filtered": len(vector_results),
                 "bm25_count": len(bm25_results),
                 "fused_count": len(fused_results),
-                "filtered_count": len(filtered_results),
-                "top_score": filtered_results[0].similarity_score if filtered_results else 0
+                "final_count": len(final_results),
+                "top_score": final_results[0].similarity_score if final_results else 0
             }
         )
         
-        return filtered_results[:k]
+        return final_results
     
     def _reciprocal_rank_fusion(
         self,

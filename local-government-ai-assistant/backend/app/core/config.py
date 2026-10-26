@@ -34,20 +34,53 @@ class Settings(BaseSettings):
     default_k: int = Field(5, env="DEFAULT_K")
     max_k: int = Field(20, env="MAX_K")
     min_k: int = Field(1, env="MIN_K")
+    # Cosine similarity threshold applied to vector candidates BEFORE RRF fusion.
+    # RRF/cross-encoder scores use a different scale and must not be filtered by this.
+    retrieval_min_similarity: float = Field(0.25, env="RETRIEVAL_MIN_SIMILARITY")
+    retrieval_use_reranking: bool = Field(False, env="RETRIEVAL_USE_RERANKING")
     
     # Vector Store Configuration (ChromaDB)
     chroma_db_path: str = Field("./chroma_db", env="CHROMA_DB_PATH")
     chroma_collection: str = Field("documents", env="CHROMA_COLLECTION")
+
+    # Relational Database + Auth
+    database_url: str = Field(
+        "postgresql+asyncpg://postgres:postgres@localhost:5432/assistant_db",
+        env="DATABASE_URL"
+    )
+    jwt_secret_key: str = Field("change_me_in_production", env="JWT_SECRET_KEY")
+    jwt_algorithm: str = Field("HS256", env="JWT_ALGORITHM")
+    access_token_expire_minutes: int = Field(
+        1440, env="ACCESS_TOKEN_EXPIRE_MINUTES"
+    )
     
     # API Configuration
     api_host: str = Field("0.0.0.0", env="API_HOST")
     api_port: int = Field(8000, env="API_PORT")
+    # Comma-separated browser origins allowed to call the API. "*" is supported
+    # for local demos but disables credentialed CORS.
+    cors_origins: str = Field(
+        "http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173",
+        env="CORS_ORIGINS"
+    )
+
+    @property
+    def cors_origin_list(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
     
     # Logging Configuration
     log_level: str = Field("INFO", env="LOG_LEVEL")
     
     # File Upload Limits
     max_file_size_mb: int = Field(50, env="MAX_FILE_SIZE_MB")
+    upload_dir: str = Field("./data/uploads", env="UPLOAD_DIR")
+
+    # OCR fallback for scanned PDFs (requires tesseract-ocr + tesseract-ocr-vie)
+    ocr_enabled: bool = Field(True, env="OCR_ENABLED")
+    ocr_lang: str = Field("vie", env="OCR_LANG")
+    ocr_dpi: int = Field(300, env="OCR_DPI")
+    ocr_min_chars_per_page: int = Field(50, env="OCR_MIN_CHARS_PER_PAGE")
+    ocr_max_pages: int = Field(0, env="OCR_MAX_PAGES")  # 0 = no limit
     
     # Query Constraints
     min_query_length: int = Field(10, env="MIN_QUERY_LENGTH")
@@ -101,6 +134,27 @@ class Settings(BaseSettings):
             raise ValueError("GEMINI_API_KEY is required and cannot be empty")
         return v
     
+    @validator("ocr_dpi")
+    def validate_ocr_dpi(cls, v):
+        """Keep OCR rendering within a sane DPI range."""
+        if not (150 <= v <= 600):
+            raise ValueError(f"OCR_DPI must be between 150 and 600, got {v}")
+        return v
+
+    @validator("ocr_min_chars_per_page")
+    def validate_ocr_min_chars(cls, v):
+        """A negative threshold would OCR every page."""
+        if v < 0:
+            raise ValueError("OCR_MIN_CHARS_PER_PAGE must be >= 0")
+        return v
+
+    @validator("access_token_expire_minutes")
+    def validate_token_expiry(cls, v):
+        """Tokens must expire in the future."""
+        if v <= 0:
+            raise ValueError("ACCESS_TOKEN_EXPIRE_MINUTES must be > 0")
+        return v
+
     @validator("log_level")
     def validate_log_level(cls, v):
         """Validate log level is valid."""

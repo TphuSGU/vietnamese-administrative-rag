@@ -14,6 +14,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.chat import router as chat_router
+from app.api.documents import router as documents_router
+from app.api.auth import router as auth_router
+from app.api.users import router as users_router
+from app.api.conversations import router as conversations_router
+from app.api.admin import router as admin_router
 from app.core.logging import get_logger
 from app.core.config import settings, validate_configuration
 from app.core.dependencies import (
@@ -115,10 +120,14 @@ app = FastAPI(
 # CORS Middleware
 # ============================================================================
 
+_cors_origins = settings.cors_origin_list
+_cors_allow_all = "*" in _cors_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins for development
-    allow_credentials=True,
+    allow_origins=["*"] if _cors_allow_all else _cors_origins,
+    # Wildcard + credentials is rejected by browsers; disable credentials then.
+    allow_credentials=not _cors_allow_all,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -129,6 +138,11 @@ app.add_middleware(
 # ============================================================================
 
 app.include_router(chat_router)
+app.include_router(documents_router)
+app.include_router(auth_router)
+app.include_router(users_router)
+app.include_router(conversations_router)
+app.include_router(admin_router)
 
 
 # ============================================================================

@@ -36,6 +36,31 @@ class TestHeadingDetection:
         
         assert len(chunks) >= 1
         assert chunks[0].heading_context == "Điều 1: Phạm vi điều chỉnh"
+
+    def test_heading_text_is_not_dropped(self):
+        """Heading paragraphs that also contain clauses must stay in chunk text."""
+        chunker = SemanticChunker()
+        heading_with_clauses = (
+            "Điều 5. Thẩm quyền chuyển giao\n\n"
+            "1. Thẩm quyền của Ủy ban nhân dân cấp huyện chuyển giao cho "
+            "Chủ tịch Ủy ban nhân dân cấp xã thực hiện, bao gồm:\n\n"
+            "a) Chấp thuận phương án sử dụng đất nông nghiệp của tổ chức kinh tế "
+            "theo quy định của pháp luật về đất đai."
+        )
+        doc = Document(
+            id="test-heading-text",
+            text=heading_with_clauses,
+            filename="test.txt",
+            file_size=len(heading_with_clauses),
+            upload_timestamp=datetime.utcnow(),
+            format="txt"
+        )
+
+        chunks = chunker.chunk_document(doc)
+        combined = " ".join(chunk.text for chunk in chunks)
+
+        assert "Điều 5" in combined
+        assert "Chấp thuận phương án sử dụng đất nông nghiệp" in combined
     
     def test_khoan_heading_detection(self):
         """Test detection of 'Khoản' pattern headings."""
@@ -342,6 +367,26 @@ class TestSizeEnforcement:
         
         # Should have multiple chunks due to size enforcement
         assert len(chunks) >= 2
+
+    def test_small_heading_merged_with_large_paragraph_stays_bounded(self):
+        """Merging a short heading with a large paragraph must not exceed MAX_SIZE."""
+        chunker = SemanticChunker()
+        text = "Điều 5. Thẩm quyền\n\n" + ("Nội dung rất dài về thẩm quyền. " * 100)
+
+        doc = Document(
+            id="test-merge-large",
+            text=text,
+            filename="test.txt",
+            file_size=len(text),
+            upload_timestamp=datetime.utcnow(),
+            format="txt"
+        )
+
+        chunks = chunker.chunk_document(doc)
+
+        assert len(chunks) > 1
+        for chunk in chunks:
+            assert chunk.length <= chunker.max_size + 50
 
 
 class TestVietnameseSentenceDetection:

@@ -84,6 +84,8 @@ def test_prompt_construction():
     # Verify chunks are formatted (Req 9.3)
     assert "[Tài liệu 1]" in prompt
     assert "[Tài liệu 2]" in prompt
+    assert "document_id: doc_1" in prompt
+    assert "chunk: 0" in prompt
     assert "Điều 10" in prompt
     assert "Điều 11" in prompt
     assert "Đăng ký hộ khẩu" in prompt

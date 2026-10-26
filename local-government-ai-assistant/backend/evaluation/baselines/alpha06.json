@@ -1,0 +1,2680 @@
+{
+  "dataset_size": 50,
+  "metrics_by_k": {
+    "1": {
+      "precision": {
+        "mean": 0.48,
+        "std": 0.49959983987187184,
+        "count": 50
+      },
+      "recall": {
+        "mean": 0.46,
+        "std": 0.4882622246293481,
+        "count": 50
+      },
+      "hit_rate": {
+        "mean": 0.48,
+        "std": 0.49959983987187184,
+        "count": 50
+      },
+      "ndcg": {
+        "mean": 0.48,
+        "std": 0.49959983987187184,
+        "count": 50
+      }
+    },
+    "3": {
+      "precision": {
+        "mean": 0.22,
+        "std": 0.15790292376436013,
+        "count": 50
+      },
+      "recall": {
+        "mean": 0.64,
+        "std": 0.4694677837722201,
+        "count": 50
+      },
+      "hit_rate": {
+        "mean": 0.66,
+        "std": 0.4737087712930804,
+        "count": 50
+      },
+      "ndcg": {
+        "mean": 0.5728560532106224,
+        "std": 0.4388667805287143,
+        "count": 50
+      }
+    },
+    "5": {
+      "precision": {
+        "mean": 0.168,
+        "std": 0.0835224520712844,
+        "count": 50
+      },
+      "recall": {
+        "mean": 0.81,
+        "std": 0.38587562763149474,
+        "count": 50
+      },
+      "hit_rate": {
+        "mean": 0.82,
+        "std": 0.3841874542459709,
+        "count": 50
+      },
+      "ndcg": {
+        "mean": 0.6412494066570891,
+        "std": 0.3766801694061735,
+        "count": 50
+      }
+    },
+    "10": {
+      "precision": {
+        "mean": 0.08800000000000001,
+        "std": 0.038157568056677825,
+        "count": 50
+      },
+      "recall": {
+        "mean": 0.85,
+        "std": 0.35,
+        "count": 50
+      },
+      "hit_rate": {
+        "mean": 0.86,
+        "std": 0.34698703145794946,
+        "count": 50
+      },
+      "ndcg": {
+        "mean": 0.6554976941414099,
+        "std": 0.35845064784865893,
+        "count": 50
+      }
+    },
+    "mrr": {
+      "mean": 0.604,
+      "std": 0.40378156911324664,
+      "count": 50
+    },
+    "map": {
+      "mean": 0.588,
+      "std": 0.39612063257996993,
+      "count": 50
+    },
+    "document_hit_rate": {
+      "mean": 1.0,
+      "std": 0.0,
+      "count": 50
+    }
+  },
+  "per_query_results": [
+    {
+      "id": "q001",
+      "question": "Nghị định 150/2025/NĐ-CP quy định về tổ chức các cơ quan chuyên môn thuộc ủy ban nhân dân cấp nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "150-2025-ND-CP#3"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#2",
+        "150-2025-ND-CP#58",
+        "65-2025-QH15#120",
+        "150-2025-ND-CP#3",
+        "150-2025-ND-CP#53",
+        "150-2025-ND-CP#7",
+        "151-2025-ND-CP#2",
+        "65-2025-QH15#119",
+        "65-2025-QH15#84",
+        "65-2025-QH15#121"
+      ],
+      "first_relevant_rank": 4,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.43067655807339306,
+          "10": 0.43067655807339306
+        },
+        "mrr": 0.25,
+        "average_precision": 0.25
+      }
+    },
+    {
+      "id": "q002",
+      "question": "Cơ quan chuyên môn thuộc Ủy ban nhân dân cấp tỉnh và cấp xã được gọi là gì?",
+      "difficulty": "easy",
+      "answer_type": "definition",
+      "relevant_chunks": [
+        "150-2025-ND-CP#3"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#120",
+        "65-2025-QH15#88",
+        "150-2025-ND-CP#7",
+        "150-2025-ND-CP#36",
+        "150-2025-ND-CP#3",
+        "150-2025-ND-CP#2",
+        "65-2025-QH15#87",
+        "150-2025-ND-CP#44",
+        "65-2025-QH15#86",
+        "65-2025-QH15#4"
+      ],
+      "first_relevant_rank": 5,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.38685280723454163,
+          "10": 0.38685280723454163
+        },
+        "mrr": 0.2,
+        "average_precision": 0.2
+      }
+    },
+    {
+      "id": "q003",
+      "question": "Những cơ quan nào không thuộc đối tượng áp dụng của Nghị định 150/2025/NĐ-CP?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "150-2025-ND-CP#3"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#3",
+        "150-2025-ND-CP#1",
+        "65-2025-QH15#22",
+        "65-2025-QH15#148",
+        "150-2025-ND-CP#55",
+        "65-2025-QH15#147",
+        "151-2025-ND-CP#172",
+        "151-2025-ND-CP#70",
+        "151-2025-ND-CP#2",
+        "151-2025-ND-CP#71"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q004",
+      "question": "Nguyên tắc tổ chức cơ quan chuyên môn theo Nghị định 150/2025/NĐ-CP có yêu cầu gì về quan hệ giữa trung ương và địa phương?",
+      "difficulty": "medium",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "150-2025-ND-CP#5"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#2",
+        "150-2025-ND-CP#5",
+        "65-2025-QH15#13",
+        "150-2025-ND-CP#3",
+        "150-2025-ND-CP#58",
+        "65-2025-QH15#4",
+        "65-2025-QH15#5",
+        "65-2025-QH15#3",
+        "65-2025-QH15#84",
+        "151-2025-ND-CP#2"
+      ],
+      "first_relevant_rank": 2,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.6309297535714575,
+          "5": 0.6309297535714575,
+          "10": 0.6309297535714575
+        },
+        "mrr": 0.5,
+        "average_precision": 0.5
+      }
+    },
+    {
+      "id": "q005",
+      "question": "Sở là cơ quan gì và có tư cách pháp nhân không?",
+      "difficulty": "easy",
+      "answer_type": "definition",
+      "relevant_chunks": [
+        "150-2025-ND-CP#7"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#7",
+        "150-2025-ND-CP#14",
+        "150-2025-ND-CP#6",
+        "150-2025-ND-CP#33",
+        "65-2025-QH15#2",
+        "150-2025-ND-CP#28",
+        "65-2025-QH15#4",
+        "65-2025-QH15#29",
+        "150-2025-ND-CP#35",
+        "65-2025-QH15#23"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q006",
+      "question": "Điều kiện thành lập chi cục thuộc sở gồm những gì?",
+      "difficulty": "hard",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "150-2025-ND-CP#13"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#12",
+        "150-2025-ND-CP#13",
+        "150-2025-ND-CP#53",
+        "65-2025-QH15#3",
+        "150-2025-ND-CP#17",
+        "150-2025-ND-CP#52",
+        "150-2025-ND-CP#3",
+        "65-2025-QH15#123",
+        "65-2025-QH15#134",
+        "65-2025-QH15#15"
+      ],
+      "first_relevant_rank": 2,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.6309297535714575,
+          "5": 0.6309297535714575,
+          "10": 0.6309297535714575
+        },
+        "mrr": 0.5,
+        "average_precision": 0.5
+      }
+    },
+    {
+      "id": "q007",
+      "question": "Tiêu chí thành lập phòng thuộc chi cục thuộc sở là gì?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "150-2025-ND-CP#13"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#12",
+        "150-2025-ND-CP#13",
+        "150-2025-ND-CP#3",
+        "150-2025-ND-CP#17",
+        "150-2025-ND-CP#35",
+        "65-2025-QH15#3",
+        "65-2025-QH15#54",
+        "65-2025-QH15#4",
+        "150-2025-ND-CP#44",
+        "150-2025-ND-CP#36"
+      ],
+      "first_relevant_rank": 2,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.6309297535714575,
+          "5": 0.6309297535714575,
+          "10": 0.6309297535714575
+        },
+        "mrr": 0.5,
+        "average_precision": 0.5
+      }
+    },
+    {
+      "id": "q008",
+      "question": "Các tỉnh, thành phố được tổ chức tối đa bao nhiêu sở?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "150-2025-ND-CP#35"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#35",
+        "150-2025-ND-CP#12",
+        "150-2025-ND-CP#16",
+        "65-2025-QH15#4",
+        "150-2025-ND-CP#32",
+        "65-2025-QH15#25",
+        "151-2025-ND-CP#2",
+        "150-2025-ND-CP#52",
+        "65-2025-QH15#84",
+        "150-2025-ND-CP#5"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q009",
+      "question": "Nếu Hà Nội hoặc Thành phố Hồ Chí Minh không tổ chức riêng Sở Quy hoạch - Kiến trúc thì xử lý thế nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "150-2025-ND-CP#35"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#35",
+        "150-2025-ND-CP#25",
+        "65-2025-QH15#145",
+        "150-2025-ND-CP#12",
+        "150-2025-ND-CP#34",
+        "65-2025-QH15#77",
+        "65-2025-QH15#13",
+        "65-2025-QH15#4",
+        "150-2025-ND-CP#2",
+        "65-2025-QH15#128"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q010",
+      "question": "Phòng thuộc Ủy ban nhân dân cấp xã là cơ quan gì?",
+      "difficulty": "easy",
+      "answer_type": "definition",
+      "relevant_chunks": [
+        "150-2025-ND-CP#36"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#41",
+        "150-2025-ND-CP#36",
+        "150-2025-ND-CP#44",
+        "150-2025-ND-CP#42",
+        "65-2025-QH15#120",
+        "65-2025-QH15#87",
+        "65-2025-QH15#88",
+        "150-2025-ND-CP#43",
+        "150-2025-ND-CP#49",
+        "150-2025-ND-CP#40"
+      ],
+      "first_relevant_rank": 2,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.6309297535714575,
+          "5": 0.6309297535714575,
+          "10": 0.6309297535714575
+        },
+        "mrr": 0.5,
+        "average_precision": 0.5
+      }
+    },
+    {
+      "id": "q011",
+      "question": "Trưởng phòng thuộc Ủy ban nhân dân cấp xã do ai bổ nhiệm và chịu trách nhiệm trước ai?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "150-2025-ND-CP#41"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#42",
+        "150-2025-ND-CP#41",
+        "150-2025-ND-CP#43",
+        "150-2025-ND-CP#17",
+        "150-2025-ND-CP#40",
+        "150-2025-ND-CP#56",
+        "65-2025-QH15#65",
+        "150-2025-ND-CP#36",
+        "65-2025-QH15#88",
+        "65-2025-QH15#87"
+      ],
+      "first_relevant_rank": 2,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.6309297535714575,
+          "5": 0.6309297535714575,
+          "10": 0.6309297535714575
+        },
+        "mrr": 0.5,
+        "average_precision": 0.5
+      }
+    },
+    {
+      "id": "q012",
+      "question": "Mỗi phòng thuộc Ủy ban nhân dân cấp xã được bố trí bao nhiêu phó trưởng phòng?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "150-2025-ND-CP#41"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#41",
+        "150-2025-ND-CP#42",
+        "150-2025-ND-CP#17",
+        "65-2025-QH15#88",
+        "65-2025-QH15#89",
+        "150-2025-ND-CP#16",
+        "150-2025-ND-CP#43",
+        "150-2025-ND-CP#56",
+        "150-2025-ND-CP#44",
+        "150-2025-ND-CP#36"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q013",
+      "question": "Phòng thuộc Ủy ban nhân dân cấp xã làm việc theo chế độ nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "150-2025-ND-CP#42"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#42",
+        "150-2025-ND-CP#56",
+        "150-2025-ND-CP#41",
+        "150-2025-ND-CP#36",
+        "150-2025-ND-CP#54",
+        "150-2025-ND-CP#17",
+        "150-2025-ND-CP#43",
+        "150-2025-ND-CP#40",
+        "150-2025-ND-CP#44",
+        "150-2025-ND-CP#49"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q014",
+      "question": "Chủ tịch Ủy ban nhân dân cấp xã có thẩm quyền gì đối với trưởng phòng, phó trưởng phòng chuyên môn?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "150-2025-ND-CP#56"
+      ],
+      "retrieved_chunks": [
+        "150-2025-ND-CP#42",
+        "150-2025-ND-CP#56",
+        "150-2025-ND-CP#41",
+        "65-2025-QH15#88",
+        "150-2025-ND-CP#44",
+        "150-2025-ND-CP#43",
+        "65-2025-QH15#89",
+        "150-2025-ND-CP#17",
+        "65-2025-QH15#65",
+        "150-2025-ND-CP#40"
+      ],
+      "first_relevant_rank": 2,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.6309297535714575,
+          "5": 0.6309297535714575,
+          "10": 0.6309297535714575
+        },
+        "mrr": 0.5,
+        "average_precision": 0.5
+      }
+    },
+    {
+      "id": "q015",
+      "question": "Nghị định 151/2025/NĐ-CP quy định phạm vi điều chỉnh gì?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#3"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#172",
+        "151-2025-ND-CP#15",
+        "151-2025-ND-CP#70",
+        "151-2025-ND-CP#171",
+        "151-2025-ND-CP#3",
+        "65-2025-QH15#147",
+        "65-2025-QH15#143",
+        "65-2025-QH15#1",
+        "151-2025-ND-CP#208",
+        "151-2025-ND-CP#238"
+      ],
+      "first_relevant_rank": 5,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.38685280723454163,
+          "10": 0.38685280723454163
+        },
+        "mrr": 0.2,
+        "average_precision": 0.2
+      }
+    },
+    {
+      "id": "q016",
+      "question": "Thẩm quyền quyết định sử dụng đất có mặt nước là hồ, đầm thuộc địa bàn nhiều xã, phường được chuyển giao cho ai?",
+      "difficulty": "medium",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#8"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#8",
+        "151-2025-ND-CP#172",
+        "151-2025-ND-CP#26",
+        "65-2025-QH15#23",
+        "151-2025-ND-CP#176",
+        "151-2025-ND-CP#446",
+        "151-2025-ND-CP#401",
+        "151-2025-ND-CP#36",
+        "151-2025-ND-CP#439",
+        "151-2025-ND-CP#376"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q017",
+      "question": "Ủy ban nhân dân cấp huyện chuyển giao thẩm quyền chấp thuận phương án sử dụng đất nông nghiệp của tổ chức kinh tế cho ai?",
+      "difficulty": "medium",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#8"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#8",
+        "151-2025-ND-CP#394",
+        "151-2025-ND-CP#11",
+        "151-2025-ND-CP#464",
+        "151-2025-ND-CP#150",
+        "151-2025-ND-CP#439",
+        "151-2025-ND-CP#392",
+        "151-2025-ND-CP#26",
+        "151-2025-ND-CP#174",
+        "151-2025-ND-CP#446"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q018",
+      "question": "Chủ tịch Ủy ban nhân dân cấp xã được chuyển giao thẩm quyền gì về thu hồi đất?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "151-2025-ND-CP#9"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#31",
+        "151-2025-ND-CP#14",
+        "151-2025-ND-CP#99",
+        "151-2025-ND-CP#8",
+        "151-2025-ND-CP#73",
+        "151-2025-ND-CP#97",
+        "151-2025-ND-CP#96",
+        "151-2025-ND-CP#113",
+        "151-2025-ND-CP#27",
+        "151-2025-ND-CP#45"
+      ],
+      "first_relevant_rank": null,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "mrr": 0.0,
+        "average_precision": 0.0
+      }
+    },
+    {
+      "id": "q019",
+      "question": "Chủ tịch Ủy ban nhân dân cấp xã được chuyển giao thẩm quyền giải quyết tranh chấp đất đai nào?",
+      "difficulty": "medium",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#13"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#414",
+        "151-2025-ND-CP#417",
+        "151-2025-ND-CP#8",
+        "151-2025-ND-CP#418",
+        "151-2025-ND-CP#45",
+        "151-2025-ND-CP#147",
+        "151-2025-ND-CP#76",
+        "151-2025-ND-CP#14",
+        "151-2025-ND-CP#31",
+        "151-2025-ND-CP#78"
+      ],
+      "first_relevant_rank": null,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "mrr": 0.0,
+        "average_precision": 0.0
+      }
+    },
+    {
+      "id": "q020",
+      "question": "Thẩm quyền trưng dụng đất được chuyển giao cho Chủ tịch Ủy ban nhân dân cấp xã như thế nào?",
+      "difficulty": "medium",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#13"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#147",
+        "151-2025-ND-CP#8",
+        "151-2025-ND-CP#11",
+        "151-2025-ND-CP#150",
+        "151-2025-ND-CP#31",
+        "151-2025-ND-CP#45",
+        "151-2025-ND-CP#174",
+        "151-2025-ND-CP#14",
+        "151-2025-ND-CP#35",
+        "151-2025-ND-CP#446"
+      ],
+      "first_relevant_rank": null,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "mrr": 0.0,
+        "average_precision": 0.0
+      }
+    },
+    {
+      "id": "q021",
+      "question": "Chính phủ phân quyền cho Bộ trưởng Bộ Nông nghiệp và Môi trường thực hiện những nhiệm vụ gì?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "151-2025-ND-CP#20"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#418",
+        "151-2025-ND-CP#20",
+        "151-2025-ND-CP#84",
+        "150-2025-ND-CP#47",
+        "151-2025-ND-CP#2",
+        "150-2025-ND-CP#42",
+        "65-2025-QH15#27",
+        "151-2025-ND-CP#4",
+        "65-2025-QH15#59",
+        "150-2025-ND-CP#24"
+      ],
+      "first_relevant_rank": 2,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.6309297535714575,
+          "5": 0.6309297535714575,
+          "10": 0.6309297535714575
+        },
+        "mrr": 0.5,
+        "average_precision": 0.5
+      }
+    },
+    {
+      "id": "q022",
+      "question": "Thủ tướng Chính phủ phân quyền cho Hội đồng nhân dân cấp tỉnh phê duyệt nội dung gì?",
+      "difficulty": "hard",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#21"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#20",
+        "65-2025-QH15#112",
+        "151-2025-ND-CP#21",
+        "151-2025-ND-CP#86",
+        "65-2025-QH15#141",
+        "65-2025-QH15#35",
+        "65-2025-QH15#27",
+        "65-2025-QH15#132",
+        "65-2025-QH15#140",
+        "65-2025-QH15#86"
+      ],
+      "first_relevant_rank": 3,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.5,
+          "5": 0.5,
+          "10": 0.5
+        },
+        "mrr": 0.3333333333333333,
+        "average_precision": 0.3333333333333333
+      }
+    },
+    {
+      "id": "q023",
+      "question": "Ủy ban nhân dân cấp tỉnh được phân quyền quyết định giao đất, cho thuê đất trong trường hợp nào?",
+      "difficulty": "hard",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#21"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#31",
+        "151-2025-ND-CP#34",
+        "151-2025-ND-CP#23",
+        "151-2025-ND-CP#8",
+        "151-2025-ND-CP#35",
+        "65-2025-QH15#25",
+        "151-2025-ND-CP#78",
+        "151-2025-ND-CP#27",
+        "65-2025-QH15#35",
+        "151-2025-ND-CP#147"
+      ],
+      "first_relevant_rank": null,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "mrr": 0.0,
+        "average_precision": 0.0
+      }
+    },
+    {
+      "id": "q024",
+      "question": "Ủy ban nhân dân cấp tỉnh có trách nhiệm gì trong quản lý nhà nước về đất đai?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "151-2025-ND-CP#37"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#37",
+        "65-2025-QH15#46",
+        "150-2025-ND-CP#20",
+        "150-2025-ND-CP#19",
+        "65-2025-QH15#35",
+        "150-2025-ND-CP#26",
+        "151-2025-ND-CP#27",
+        "151-2025-ND-CP#31",
+        "65-2025-QH15#103",
+        "150-2025-ND-CP#52"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q025",
+      "question": "Ủy ban nhân dân cấp xã có trách nhiệm gì về quy hoạch, kế hoạch sử dụng đất?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "151-2025-ND-CP#39"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#39",
+        "151-2025-ND-CP#63",
+        "151-2025-ND-CP#68",
+        "151-2025-ND-CP#51",
+        "151-2025-ND-CP#94",
+        "151-2025-ND-CP#38",
+        "151-2025-ND-CP#183",
+        "151-2025-ND-CP#115",
+        "151-2025-ND-CP#45",
+        "151-2025-ND-CP#47"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q026",
+      "question": "Chủ tịch Ủy ban nhân dân cấp xã có trách nhiệm gì về cưỡng chế trong lĩnh vực đất đai?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "151-2025-ND-CP#45"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#45",
+        "65-2025-QH15#87",
+        "151-2025-ND-CP#78",
+        "151-2025-ND-CP#40",
+        "151-2025-ND-CP#47",
+        "151-2025-ND-CP#31",
+        "151-2025-ND-CP#51",
+        "151-2025-ND-CP#38",
+        "151-2025-ND-CP#39",
+        "65-2025-QH15#46"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q027",
+      "question": "Người yêu cầu đăng ký đất đai được lựa chọn nộp hồ sơ ở đâu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#57"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#222",
+        "151-2025-ND-CP#221",
+        "151-2025-ND-CP#219",
+        "151-2025-ND-CP#301",
+        "151-2025-ND-CP#57",
+        "151-2025-ND-CP#268",
+        "151-2025-ND-CP#347",
+        "151-2025-ND-CP#336",
+        "151-2025-ND-CP#387",
+        "151-2025-ND-CP#304"
+      ],
+      "first_relevant_rank": 5,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.38685280723454163,
+          "10": 0.38685280723454163
+        },
+        "mrr": 0.2,
+        "average_precision": 0.2
+      }
+    },
+    {
+      "id": "q028",
+      "question": "Hồ sơ địa chính được tập hợp theo đơn vị hành chính nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#57"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#129",
+        "65-2025-QH15#5",
+        "151-2025-ND-CP#146",
+        "151-2025-ND-CP#149",
+        "65-2025-QH15#128",
+        "151-2025-ND-CP#153",
+        "151-2025-ND-CP#337",
+        "151-2025-ND-CP#328",
+        "151-2025-ND-CP#348",
+        "151-2025-ND-CP#118"
+      ],
+      "first_relevant_rank": null,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "mrr": 0.0,
+        "average_precision": 0.0
+      }
+    },
+    {
+      "id": "q029",
+      "question": "Sau khi sắp xếp tổ chức chính quyền địa phương 02 cấp, cơ quan giải quyết thủ tục hành chính về đất đai có được yêu cầu người dân chỉnh lý hồ sơ không?",
+      "difficulty": "medium",
+      "answer_type": "yes_no",
+      "relevant_chunks": [
+        "151-2025-ND-CP#57"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#57",
+        "151-2025-ND-CP#2",
+        "65-2025-QH15#28",
+        "65-2025-QH15#128",
+        "151-2025-ND-CP#337",
+        "151-2025-ND-CP#235",
+        "65-2025-QH15#23",
+        "151-2025-ND-CP#269",
+        "65-2025-QH15#45",
+        "151-2025-ND-CP#118"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q030",
+      "question": "Điều 19 Nghị định 151/2025/NĐ-CP quy định về nội dung gì?",
+      "difficulty": "easy",
+      "answer_type": "definition",
+      "relevant_chunks": [
+        "151-2025-ND-CP#58",
+        "151-2025-ND-CP#59",
+        "151-2025-ND-CP#60",
+        "151-2025-ND-CP#62"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#82",
+        "151-2025-ND-CP#3",
+        "151-2025-ND-CP#171",
+        "65-2025-QH15#144",
+        "150-2025-ND-CP#3",
+        "65-2025-QH15#2",
+        "151-2025-ND-CP#7",
+        "151-2025-ND-CP#116",
+        "151-2025-ND-CP#274",
+        "151-2025-ND-CP#444"
+      ],
+      "first_relevant_rank": null,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "mrr": 0.0,
+        "average_precision": 0.0
+      }
+    },
+    {
+      "id": "q031",
+      "question": "Căn cứ lập kế hoạch sử dụng đất cấp xã gồm những gì?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "151-2025-ND-CP#64"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#64",
+        "151-2025-ND-CP#62",
+        "151-2025-ND-CP#66",
+        "151-2025-ND-CP#94",
+        "151-2025-ND-CP#67",
+        "151-2025-ND-CP#63",
+        "151-2025-ND-CP#51",
+        "151-2025-ND-CP#183",
+        "151-2025-ND-CP#68",
+        "151-2025-ND-CP#84"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q032",
+      "question": "Nghị định 151/2025/NĐ-CP có hiệu lực từ khi nào và được thực hiện đến khi nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#70"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#70",
+        "151-2025-ND-CP#172",
+        "150-2025-ND-CP#57",
+        "151-2025-ND-CP#1",
+        "65-2025-QH15#22",
+        "151-2025-ND-CP#80",
+        "151-2025-ND-CP#15",
+        "151-2025-ND-CP#275",
+        "65-2025-QH15#143",
+        "151-2025-ND-CP#477"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q033",
+      "question": "Nghị định 151/2025/NĐ-CP ban hành kèm theo phụ lục nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "151-2025-ND-CP#70"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#215",
+        "151-2025-ND-CP#172",
+        "151-2025-ND-CP#421",
+        "151-2025-ND-CP#82",
+        "151-2025-ND-CP#15",
+        "151-2025-ND-CP#164",
+        "151-2025-ND-CP#190",
+        "151-2025-ND-CP#59",
+        "151-2025-ND-CP#71",
+        "151-2025-ND-CP#33"
+      ],
+      "first_relevant_rank": null,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "mrr": 0.0,
+        "average_precision": 0.0
+      }
+    },
+    {
+      "id": "q034",
+      "question": "Nghị định 151/2025/NĐ-CP bãi bỏ những quy định nào của Nghị định 71/2024/NĐ-CP?",
+      "difficulty": "hard",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "151-2025-ND-CP#70"
+      ],
+      "retrieved_chunks": [
+        "151-2025-ND-CP#15",
+        "151-2025-ND-CP#30",
+        "151-2025-ND-CP#71",
+        "151-2025-ND-CP#16",
+        "151-2025-ND-CP#70",
+        "151-2025-ND-CP#33",
+        "151-2025-ND-CP#23",
+        "65-2025-QH15#143",
+        "151-2025-ND-CP#116",
+        "150-2025-ND-CP#57"
+      ],
+      "first_relevant_rank": 5,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.38685280723454163,
+          "10": 0.38685280723454163
+        },
+        "mrr": 0.2,
+        "average_precision": 0.2
+      }
+    },
+    {
+      "id": "q035",
+      "question": "Đơn vị hành chính của nước Cộng hòa xã hội chủ nghĩa Việt Nam gồm những cấp nào?",
+      "difficulty": "easy",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "65-2025-QH15#3",
+        "65-2025-QH15#4"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#3",
+        "151-2025-ND-CP#466",
+        "151-2025-ND-CP#448",
+        "65-2025-QH15#2",
+        "151-2025-ND-CP#435",
+        "151-2025-ND-CP#442",
+        "151-2025-ND-CP#1",
+        "150-2025-ND-CP#1",
+        "65-2025-QH15#86",
+        "65-2025-QH15#85"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.5,
+          "3": 0.5,
+          "5": 0.5,
+          "10": 0.5
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 0.6131471927654584,
+          "5": 0.6131471927654584,
+          "10": 0.6131471927654584
+        },
+        "mrr": 1.0,
+        "average_precision": 0.5
+      }
+    },
+    {
+      "id": "q036",
+      "question": "Đơn vị hành chính cấp huyện ở hải đảo có thể không tổ chức đơn vị hành chính cấp xã không?",
+      "difficulty": "medium",
+      "answer_type": "yes_no",
+      "relevant_chunks": [
+        "65-2025-QH15#3"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#3",
+        "65-2025-QH15#81",
+        "65-2025-QH15#82",
+        "65-2025-QH15#15",
+        "65-2025-QH15#143",
+        "65-2025-QH15#5",
+        "65-2025-QH15#128",
+        "65-2025-QH15#13",
+        "65-2025-QH15#94",
+        "65-2025-QH15#4"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q037",
+      "question": "Chính quyền địa phương ở các đơn vị hành chính gồm những cơ quan nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "65-2025-QH15#3",
+        "65-2025-QH15#4"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#4",
+        "65-2025-QH15#82",
+        "65-2025-QH15#5",
+        "65-2025-QH15#81",
+        "65-2025-QH15#3",
+        "65-2025-QH15#128",
+        "65-2025-QH15#6",
+        "65-2025-QH15#21",
+        "65-2025-QH15#38",
+        "65-2025-QH15#83"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.4,
+          "10": 0.2
+        },
+        "recall": {
+          "1": 0.5,
+          "3": 0.5,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 0.6131471927654584,
+          "5": 0.8503449055347546,
+          "10": 0.8503449055347546
+        },
+        "mrr": 1.0,
+        "average_precision": 0.7
+      }
+    },
+    {
+      "id": "q038",
+      "question": "Ủy ban nhân dân hoạt động theo chế độ nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "65-2025-QH15#6"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#6",
+        "65-2025-QH15#119",
+        "65-2025-QH15#135",
+        "65-2025-QH15#12",
+        "65-2025-QH15#121",
+        "151-2025-ND-CP#466",
+        "65-2025-QH15#131",
+        "65-2025-QH15#9",
+        "65-2025-QH15#137",
+        "65-2025-QH15#125"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q039",
+      "question": "Tổ chức chính quyền địa phương phải bảo đảm những nguyên tắc nào?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "65-2025-QH15#6"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#21",
+        "150-2025-ND-CP#5",
+        "65-2025-QH15#13",
+        "65-2025-QH15#6",
+        "65-2025-QH15#42",
+        "65-2025-QH15#5",
+        "65-2025-QH15#146",
+        "65-2025-QH15#23",
+        "65-2025-QH15#14",
+        "65-2025-QH15#24"
+      ],
+      "first_relevant_rank": 4,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.43067655807339306,
+          "10": 0.43067655807339306
+        },
+        "mrr": 0.25,
+        "average_precision": 0.25
+      }
+    },
+    {
+      "id": "q040",
+      "question": "Phân quyền cho chính quyền địa phương được quy định như thế nào?",
+      "difficulty": "medium",
+      "answer_type": "definition",
+      "relevant_chunks": [
+        "65-2025-QH15#24"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#24",
+        "65-2025-QH15#23",
+        "65-2025-QH15#21",
+        "65-2025-QH15#20",
+        "151-2025-ND-CP#2",
+        "65-2025-QH15#146",
+        "151-2025-ND-CP#172",
+        "65-2025-QH15#25",
+        "65-2025-QH15#128",
+        "65-2025-QH15#5"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q041",
+      "question": "Phân cấp cho chính quyền địa phương được thực hiện như thế nào?",
+      "difficulty": "medium",
+      "answer_type": "definition",
+      "relevant_chunks": [
+        "65-2025-QH15#25"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#24",
+        "65-2025-QH15#23",
+        "65-2025-QH15#21",
+        "65-2025-QH15#20",
+        "65-2025-QH15#27",
+        "65-2025-QH15#25",
+        "151-2025-ND-CP#2",
+        "65-2025-QH15#146",
+        "65-2025-QH15#128",
+        "65-2025-QH15#5"
+      ],
+      "first_relevant_rank": 6,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.3562071871080222
+        },
+        "mrr": 0.16666666666666666,
+        "average_precision": 0.16666666666666666
+      }
+    },
+    {
+      "id": "q042",
+      "question": "Hội đồng nhân dân cấp tỉnh có những nhiệm vụ, quyền hạn chính nào?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "65-2025-QH15#35"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#41",
+        "65-2025-QH15#87",
+        "65-2025-QH15#103",
+        "65-2025-QH15#112",
+        "65-2025-QH15#9",
+        "65-2025-QH15#35",
+        "65-2025-QH15#46",
+        "65-2025-QH15#53",
+        "150-2025-ND-CP#20",
+        "65-2025-QH15#86"
+      ],
+      "first_relevant_rank": 6,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.3562071871080222
+        },
+        "mrr": 0.16666666666666666,
+        "average_precision": 0.16666666666666666
+      }
+    },
+    {
+      "id": "q043",
+      "question": "Chủ tịch Ủy ban nhân dân cấp tỉnh có những nhiệm vụ, quyền hạn chính nào?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "65-2025-QH15#46"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#46",
+        "65-2025-QH15#103",
+        "65-2025-QH15#112",
+        "65-2025-QH15#35",
+        "65-2025-QH15#87",
+        "65-2025-QH15#86",
+        "150-2025-ND-CP#26",
+        "65-2025-QH15#41",
+        "150-2025-ND-CP#52",
+        "65-2025-QH15#138"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q044",
+      "question": "Hội đồng nhân dân cấp huyện có những nhiệm vụ, quyền hạn chính nào?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "65-2025-QH15#53"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#81",
+        "65-2025-QH15#58",
+        "65-2025-QH15#53",
+        "65-2025-QH15#101",
+        "65-2025-QH15#40",
+        "65-2025-QH15#87",
+        "65-2025-QH15#104",
+        "65-2025-QH15#35",
+        "65-2025-QH15#69",
+        "65-2025-QH15#86"
+      ],
+      "first_relevant_rank": 3,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.5,
+          "5": 0.5,
+          "10": 0.5
+        },
+        "mrr": 0.3333333333333333,
+        "average_precision": 0.3333333333333333
+      }
+    },
+    {
+      "id": "q045",
+      "question": "Hội đồng nhân dân cấp xã có những nhiệm vụ, quyền hạn chính nào?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "65-2025-QH15#69"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#69",
+        "65-2025-QH15#72",
+        "65-2025-QH15#87",
+        "65-2025-QH15#56",
+        "65-2025-QH15#9",
+        "65-2025-QH15#53",
+        "65-2025-QH15#74",
+        "65-2025-QH15#35",
+        "151-2025-ND-CP#38",
+        "65-2025-QH15#88"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q046",
+      "question": "Cơ cấu tổ chức của Hội đồng nhân dân gồm những bộ phận nào?",
+      "difficulty": "easy",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "65-2025-QH15#85"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#85",
+        "65-2025-QH15#119",
+        "65-2025-QH15#87",
+        "65-2025-QH15#123",
+        "65-2025-QH15#84",
+        "65-2025-QH15#137",
+        "65-2025-QH15#101",
+        "150-2025-ND-CP#2",
+        "65-2025-QH15#125",
+        "65-2025-QH15#131"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q047",
+      "question": "Cơ cấu tổ chức của Ủy ban nhân dân gồm những ai?",
+      "difficulty": "easy",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "65-2025-QH15#119"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#119",
+        "65-2025-QH15#85",
+        "65-2025-QH15#123",
+        "65-2025-QH15#6",
+        "65-2025-QH15#87",
+        "65-2025-QH15#125",
+        "65-2025-QH15#137",
+        "65-2025-QH15#121",
+        "150-2025-ND-CP#5",
+        "151-2025-ND-CP#466"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q048",
+      "question": "Khi nhập nhiều đơn vị hành chính cùng cấp thành một đơn vị hành chính mới thì đại biểu Hội đồng nhân dân được xử lý thế nào?",
+      "difficulty": "medium",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "65-2025-QH15#128"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#129",
+        "65-2025-QH15#133",
+        "65-2025-QH15#134",
+        "65-2025-QH15#130",
+        "65-2025-QH15#128",
+        "65-2025-QH15#131",
+        "65-2025-QH15#15",
+        "65-2025-QH15#135",
+        "65-2025-QH15#94",
+        "65-2025-QH15#103"
+      ],
+      "first_relevant_rank": 5,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.38685280723454163,
+          "10": 0.38685280723454163
+        },
+        "mrr": 0.2,
+        "average_precision": 0.2
+      }
+    },
+    {
+      "id": "q049",
+      "question": "Luật Tổ chức chính quyền địa phương 2025 sửa đổi, bổ sung Luật Biển Việt Nam về nội dung gì?",
+      "difficulty": "medium",
+      "answer_type": "list",
+      "relevant_chunks": [
+        "65-2025-QH15#143"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#143",
+        "65-2025-QH15#146",
+        "65-2025-QH15#145",
+        "65-2025-QH15#1",
+        "65-2025-QH15#2",
+        "151-2025-ND-CP#2",
+        "151-2025-ND-CP#172",
+        "65-2025-QH15#128",
+        "65-2025-QH15#82",
+        "65-2025-QH15#83"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 1.0,
+          "3": 0.3333333333333333,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      }
+    },
+    {
+      "id": "q050",
+      "question": "Luật Tổ chức chính quyền địa phương 2025 có hiệu lực từ khi nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevant_chunks": [
+        "65-2025-QH15#143"
+      ],
+      "retrieved_chunks": [
+        "65-2025-QH15#146",
+        "65-2025-QH15#128",
+        "65-2025-QH15#23",
+        "151-2025-ND-CP#2",
+        "65-2025-QH15#143",
+        "65-2025-QH15#14",
+        "150-2025-ND-CP#5",
+        "65-2025-QH15#148",
+        "65-2025-QH15#42",
+        "151-2025-ND-CP#172"
+      ],
+      "first_relevant_rank": 5,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.2,
+          "10": 0.1
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "hit_rate": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "ndcg": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.38685280723454163,
+          "10": 0.38685280723454163
+        },
+        "mrr": 0.2,
+        "average_precision": 0.2
+      }
+    }
+  ],
+  "timestamp": "2026-10-24T07:45:03.739454",
+  "config": {
+    "dataset": "evaluation/questions.jsonl",
+    "alpha": 0.6,
+    "min_similarity": 0.25,
+    "k": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "limit": 0,
+    "embedding_model": "bkai-foundation-models/vietnamese-bi-encoder",
+    "generated_at": "2026-10-24T07:45:03.739507+00:00"
+  }
+}

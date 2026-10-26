@@ -22,6 +22,8 @@ python-dotenv==1.0.0
 # --- Document Processing (PDF → Markdown) ---
 pymupdf==1.23.8           # Xử lý PDF chính
 pdfplumber==0.10.3        # Trích xuất bảng biểu
+pytesseract==0.3.13       # OCR fallback cho PDF scan (cần binary tesseract-ocr)
+Pillow==12.3.0            # Render trang PDF -> ảnh cho OCR
 python-docx==1.1.0        # Xử lý DOCX
 markdown==3.5.1           # Parse Markdown
 beautifulsoup4==4.12.2    # Parse HTML/Markdown
@@ -69,3 +71,10 @@ sentence-transformers>=2.3.1  # Cross-encoder for reranking (already included ab
 #     pip install torch==2.1.1 torchvision==0.16.1 --index-url https://download.pytorch.org/whl/cpu
 #   - Google Colab T4: torch đã có sẵn, không cần cài
 # ============================================================================
+# --- Auth + PostgreSQL (P1) ---
+sqlalchemy==2.0.23
+asyncpg==0.29.0
+PyJWT==2.8.0
+email-validator==2.1.1
+bcrypt==5.0.0
+aiosqlite==0.19.0        # Test database

@@ -87,6 +87,8 @@ data/qdrant/
 *.sqlite3
 *.db
 chroma.sqlite3
+chroma_db/
+.tesseract/
 
 # --- BM25S Index Persistence ---
 bm25s_index/
@@ -97,6 +99,9 @@ bm25s_index/
 .cache/
 cache/
 models/
+# Source models are code, not downloaded weights.
+!local-government-ai-assistant/backend/app/models/
+!local-government-ai-assistant/backend/app/models/*.py
 model_cache/
 huggingface/
 .cache/huggingface/
@@ -132,6 +137,8 @@ reports/
 *.json
 !package.json
 !requirements.json
+!local-government-ai-assistant/backend/data/sources.json
+!local-government-ai-assistant/backend/evaluation/baselines/*.json
 
 # ============================================================================
 # HỆ ĐIỀU HÀNH
@@ -168,6 +175,9 @@ data/test_questions/
 data/evaluation/
 *.xlsx
 *.xls
+
+# --- Graphify (knowledge graph sinh tu dong) ---
+graphify-out/
 
 # --- Backup ---
 *.bak

@@ -8,21 +8,28 @@ Provides:
 """
 
 import time
-from typing import Dict, Any
+from typing import Dict, Any, Optional
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field, validator
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.rag.pipeline.hybrid_rag_pipeline import HybridRAGPipeline
 from app.models.data_models import RAGResponse
+from app.models.db_models import User
 from app.models.exceptions import RAGValidationError, RAGException
 from app.core.dependencies import (
     get_hybrid_pipeline,
     get_embedding_service,
     get_vector_store,
     get_llm_service,
-    get_output_validator
+    get_output_validator,
+    get_optional_user,
 )
+from app.database.session import get_db
+from app.repositories import conversations as conversation_repo
+from app.services.conversations import sources_payload
 from app.rag.embedding.embedding_service import EmbeddingService
 from app.database.vector_store import VectorStore
 from app.rag.generation.llm_service import LLMService
@@ -53,6 +60,10 @@ class QueryRequest(BaseModel):
         le=20,
         description="Số lượng tài liệu tham khảo"
     )
+    conversation_id: Optional[UUID] = Field(
+        None,
+        description="ID cuộc hội thoại (cần đăng nhập) để lưu lịch sử"
+    )
     
     @validator('query')
     def validate_query(cls, v):
@@ -80,6 +91,7 @@ class QueryResponse(BaseModel):
     processing_time: float
     model: str
     timestamp: str
+    conversation_id: Optional[str] = None
     
     class Config:
         json_schema_extra = {
@@ -157,7 +169,9 @@ class StatsResponse(BaseModel):
 )
 async def query_rag(
     request: QueryRequest,
-    pipeline: HybridRAGPipeline = Depends(get_hybrid_pipeline)
+    pipeline: HybridRAGPipeline = Depends(get_hybrid_pipeline),
+    user: Optional[User] = Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db),
 ) -> QueryResponse:
     """
     Main RAG query endpoint with hybrid retrieval.
@@ -181,6 +195,12 @@ async def query_rag(
         HTTPException 500: Processing error
     """
     start_time = time.time()
+
+    if request.conversation_id is not None and user is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Cần đăng nhập để lưu lịch sử hội thoại",
+        )
     
     # Debug logging
     logger.info(
@@ -209,6 +229,38 @@ async def query_rag(
         
         # Convert to API response format
         response_dict = rag_response.to_dict()
+
+        # Persist the exchange when the caller is authenticated. Anonymous
+        # chat remains stateless, preserving the original API behaviour.
+        conversation_id: Optional[str] = None
+        if user is not None:
+            if request.conversation_id is not None:
+                conversation = await conversation_repo.get_conversation(
+                    db, request.conversation_id, user.id
+                )
+                if conversation is None:
+                    raise HTTPException(
+                        status_code=status.HTTP_404_NOT_FOUND,
+                        detail="Không tìm thấy cuộc hội thoại",
+                    )
+            else:
+                conversation = await conversation_repo.create_conversation(
+                    db, user.id, title=request.query[:80]
+                )
+
+            await conversation_repo.add_message(
+                db, conversation.id, "user", request.query
+            )
+            await conversation_repo.add_message(
+                db,
+                conversation.id,
+                "assistant",
+                rag_response.answer,
+                sources=sources_payload(response_dict["source_chunks"]),
+            )
+            conversation_id = str(conversation.id)
+
+        response_dict["conversation_id"] = conversation_id
         
         # Ensure timestamp is present (defensive check)
         if 'timestamp' not in response_dict:

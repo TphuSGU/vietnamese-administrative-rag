@@ -93,7 +93,12 @@ class SemanticChunker:
         
         # Step 2: Detect headings and group with content
         sections = self._detect_headings_and_group(paragraphs)
-        
+
+        # Fallback: a short document may consist only of heading-like lines
+        # (e.g. a one-paragraph TXT). Keep the full text so it is not dropped.
+        if not sections:
+            sections = [(None, text.strip())]
+
         # Step 3: Enforce size constraints
         chunks = self._enforce_size_constraints(sections)
         
@@ -155,8 +160,11 @@ class SemanticChunker:
             is_heading = self._is_heading(para, paragraphs, i)
             
             if is_heading:
-                # Update current heading context
+                # Keep the heading text as content as well. PDF extraction often
+                # folds the first clause(s) of an article into the heading
+                # paragraph; dropping it silently loses substantive text.
                 current_heading = para
+                sections.append((current_heading, para))
                 logger.debug(f"Detected heading: {para[:50]}...")
             else:
                 # Regular content paragraph
@@ -225,7 +233,13 @@ class SemanticChunker:
                 next_heading, next_content = sections[i + 1]
                 # Merge contents, keep the first heading if it exists
                 merged_content = content + "\n\n" + next_content
-                result.append((heading, merged_content))
+                # A small heading followed by a huge paragraph must still obey
+                # MAX_SIZE; otherwise a single chunk can grow to several KB.
+                if len(merged_content) <= self.max_size:
+                    result.append((heading, merged_content))
+                else:
+                    for chunk_text in self._split_large_content(merged_content):
+                        result.append((heading, chunk_text))
                 i += 2  # Skip next section since we merged it
                 continue
             
@@ -250,8 +264,12 @@ class SemanticChunker:
             prev_heading, prev_content = result[-2]
             last_heading, last_content = result[-1]
             merged_content = prev_content + "\n\n" + last_content
-            result[-2] = (prev_heading, merged_content)
-            result = result[:-1]
+            if len(merged_content) <= self.max_size:
+                result[-2] = (prev_heading, merged_content)
+                result = result[:-1]
+            else:
+                result[-2] = (prev_heading, prev_content)
+                result[-1] = (prev_heading, last_content)
         
         return result
     

@@ -11,7 +11,12 @@ from typing import List
 import tempfile
 import shutil
 
-from app.models import (
+from dotenv import load_dotenv
+
+# Load backend/.env before any app module reads settings.
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
+
+from app.models import (  # noqa: E402
     Document, Chunk, RetrievedChunk, ChunkReference,
     IngestionStatus, IngestionResult
 )

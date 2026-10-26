@@ -5,6 +5,7 @@ Loads documents from PDF, DOCX, and TXT formats and extracts text content.
 Implements Requirement 1 (Document Ingestion) from requirements document.
 """
 import io
+import shutil
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, Union
@@ -13,8 +14,15 @@ import logging
 # Document processing libraries
 import fitz  # PyMuPDF
 import pdfplumber
+from PIL import Image
 from docx import Document as DocxDocument
 
+try:
+    import pytesseract
+except ImportError:  # pragma: no cover - dependency is declared in requirements
+    pytesseract = None
+
+from app.core.config import settings
 from app.models.data_models import Document
 from app.models.exceptions import (
     DocumentLoadError,
@@ -41,9 +49,41 @@ class DocumentLoader:
     
     SUPPORTED_FORMATS = {'.pdf', '.docx', '.txt'}
     
-    def __init__(self):
-        """Initialize document loader."""
+    def __init__(
+        self,
+        ocr_enabled: Optional[bool] = None,
+        ocr_lang: Optional[str] = None,
+        ocr_dpi: Optional[int] = None,
+        ocr_min_chars_per_page: Optional[int] = None,
+        ocr_max_pages: Optional[int] = None
+    ):
+        """
+        Initialize document loader.
+
+        OCR parameters default to application settings so callers (pipeline,
+        tests) can override them without mutating global config.
+        """
         self.logger = logger
+        self.ocr_enabled = settings.ocr_enabled if ocr_enabled is None else ocr_enabled
+        self.ocr_lang = settings.ocr_lang if ocr_lang is None else ocr_lang
+        self.ocr_dpi = settings.ocr_dpi if ocr_dpi is None else ocr_dpi
+        self.ocr_min_chars_per_page = (
+            settings.ocr_min_chars_per_page
+            if ocr_min_chars_per_page is None
+            else ocr_min_chars_per_page
+        )
+        self.ocr_max_pages = settings.ocr_max_pages if ocr_max_pages is None else ocr_max_pages
+
+        # Checked once per loader; tests can force this flag without the binary.
+        self._tesseract_available = (
+            pytesseract is not None and shutil.which("tesseract") is not None
+        )
+        if self.ocr_enabled and not self._tesseract_available:
+            self.logger.warning(
+                "OCR is enabled but tesseract/pytesseract is unavailable; "
+                "scanned PDFs will fail with 'No text content extracted'",
+                extra={"ocr_lang": self.ocr_lang}
+            )
     
     def load_document(
         self,
@@ -93,7 +133,7 @@ class DocumentLoader:
             except Exception as e:
                 self.logger.error(
                     f"Failed to read file: {file_path}",
-                    extra={'error': str(e), 'filename': filename}
+                    extra={'error': str(e), 'file_name': filename}
                 )
                 raise DocumentLoadError(f"Failed to read file '{filename}': {str(e)}")
         else:
@@ -175,28 +215,62 @@ class DocumentLoader:
         Raises:
             ExtractionError: If text extraction fails
         """
-        text_parts = []
-        
         try:
-            # Primary extraction with PyMuPDF (fitz)
+            # Primary extraction with PyMuPDF (fitz), page by page so that
+            # image-only pages can be routed to OCR without losing order.
             pdf_document = fitz.open(stream=file_content, filetype="pdf")
-            
+            page_texts = [""] * pdf_document.page_count
+
             for page_num in range(pdf_document.page_count):
-                page = pdf_document[page_num]
-                page_text = page.get_text()
-                
-                if page_text.strip():
-                    text_parts.append(page_text)
-            
-            pdf_document.close()
-            
+                page_texts[page_num] = pdf_document[page_num].get_text()
+
             # If no text extracted, try pdfplumber for tables
-            if not text_parts or sum(len(t.strip()) for t in text_parts) < 100:
+            if sum(len(t.strip()) for t in page_texts) < 100:
                 self.logger.info(
                     f"PyMuPDF extracted minimal text, trying pdfplumber for {filename}"
                 )
-                text_parts = self._extract_pdf_with_pdfplumber(file_content)
-            
+                plumber_pages = self._extract_pdf_with_pdfplumber(file_content)
+                if plumber_pages and len(plumber_pages) == len(page_texts):
+                    page_texts = [
+                        plumber or current
+                        for plumber, current in zip(plumber_pages, page_texts)
+                    ]
+            # OCR fallback for pages that still have too little text.
+            if self.ocr_enabled and self._tesseract_available:
+                pages_to_ocr = [
+                    index
+                    for index, text in enumerate(page_texts)
+                    if len(text.strip()) < self.ocr_min_chars_per_page
+                ]
+                if self.ocr_max_pages > 0:
+                    pages_to_ocr = pages_to_ocr[: self.ocr_max_pages]
+
+                for index in pages_to_ocr:
+                    ocr_text = self._ocr_page(
+                        pdf_document[index], index, filename
+                    )
+                    if not ocr_text:
+                        continue
+                    existing = page_texts[index].strip()
+                    page_texts[index] = (
+                        f"{existing}\n\n{ocr_text}" if existing else ocr_text
+                    )
+
+                if pages_to_ocr:
+                    self.logger.info(
+                        f"OCR fallback processed {len(pages_to_ocr)} page(s) "
+                        f"for {filename}",
+                        extra={
+                            "ocr_lang": self.ocr_lang,
+                            "ocr_dpi": self.ocr_dpi,
+                            "ocr_pages": len(pages_to_ocr)
+                        }
+                    )
+
+            pdf_document.close()
+
+            text_parts = [text for text in page_texts if text.strip()]
+
         except Exception as e:
             self.logger.error(
                 f"Failed to extract PDF content from {filename}",
@@ -238,11 +312,44 @@ class DocumentLoader:
         with pdfplumber.open(io.BytesIO(file_content)) as pdf:
             for page in pdf.pages:
                 page_text = page.extract_text()
-                if page_text:
-                    text_parts.append(page_text)
+                # Keep one entry per page so OCR page indices stay aligned.
+                text_parts.append(page_text or "")
         
         return text_parts
-    
+
+    def _ocr_page(self, page, page_num: int, filename: str) -> str:
+        """
+        Render a single PDF page and OCR it with Tesseract.
+
+        Returns an empty string on failure so a partially scanned document can
+        still be ingested from the pages that do have a text layer.
+        """
+        try:
+            pixmap = page.get_pixmap(
+                dpi=self.ocr_dpi,
+                colorspace=fitz.csRGB,
+                alpha=False
+            )
+            image = Image.frombytes(
+                "RGB",
+                (pixmap.width, pixmap.height),
+                pixmap.samples
+            )
+            text = pytesseract.image_to_string(image, lang=self.ocr_lang)
+            return text.strip()
+        except Exception as exc:
+            self.logger.warning(
+                f"OCR failed for page {page_num + 1} of {filename}: {exc}. "
+                f"Install tesseract-ocr and tesseract-ocr-{self.ocr_lang}.",
+                extra={
+                    "file_name": filename,
+                    "page": page_num + 1,
+                    "ocr_lang": self.ocr_lang,
+                    "error": str(exc)
+                }
+            )
+            return ""
+
     def _extract_docx(self, file_content: bytes, filename: str) -> str:
         """
         Extract text from DOCX file.

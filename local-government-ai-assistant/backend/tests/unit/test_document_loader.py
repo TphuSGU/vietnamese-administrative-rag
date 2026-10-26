@@ -16,6 +16,22 @@ from app.models.exceptions import (
     ExtractionError
 )
 
+# PyMuPDF's built-in fonts (helv) cannot encode Vietnamese diacritics and
+# produce mojibake. Tests must embed a Unicode font instead.
+VIETNAMESE_FONT_PATH = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
+
+
+def insert_unicode_text(page, point, text):
+    """Insert Vietnamese text using an embedded Unicode font."""
+    if not VIETNAMESE_FONT_PATH.exists():
+        pytest.skip(f"Unicode font not found: {VIETNAMESE_FONT_PATH}")
+    page.insert_text(
+        point,
+        text,
+        fontname="dejavu",
+        fontfile=str(VIETNAMESE_FONT_PATH)
+    )
+
 
 @pytest.fixture
 def loader():
@@ -37,7 +53,7 @@ def sample_pdf_path(tmp_path):
     pdf_path = tmp_path / "test.pdf"
     doc = fitz.open()
     page = doc.new_page()
-    page.insert_text((100, 100), "Test PDF Content\nLine 2\nVietnamese: Thủ tục hành chính")
+    insert_unicode_text(page, (100, 100), "Test PDF Content\nLine 2\nVietnamese: Thủ tục hành chính")
     doc.save(pdf_path)
     doc.close()
     
@@ -194,7 +210,7 @@ class TestPDFLoading:
         pdf_path = tmp_path / "vietnamese.pdf"
         doc = fitz.open()
         page = doc.new_page()
-        page.insert_text((100, 100), "Thủ tục đăng ký\nGiấy phép xây dựng")
+        insert_unicode_text(page, (100, 100), "Thủ tục đăng ký\nGiấy phép xây dựng")
         doc.save(pdf_path)
         doc.close()
         

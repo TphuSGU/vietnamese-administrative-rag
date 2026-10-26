@@ -89,7 +89,8 @@ class VectorStore:
     def add_chunks(
         self,
         chunks: List[Chunk],
-        embeddings: np.ndarray
+        embeddings: np.ndarray,
+        filename: Optional[str] = None,
     ) -> None:
         """
         Store chunk embeddings with metadata.
@@ -135,6 +136,7 @@ class VectorStore:
                     "heading_context": chunk.heading_context or "",
                     "char_start": chunk.char_start,
                     "char_end": chunk.char_end,
+                    "filename": filename or "",
                     "timestamp": datetime.utcnow().isoformat()
                 }
                 for chunk in chunks
@@ -145,8 +147,10 @@ class VectorStore:
             # Convert embeddings to list format for ChromaDB
             embeddings_list = embeddings.tolist()
             
-            # Add to collection (incremental indexing - Req 5.5)
-            self.collection.add(
+            # Upsert (incremental + idempotent re-ingestion - Req 5.5)
+            # Using stable IDs ({document_id}_{chunk_index}) means re-uploading
+            # the same document replaces chunks instead of duplicating them.
+            self.collection.upsert(
                 ids=ids,
                 embeddings=embeddings_list,
                 metadatas=metadatas,
@@ -251,6 +255,41 @@ class VectorStore:
             logger.error(f"Search failed: {e}")
             raise VectorStoreError(f"Search failed: {e}")
     
+    def list_documents(self) -> List[Dict[str, Any]]:
+        """
+        Aggregate stored chunks into one row per document.
+
+        Returns:
+            List of dicts with document_id, filename and chunk_count.
+        """
+        try:
+            results = self.collection.get(include=["metadatas"])
+            documents: Dict[str, Dict[str, Any]] = {}
+
+            for metadata in results.get("metadatas") or []:
+                if not metadata:
+                    continue
+                document_id = metadata.get("document_id")
+                if not document_id:
+                    continue
+
+                entry = documents.setdefault(
+                    document_id,
+                    {
+                        "document_id": document_id,
+                        "filename": metadata.get("filename") or document_id,
+                        "chunk_count": 0,
+                    },
+                )
+                entry["chunk_count"] += 1
+
+            return sorted(
+                documents.values(), key=lambda item: item["document_id"]
+            )
+        except Exception as e:
+            logger.error(f"Failed to list documents: {e}")
+            raise VectorStoreError(f"Failed to list documents: {e}")
+
     def delete_document(self, document_id: str) -> int:
         """
         Delete all chunks for a document.
@@ -329,6 +368,19 @@ class VectorStore:
             logger.error(f"Health check failed: {e}")
             return False
     
+    def count(self) -> int:
+        """
+        Get the number of chunks stored in the collection.
+
+        Returns:
+            Chunk count (0 if the collection is empty)
+        """
+        try:
+            return self.collection.count()
+        except Exception as e:
+            logger.error(f"Failed to count chunks: {e}")
+            return 0
+
     def get_collection_stats(self) -> Dict[str, Any]:
         """
         Get collection statistics.

@@ -7,40 +7,98 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <h1>🏛️ Trợ lý Tra cứu Hành chính</h1>
-            <p>Hỗ trợ tra cứu thông tin văn bản pháp luật</p>
-        </header>
-
-        <!-- Chat container -->
-        <div id="chat-container">
-            <!-- Welcome message -->
-            <div class="message bot-message">
-                <div class="message-content">
-                    <p>Xin chào! Tôi có thể giúp bạn tra cứu thông tin về:</p>
-                    <ul>
-                        <li>Thủ tục hành chính</li>
-                        <li>Văn bản pháp luật</li>
-                        <li>Quy định địa phương</li>
-                    </ul>
-                    <p>Bạn muốn hỏi gì?</p>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="brand-mark">🏛️</span>
+                <div>
+                    <strong>Hành chính AI</strong>
+                    <small>Tra cứu văn bản pháp luật</small>
                 </div>
             </div>
-        </div>
 
-        <!-- Input area -->
-        <div class="input-container">
-            <textarea 
-                id="user-input" 
-                placeholder="Nhập câu hỏi của bạn... (ví dụ: Điều 10 quy định gì về hộ khẩu?)"
-                rows="2"
-            ></textarea>
-            <button id="send-btn" onclick="sendMessage()">
-                <span id="send-icon">Gửi</span>
-                <span id="loading-icon" style="display: none;">⏳</span>
+            <button id="new-chat-btn" class="new-chat-btn" type="button">
+                + Cuộc hội thoại mới
             </button>
+
+            <div class="conversation-list" id="conversation-list">
+                <p class="sidebar-empty">Đăng nhập để xem lịch sử hội thoại.</p>
+            </div>
+
+            <div class="sidebar-footer">
+                <div id="user-box" class="user-box hidden">
+                    <span id="user-email" class="user-email"></span>
+                    <button id="logout-btn" class="link-btn" type="button">Đăng xuất</button>
+                </div>
+                <button id="login-btn" class="secondary-btn" type="button">Đăng nhập</button>
+            </div>
+        </aside>
+
+        <main class="container">
+            <header>
+                <button id="sidebar-toggle" class="icon-btn" type="button" aria-label="Mở lịch sử">☰</button>
+                <div class="header-text">
+                    <h1>Trợ lý Tra cứu Hành chính</h1>
+                    <p>Hỗ trợ tra cứu thông tin văn bản pháp luật</p>
+                </div>
+            </header>
+
+            <div id="chat-container">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <p>Xin chào! Tôi có thể giúp bạn tra cứu thông tin về:</p>
+                        <ul>
+                            <li>Tổ chức chính quyền địa phương 2 cấp</li>
+                            <li>Cơ quan chuyên môn thuộc UBND</li>
+                            <li>Văn bản pháp luật và quy định liên quan</li>
+                        </ul>
+                        <p>Bạn muốn hỏi gì?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <textarea
+                    id="user-input"
+                    placeholder="Nhập câu hỏi của bạn... (ví dụ: Nghị định 150/2025/NĐ-CP quy định gì?)"
+                    rows="2"
+                ></textarea>
+                <button id="send-btn" type="button">
+                    <span id="send-icon">Gửi</span>
+                    <span id="loading-icon" class="hidden">⏳</span>
+                </button>
+            </div>
+            <p class="input-hint">Enter để gửi, Shift + Enter để xuống dòng. Câu hỏi 10–500 ký tự.</p>
+        </main>
+    </div>
+
+    <div id="auth-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+        <div class="modal-card">
+            <button id="auth-close" class="modal-close" type="button" aria-label="Đóng">×</button>
+            <h2 id="auth-title">Đăng nhập</h2>
+            <p class="modal-subtitle">Đăng nhập để lưu và xem lại lịch sử hội thoại.</p>
+
+            <div class="auth-tabs">
+                <button id="tab-login" class="auth-tab active" type="button">Đăng nhập</button>
+                <button id="tab-register" class="auth-tab" type="button">Đăng ký</button>
+            </div>
+
+            <form id="auth-form">
+                <label id="fullname-field" class="hidden">
+                    Họ tên
+                    <input id="auth-fullname" type="text" autocomplete="name" placeholder="Nguyễn Văn A">
+                </label>
+                <label>
+                    Email
+                    <input id="auth-email" type="email" autocomplete="email" required placeholder="ban@example.com">
+                </label>
+                <label>
+                    Mật khẩu
+                    <input id="auth-password" type="password" autocomplete="current-password" required minlength="8" placeholder="Tối thiểu 8 ký tự">
+                </label>
+                <p id="auth-error" class="form-error hidden"></p>
+                <button id="auth-submit" type="submit" class="primary-btn">Đăng nhập</button>
+            </form>
         </div>
     </div>
 

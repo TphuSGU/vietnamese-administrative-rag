@@ -1,0 +1,39 @@
+[
+  {
+    "doc_id": "150-2025-ND-CP",
+    "doc_number": "150/2025/NĐ-CP",
+    "title": "Nghị định 150/2025/NĐ-CP quy định tổ chức các cơ quan chuyên môn thuộc UBND cấp tỉnh, UBND cấp xã",
+    "issued_date": "2025-06-12",
+    "effective_date": "2025-06-16",
+    "source_type": "congbao",
+    "urls": [
+      "https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/6/45095/56792-1-2025793-794150-2025-nd-cp.pdf"
+    ]
+  },
+  {
+    "doc_id": "151-2025-ND-CP",
+    "doc_number": "151/2025/NĐ-CP",
+    "title": "Nghị định 151/2025/NĐ-CP quy định phân định thẩm quyền của chính quyền địa phương 02 cấp, phân quyền, phân cấp trong lĩnh vực đất đai",
+    "issued_date": "2025-06-12",
+    "effective_date": "2025-07-01",
+    "source_type": "congbao",
+    "urls": [
+      "https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/6/45191/56974-1-2025829-830151-2025-nd-cp.pdf",
+      "https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/6/45191/56977-1-2025831-832151-2025-nd-cp.pdf",
+      "https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/6/45191/56980-1-2025833-834151-2025-nd-cp.pdf"
+    ],
+    "include_parts": [0, 1],
+    "notes": "Phần 3 (chỉ mục 2) là biểu mẫu kèm theo, bỏ khỏi corpus retrieval."
+  },
+  {
+    "doc_id": "65-2025-QH15",
+    "doc_number": "65/2025/QH15",
+    "title": "Luật 65/2025/QH15 - Luật Tổ chức chính quyền địa phương",
+    "issued_date": "2025-02-19",
+    "effective_date": "2025-02-19",
+    "source_type": "congbao",
+    "urls": [
+      "https://congbaocdn.chinhphu.vn/CongBaoCP/VanBan/2025/2/44590/55738-1-2025605-60665-2025-qh15.pdf"
+    ]
+  }
+]

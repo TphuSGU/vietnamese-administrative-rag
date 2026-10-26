@@ -1,131 +1,58 @@
 # RAG Chat UI
 
-Simple single-page chat interface for Vietnamese government document RAG system.
+Giao diện chat tĩnh (HTML/CSS/JS) cho trợ lý tra cứu văn bản hành chính. Không cần build tool.
 
-## Quick Start
+## Chạy
 
-1. Start backend:
-   ```bash
-   cd ../backend
-   python -m app.main
-   ```
+```bash
+# Terminal 1: backend
+cd backend
+source .venv/bin/activate
+python -m app.main
 
-2. Open frontend:
-   ```bash
-   cd frontend
-   # Option 1: Python simple server
-   python -m http.server 3000
-   
-   # Option 2: Open directly in browser
-   open index.html
-   ```
+# Terminal 2: frontend
+cd frontend
+python -m http.server 3000
+```
 
-3. Access: http://localhost:3000
+Mở http://localhost:3000.
 
-## Features
+Backend mặc định `http://localhost:8000`; CORS cho phép `http://localhost:3000`, `http://127.0.0.1:3000`, `http://localhost:5173` (xem `CORS_ORIGINS` trong `backend/.env`).
 
-- ✅ Clean chat interface
-- ✅ Call backend API
-- ✅ Display answers with sources
-- ✅ Loading indicator
-- ✅ Error handling
-- ✅ Mobile responsive
-- ✅ Vietnamese support
+## Tính năng
 
-## API Configuration
+- Chat ẩn danh với RAG API.
+- Đăng ký/đăng nhập, lưu token trong `localStorage`.
+- Lưu lịch sử hội thoại khi đã đăng nhập; sidebar chọn lại hội thoại cũ.
+- Nút "Cuộc hội thoại mới".
+- Hiển thị câu trả lời, nguồn tham khảo (document + chunk), thời gian xử lý và model.
+- Validate câu hỏi 10–500 ký tự, chặn gửi trùng khi đang chờ.
+- Responsive; sidebar mở bằng nút ☰ trên mobile.
 
-Backend URL is configured in `script.js`:
+## API dùng bởi frontend
+
+- `POST /api/v1/auth/register`
+- `POST /api/v1/auth/login`
+- `GET /api/v1/auth/me`
+- `GET/POST /api/v1/conversations`
+- `GET/DELETE /api/v1/conversations/{id}`
+- `POST /api/v1/chat/query` (gửi `conversation_id` khi đã chọn hội thoại)
+
+Đổi backend URL trong `script.js`:
+
 ```javascript
 const API_BASE_URL = 'http://localhost:8000/api/v1';
 ```
 
-Change this if backend runs on different port.
+## Câu hỏi mẫu
 
-## Browser Compatibility
+- "Nghị định 150/2025/NĐ-CP quy định về tổ chức cơ quan chuyên môn thuộc UBND cấp nào?"
+- "Cơ quan chuyên môn thuộc UBND cấp tỉnh và cấp xã được gọi là gì?"
+- "Luật 65/2025/QH15 quy định chính quyền địa phương có mấy cấp?"
+- "Nghị định 151/2025/NĐ-CP quy định chức năng gì?"
 
-- Chrome/Edge: ✅
-- Firefox: ✅
-- Safari: ✅
-- Mobile browsers: ✅
+## Lưu ý
 
-No build tools required - just open `index.html`!
-
-## Testing
-
-```bash
-# 1. Start backend
-cd backend
-python -m app.main
-
-# 2. Open frontend
-cd ../frontend
-python -m http.server 3000
-# Open http://localhost:3000
-
-# 3. Test queries:
-- "Điều 10 quy định gì về hộ khẩu?"
-- "Thủ tục làm CMND cần giấy tờ gì?"
-```
-
-## File Structure
-
-```
-frontend/
-├── index.html    # Main HTML structure
-├── style.css     # Styling and responsive design
-├── script.js     # API integration and UI logic
-└── README.md     # This file
-```
-
-## Customization
-
-### Change Backend URL
-
-Edit `script.js`:
-```javascript
-const API_BASE_URL = 'http://your-server:port/api/v1';
-```
-
-### Modify Colors
-
-Edit `style.css`:
-```css
-/* Primary color */
-background: #2563eb;  /* Change to your color */
-
-/* User message bubble */
-.user-message .message-content {
-    background: #your-color;
-}
-```
-
-### Adjust Layout
-
-Edit `style.css`:
-```css
-.container {
-    max-width: 800px;  /* Change max width */
-}
-```
-
-## Troubleshooting
-
-### CORS Error
-If you see CORS errors in browser console, ensure backend has CORS enabled:
-```python
-# backend/app/main.py
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Or specific origin
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-```
-
-### Connection Refused
-- Check backend is running on port 8000
-- Check `API_BASE_URL` in `script.js` matches backend port
-
-### Vietnamese Characters Not Displaying
-- Ensure files are saved with UTF-8 encoding
-- Check browser encoding is set to UTF-8
+- Phải chạy qua HTTP server, không mở trực tiếp `file://`, vì CORS origin `null` sẽ bị chặn.
+- Token hết hạn (mặc định 24h) sẽ tự đăng xuất và xóa phiên.
+- Nếu backend đổi port, sửa `API_BASE_URL` hoặc thêm origin mới vào `CORS_ORIGINS`.

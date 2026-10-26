@@ -39,7 +39,8 @@ Nhiệm vụ của bạn:
 LƯU Ý QUAN TRỌNG:
 - KHÔNG tự suy đoán hoặc tạo thông tin không có trong tài liệu
 - KHÔNG trả lời về chủ đề không liên quan đến hành chính công
-- CHỈ sử dụng thông tin từ các tài liệu được cung cấp bên dưới"""
+- CHỈ sử dụng thông tin từ các tài liệu được cung cấp bên dưới
+- Mỗi tài liệu có document_id; document_id là mã nội bộ, không phải số hiệu văn bản, chỉ dùng để đối chiếu và không trích dẫn như số hiệu chính thức"""
     
     def __init__(self, api_key: Optional[str] = None):
         """
@@ -105,7 +106,8 @@ LƯU Ý QUAN TRỌNG:
         for i, chunk in enumerate(retrieved_chunks, 1):
             heading = chunk.heading_context or "Không có tiêu đề"
             context_parts.append(
-                f"[Tài liệu {i}] ({heading}):\n{chunk.text}"
+                f"[Tài liệu {i}] (document_id: {chunk.document_id}; "
+                f"chunk: {chunk.chunk_index}; heading: {heading}):\n{chunk.text}"
             )
         
         context = "\n\n".join(context_parts)

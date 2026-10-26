@@ -33,12 +33,11 @@ class OutputValidator:
     """
     
     MIN_ANSWER_LENGTH = 20      # Minimum chars for complete answer
-    MAX_ANSWER_LENGTH = 1000    # Maximum chars to prevent verbosity
+    MAX_ANSWER_LENGTH = 2500    # Maximum chars; list answers in legal docs run long
     
     # Forbidden uncertain phrases that indicate hallucination risk
     FORBIDDEN_PHRASES = [
         "tôi không chắc chắn",
-        "có thể",
         "có lẽ",
         "dường như",
         "theo ý kiến của tôi",

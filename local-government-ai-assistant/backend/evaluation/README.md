@@ -87,8 +87,52 @@ Chọn `alpha=0.6` vì pipeline dùng top-5 để sinh câu trả lời, ưu ti�
 
 Sweep đầy đủ `alpha ∈ {0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0}` × `min_similarity ∈ {0.15, 0.20, 0.25, 0.30}` nằm ở `evaluation/baselines/sweep_alpha_min_sim.json`. Với corpus hiện tại, `min_similarity` 0.15–0.25 cho kết quả giống nhau; 0.30 làm giảm Recall@5/HitRate@5. Giữ `min_similarity=0.25` để vẫn lọc được ứng viên yếu.
 
+## Bộ câu hỏi An Phú (30 câu)
+
+File `evaluation/an_phu_questions.jsonl` gồm 30 câu, tất cả dùng
+`relevance_level: "document"`:
+
+- 10 câu văn bản local An Phú.
+- 10 câu thủ tục hành chính.
+- 5 câu lịch làm việc.
+- 5 câu profile/liên hệ.
+
+Với dữ liệu context (TTHC/lịch/profile), ground truth là `document_id` thay vì
+chunk index vì một tài liệu có thể có nhiều chunk và thứ tự chunk thay đổi khi
+re-ingest.
+
+Chạy retrieval:
+
+```bash
+.venv/bin/python scripts/evaluate.py \
+  --dataset evaluation/an_phu_questions.jsonl \
+  --locality-code 25975 \
+  --k 1 3 5 \
+  --output evaluation/baselines/an_phu_retrieval.json
+```
+
+Baseline hiện tại: `HitRate@5 = 1.00`, `HitRate@3 = 0.967`, `MRR = 0.873`,
+`Document HitRate = 1.00` (30 câu). Báo cáo đầy đủ ở
+`evaluation/baselines/an_phu_retrieval.json`.
+
+Chạy thêm answer evaluation (gọi Gemini):
+
+```bash
+.venv/bin/python scripts/evaluate.py \
+  --dataset evaluation/an_phu_questions.jsonl \
+  --locality-code 25975 --k 5 --answer-eval \
+  --output evaluation/baselines/an_phu_answer_eval.json
+```
+
+Baseline answer 30 câu: `citation_recall = 1.00`,
+`expected_term_recall = 0.944`, `abstention_rate = 0.033`.
+`citation_precision = 0.474` là precision của **source top-5**, không phải
+precision của citation trong câu trả lời; answer vẫn được `OutputValidator`
+kiểm tra citation trước khi trả về.
+
 ## Lưu ý
 
 - Chunk text đã được chuẩn hóa lowercase, nên `expected_answer` và `expected_citations` được so khớp không phân biệt hoa thường.
 - Answer evaluation là deterministic: đo citation precision/recall, expected term recall và abstention rate; không dùng LLM judge.
 - `evaluation/results/` bị `.gitignore` bỏ qua; baseline được lưu bền trong `evaluation/baselines/`.
+- Bộ An Phú dùng document-level relevance; bộ 50 câu luật cũ vẫn dùng chunk-level.

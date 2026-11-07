@@ -57,6 +57,25 @@ def auth_header(token):
     return {"Authorization": f"Bearer {token}"}
 
 
+async def register_admin(client, email="admin@example.com", password="AdminPass123"):
+    async with client.session_factory() as db:
+        from app.core.security import hash_password
+
+        await user_repo.create_user(
+            db,
+            email=email,
+            hashed_password=hash_password(password),
+            full_name="Cán bộ",
+            role="admin",
+        )
+    login = await client.post(
+        "/api/v1/auth/login",
+        json={"email": email, "password": password},
+    )
+    assert login.status_code == 200, login.text
+    return login.json()["access_token"]
+
+
 class TestAuthAPI:
     async def test_register_login_and_me(self, client):
         token = await register_and_login(client)
@@ -131,9 +150,42 @@ class TestAuthAPI:
             "/api/v1/users", headers=auth_header(admin_token)
         )
         assert users.status_code == 200
-        assert len(users.json()) == 2
+        payload = users.json()
+        assert payload["total"] == 2
+        assert len(payload["items"]) == 2
+        assert payload["page"] == 1
+        assert payload["page_size"] == 10
+        assert payload["total_pages"] == 1
+        assert payload["role_counts"] == {"all": 2, "admin": 1, "user": 1}
 
-        target_id = users.json()[0]["id"]
+        page_one = await client.get(
+            "/api/v1/users?page=1&page_size=1",
+            headers=auth_header(admin_token),
+        )
+        assert page_one.status_code == 200
+        assert page_one.json()["total"] == 2
+        assert page_one.json()["total_pages"] == 2
+        assert len(page_one.json()["items"]) == 1
+
+        admins = await client.get(
+            "/api/v1/users?role=admin", headers=auth_header(admin_token)
+        )
+        assert admins.status_code == 200
+        assert admins.json()["total"] == 1
+        assert all(item["role"] == "admin" for item in admins.json()["items"])
+
+        searched = await client.get(
+            "/api/v1/users?search=admin@example.com",
+            headers=auth_header(admin_token),
+        )
+        assert searched.status_code == 200
+        assert searched.json()["total"] == 1
+        assert searched.json()["items"][0]["email"] == "admin@example.com"
+
+        target = next(
+            item for item in payload["items"] if item["role"] == "user"
+        )
+        target_id = target["id"]
         changed = await client.patch(
             f"/api/v1/users/{target_id}/role",
             json={"role": "admin"},
@@ -141,6 +193,11 @@ class TestAuthAPI:
         )
         assert changed.status_code == 200
         assert changed.json()["role"] == "admin"
+
+        after = await client.get(
+            "/api/v1/users?role=admin", headers=auth_header(admin_token)
+        )
+        assert after.json()["total"] == 2
 
         # The promoted user's old token still works for conversation routes.
         conversations = await client.get(
@@ -173,6 +230,22 @@ class TestConversationAPI:
         assert detail.status_code == 200
         assert detail.json()["messages"] == []
 
+        renamed = await client.patch(
+            f"/api/v1/conversations/{conversation_id}",
+            json={"title": "Hỏi về cơ cấu UBND"},
+            headers=headers,
+        )
+        assert renamed.status_code == 200, renamed.text
+        assert renamed.json()["title"] == "Hỏi về cơ cấu UBND"
+        assert renamed.json()["message_count"] == 0
+
+        blank = await client.patch(
+            f"/api/v1/conversations/{conversation_id}",
+            json={"title": "   "},
+            headers=headers,
+        )
+        assert blank.status_code == 422
+
         deleted = await client.delete(
             f"/api/v1/conversations/{conversation_id}", headers=headers
         )
@@ -188,7 +261,7 @@ class TestConversationAPI:
         headers = auth_header(token)
 
         class FakePipeline:
-            def query(self, query, k):
+            def query(self, query, k, locality_code=None):
                 return RAGResponse(
                     query_id="q-1",
                     answer="Câu trả lời có trích dẫn.",
@@ -294,7 +367,88 @@ class TestDocumentAdminAPI:
         )
         assert missing.status_code == 404
 
+        jobs = await client.get(
+            "/api/v1/documents/jobs", headers=headers
+        )
+        assert jobs.status_code == 200
+        assert isinstance(jobs.json(), list)
+
+        user_jobs = await client.get(
+            "/api/v1/documents/jobs", headers=auth_header(
+                await register_and_login(client, email="jobs-user@example.com")
+            )
+        )
+        assert user_jobs.status_code == 403
+
         app.dependency_overrides.pop(get_vector_store, None)
+
+
+class TestFeedbackAPI:
+    async def test_public_create_and_admin_handling(self, client):
+        payload = {
+            "full_name": "Nguyễn Văn A",
+            "phone": "0901234567",
+            "email": "a@example.com",
+            "category": "phan_anh",
+            "subject": "Đề nghị bổ sung lịch tiếp dân",
+            "content": "Đề nghị phường bổ sung lịch tiếp dân vào buổi chiều thứ Sáu.",
+        }
+        created = await client.post("/api/v1/feedback", json=payload)
+        assert created.status_code == 201, created.text
+        body = created.json()
+        assert body["status"] == "new"
+        assert body["subject"] == payload["subject"]
+        feedback_id = body["id"]
+
+        anonymous = await client.get("/api/v1/feedback")
+        assert anonymous.status_code == 401
+
+        user_token = await register_and_login(client, email="feedback-user@example.com")
+        forbidden = await client.get(
+            "/api/v1/feedback", headers=auth_header(user_token)
+        )
+        assert forbidden.status_code == 403
+
+        admin_token = await register_admin(client, email="feedback-admin@example.com")
+        listed = await client.get(
+            "/api/v1/feedback", headers=auth_header(admin_token)
+        )
+        assert listed.status_code == 200, listed.text
+        assert listed.json()["total"] == 1
+        assert listed.json()["status_counts"]["new"] == 1
+
+        updated = await client.patch(
+            f"/api/v1/feedback/{feedback_id}",
+            json={"status": "processing", "admin_note": "Đã chuyển bộ phận tiếp dân."},
+            headers=auth_header(admin_token),
+        )
+        assert updated.status_code == 200, updated.text
+        assert updated.json()["status"] == "processing"
+        assert "tiếp dân" in updated.json()["admin_note"]
+
+        filtered = await client.get(
+            "/api/v1/feedback?status=processing",
+            headers=auth_header(admin_token),
+        )
+        assert filtered.status_code == 200
+        assert filtered.json()["total"] == 1
+
+        stats = await client.get(
+            "/api/v1/admin/stats", headers=auth_header(admin_token)
+        )
+        assert stats.status_code == 200
+        assert stats.json()["feedback"] == 1
+
+    async def test_invalid_feedback_is_rejected(self, client):
+        response = await client.post(
+            "/api/v1/feedback",
+            json={
+                "category": "gop_y",
+                "subject": "A",
+                "content": "ngắn",
+            },
+        )
+        assert response.status_code == 422
 
 
 class TestCORS:
@@ -308,6 +462,20 @@ class TestCORS:
         )
         assert response.status_code == 200
         assert response.headers["access-control-allow-origin"] == "http://localhost:3000"
+
+    async def test_allows_private_lan_frontend(self, client):
+        response = await client.options(
+            "/",
+            headers={
+                "Origin": "http://192.168.1.10:3000",
+                "Access-Control-Request-Method": "GET",
+            },
+        )
+        assert response.status_code == 200
+        assert (
+            response.headers["access-control-allow-origin"]
+            == "http://192.168.1.10:3000"
+        )
 
     async def test_rejects_unknown_origin(self, client):
         response = await client.options(

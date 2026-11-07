@@ -102,8 +102,16 @@ body {
     padding: 10px 8px;
 }
 
+.conversation-row {
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+    border-radius: 8px;
+}
+
 .conversation-item {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     text-align: left;
     background: transparent;
     border: none;
@@ -113,6 +121,41 @@ body {
     cursor: pointer;
     font-size: 0.82rem;
     line-height: 1.35;
+}
+
+.conversation-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.conversation-row:hover .conversation-actions,
+.conversation-row:focus-within .conversation-actions {
+    opacity: 1;
+}
+
+.conversation-action {
+    background: transparent;
+    border: 1px solid #334155;
+    color: #cbd5e1;
+    border-radius: 5px;
+    font-size: 0.62rem;
+    padding: 2px 5px;
+    cursor: pointer;
+    line-height: 1.3;
+}
+
+.conversation-action:hover {
+    background: #334155;
+    color: white;
+}
+
+.conversation-action.danger:hover {
+    background: #7f1d1d;
+    border-color: #991b1b;
 }
 
 .conversation-item:hover {
@@ -158,6 +201,7 @@ body {
 }
 
 .link-btn {
+    display: inline-block;
     background: none;
     border: none;
     color: #93c5fd;
@@ -165,6 +209,11 @@ body {
     padding: 0;
     font-size: 0.78rem;
     cursor: pointer;
+    text-decoration: none;
+}
+
+.link-btn:hover {
+    color: white;
 }
 
 .secondary-btn {
@@ -286,39 +335,46 @@ header {
     margin-bottom: 4px;
 }
 
-.sources {
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px solid var(--line);
-    font-size: 0.8rem;
-    color: var(--muted);
-    white-space: normal;
-}
-
-.sources strong {
-    color: #475569;
-}
-
-.source-item {
-    margin-top: 6px;
-    line-height: 1.4;
-}
-
-.source-doc {
-    font-weight: 600;
-    color: #334155;
-}
-
-.source-snippet {
-    display: block;
-    margin-top: 2px;
-    color: var(--muted);
-}
-
 .metadata {
     margin-top: 8px;
     font-size: 0.72rem;
     color: #94a3b8;
+}
+
+/* Source card (Phase 9) — 1 nguồn/câu trả lời, không URL */
+.source-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-top: 8px;
+    padding: 8px 10px;
+    max-width: 520px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    white-space: normal;
+}
+
+.source-badge {
+    font-size: 0.66rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    background: #dbeafe;
+    border-radius: 999px;
+    padding: 2px 8px;
+}
+
+.source-citation {
+    margin-bottom: 0 !important;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--ink);
+}
+
+.source-meta {
+    font-size: 0.7rem;
+    color: var(--muted);
 }
 
 /* Input */
@@ -550,6 +606,10 @@ button {
         display: block;
     }
 
+    .conversation-actions {
+        opacity: 1;
+    }
+
     .message-content {
         max-width: 88%;
     }
@@ -572,5 +632,93 @@ button {
 
     .input-hint {
         padding: 0 16px 8px;
+    }
+}
+
+/* Citizen feedback */
+.feedback-btn {
+    margin-left: auto;
+    border: 1px solid #bfdbfe;
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-radius: 8px;
+    padding: 8px 13px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.feedback-btn:hover {
+    background: #dbeafe;
+}
+
+.feedback-modal-card {
+    max-width: 620px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+}
+
+#feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#feedback-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+#feedback-form input,
+#feedback-form select,
+#feedback-form textarea {
+    width: 100%;
+    padding: 10px 11px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font: inherit;
+    font-size: 0.88rem;
+    background: white;
+    color: var(--ink);
+}
+
+#feedback-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+#feedback-form input:focus,
+#feedback-form select:focus,
+#feedback-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.feedback-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.form-success {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 640px) {
+    .feedback-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feedback-btn {
+        padding: 8px 10px;
     }
 }

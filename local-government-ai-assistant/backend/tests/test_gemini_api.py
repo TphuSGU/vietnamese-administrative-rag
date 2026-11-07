@@ -3,8 +3,11 @@
 
 import os
 import sys
+from pathlib import Path
 from dotenv import load_dotenv
-load_dotenv()
+
+# Đọc .env theo đường dẫn tuyệt đối (backend/.env) thay vì phụ thuộc cwd
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 try:
     import google.generativeai as genai
@@ -31,7 +34,10 @@ def test_gemini_api():
     print(f"✅ API Key: {api_key[:15]}...{api_key[-4:]}")
 
     # 2. Configure Gemini
-    model_name = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
+    model_name = os.getenv("GEMINI_MODEL")
+    if not model_name:
+        print("❌ GEMINI_MODEL not found in .env")
+        return False
     print(f"📦 Model: {model_name}\n")
 
     try:

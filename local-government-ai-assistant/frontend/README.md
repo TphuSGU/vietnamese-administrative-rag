@@ -25,9 +25,12 @@ Backend mặc định `http://localhost:8000`; CORS cho phép `http://localhost:
 - Đăng ký/đăng nhập, lưu token trong `localStorage`.
 - Lưu lịch sử hội thoại khi đã đăng nhập; sidebar chọn lại hội thoại cũ.
 - Nút "Cuộc hội thoại mới".
-- Hiển thị câu trả lời, nguồn tham khảo (document + chunk), thời gian xử lý và model.
-- Validate câu hỏi 10–500 ký tự, chặn gửi trùng khi đang chờ.
+- Đổi tên/xóa hội thoại ngay trên sidebar.
+- Hiển thị câu trả lời kèm citation pháp lý, thời gian xử lý và model.
+- Validate câu hỏi tối thiểu 10 ký tự, không giới hạn độ dài tối đa; chặn gửi trùng khi đang chờ.
+- Gửi **ý kiến người dân** công khai: góp ý, phản ánh, kiến nghị, hỏi đáp.
 - Responsive; sidebar mở bằng nút ☰ trên mobile.
+- Trang cán bộ `admin.html`: thống kê, tải tài liệu, theo dõi job, danh sách/xóa tài liệu, quản lý người dùng và **tiếp nhận/xử lý ý kiến người dân**.
 
 ## API dùng bởi frontend
 
@@ -35,14 +38,26 @@ Backend mặc định `http://localhost:8000`; CORS cho phép `http://localhost:
 - `POST /api/v1/auth/login`
 - `GET /api/v1/auth/me`
 - `GET/POST /api/v1/conversations`
-- `GET/DELETE /api/v1/conversations/{id}`
+- `GET/PATCH/DELETE /api/v1/conversations/{id}`
 - `POST /api/v1/chat/query` (gửi `conversation_id` khi đã chọn hội thoại)
+- `POST /api/v1/feedback`
+- `GET /api/v1/feedback?status=...&page=...&page_size=...&search=...` (cán bộ)
+- `PATCH /api/v1/feedback/{id}` (cán bộ)
+- `GET /api/v1/admin/stats`
+- `GET /api/v1/documents`, `POST /api/v1/documents`, `DELETE /api/v1/documents/{id}`
+- `GET /api/v1/documents/jobs`, `GET /api/v1/documents/{job_id}`
+- `GET /api/v1/users?role=all&page=1&page_size=10&search=...`, `PATCH /api/v1/users/{id}/role`
 
-Đổi backend URL trong `script.js`:
+## Cấu hình API URL
+
+Không sửa trực tiếp `script.js`. Dùng `config.js` hoặc query param:
 
 ```javascript
-const API_BASE_URL = 'http://localhost:8000/api/v1';
+window.APP_CONFIG = { API_BASE_URL: 'https://api.example.com/api/v1' };
 ```
+
+Hoặc mở `index.html?api=https://api.example.com/api/v1`. Mặc định frontend tự trỏ về
+`http://<host>:8000/api/v1` cho môi trường local.
 
 ## Câu hỏi mẫu
 

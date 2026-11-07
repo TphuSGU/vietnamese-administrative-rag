@@ -29,6 +29,17 @@ Không cần đăng nhập:
 
 Đăng nhập/đăng ký để lưu lịch sử. Sau khi đăng nhập, sidebar hiển thị các cuộc hội thoại cũ.
 
+## 4. Trang quản trị
+
+Đăng nhập bằng tài khoản có role `admin`, sau đó mở:
+
+```text
+http://localhost:3000/admin.html
+```
+
+Trang này có thống kê hệ thống, tải tài liệu, theo dõi job index, danh sách/xóa tài liệu
+và đổi vai trò người dùng. Tài khoản thường sẽ bị chặn ở màn hình "Không có quyền quản trị".
+
 ## Lỗi thường gặp
 
 - **CORS**: backend phải chạy và `CORS_ORIGINS` chứa origin frontend (`http://localhost:3000`).

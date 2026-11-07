@@ -100,6 +100,11 @@ def main() -> int:
         help="Cosine threshold for vector candidates",
     )
     parser.add_argument(
+        "--locality-code",
+        default=None,
+        help="Restrict retrieval to one locality (e.g. 25975 for An Phú)",
+    )
+    parser.add_argument(
         "--limit",
         type=int,
         default=0,
@@ -135,10 +140,17 @@ def main() -> int:
         examples = examples[: args.limit]
 
     print(f"Dataset: {args.dataset} ({len(examples)} examples)")
-    print(f"Config : alpha={args.alpha}, min_similarity={args.min_similarity}, k={args.k}")
+    print(
+        f"Config : alpha={args.alpha}, min_similarity={args.min_similarity}, "
+        f"k={args.k}, locality_code={args.locality_code or '-'}"
+    )
 
     retriever = build_retriever(args.alpha, args.min_similarity)
-    report = RetrievalEvaluator(retriever, ks=args.k).evaluate(examples)
+    report = RetrievalEvaluator(
+        retriever,
+        ks=args.k,
+        locality_code=args.locality_code,
+    ).evaluate(examples)
     print()
     print(format_report(report, args.k))
 
@@ -149,15 +161,17 @@ def main() -> int:
         "min_similarity": args.min_similarity,
         "k": args.k,
         "limit": args.limit,
+        "locality_code": args.locality_code,
         "embedding_model": settings.embedding_model_name,
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
 
     if args.answer_eval:
         print("\nGenerating answers (this calls Gemini)...")
-        answer_result = AnswerEvaluator(build_pipeline(retriever)).evaluate(
-            examples, k=max(args.k)
-        )
+        answer_result = AnswerEvaluator(
+            build_pipeline(retriever),
+            locality_code=args.locality_code,
+        ).evaluate(examples, k=max(args.k))
         payload["answer_evaluation"] = answer_result.to_dict()
         print("\nAnswer evaluation")
         print("-" * 58)

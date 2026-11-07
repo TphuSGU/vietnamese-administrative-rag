@@ -62,6 +62,7 @@ class EvaluationExample:
     expected_citations: List[str] = field(default_factory=list)
     answer_type: str = "factual"
     difficulty: str = "medium"
+    relevance_level: str = "chunk"
     source_url: str = ""
     notes: str = ""
 
@@ -70,12 +71,24 @@ class EvaluationExample:
             raise DatasetError("Example is missing 'id'")
         if not self.question.strip():
             raise DatasetError(f"Example {self.id} is missing 'question'")
-        if not self.relevant_chunks:
+
+        self.relevance_level = (self.relevance_level or "chunk").lower()
+        if self.relevance_level not in {"chunk", "document"}:
+            raise DatasetError(
+                f"Example {self.id}: relevance_level must be 'chunk' or 'document'"
+            )
+        if not self.relevant_chunks and not self.relevant_documents:
+            if self.relevance_level == "document":
+                raise DatasetError(
+                    f"Example {self.id} needs at least one relevant document"
+                )
             raise DatasetError(f"Example {self.id} needs at least one relevant chunk")
         if not self.relevant_documents:
             self.relevant_documents = sorted(
                 {key.split("#", 1)[0] for key in self.relevant_chunks}
             )
+        if self.relevance_level == "chunk" and not self.relevant_chunks:
+            raise DatasetError(f"Example {self.id} needs at least one relevant chunk")
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "EvaluationExample":
@@ -117,6 +130,7 @@ class EvaluationExample:
             ],
             answer_type=str(data.get("answer_type", "factual")),
             difficulty=str(data.get("difficulty", "medium")),
+            relevance_level=str(data.get("relevance_level", "chunk")),
             source_url=str(data.get("source_url", "")),
             notes=str(data.get("notes", "")),
         )
@@ -160,17 +174,25 @@ def load_dataset(path: Path | str) -> List[EvaluationExample]:
     return examples
 
 
-def _retrieved_keys(chunks: Iterable[Any]) -> List[str]:
-    return [chunk_key(chunk.document_id, chunk.chunk_index) for chunk in chunks]
+def _retrieved_keys(chunks: Iterable[Any], relevance_level: str) -> List[str]:
+    keys = (
+        [chunk.document_id for chunk in chunks]
+        if relevance_level == "document"
+        else [chunk_key(chunk.document_id, chunk.chunk_index) for chunk in chunks]
+    )
+    # Retrieval can return several chunks from the same document. For
+    # document-level evaluation that must count once, not inflate recall.
+    return list(dict.fromkeys(keys))
 
 
 class RetrievalEvaluator:
-    """Compute chunk-level retrieval metrics for a retriever."""
+    """Compute chunk/document-level retrieval metrics for a retriever."""
 
     def __init__(
         self,
         retriever: Any,
         ks: Sequence[int] = (1, 3, 5, 10),
+        locality_code: Optional[str] = None,
     ) -> None:
         if not ks:
             raise ValueError("At least one K value is required")
@@ -179,6 +201,7 @@ class RetrievalEvaluator:
         self.retriever = retriever
         self.ks = tuple(sorted(set(int(k) for k in ks)))
         self.max_k = max(self.ks)
+        self.locality_code = locality_code
 
     def evaluate(self, examples: Sequence[EvaluationExample]) -> EvaluationReport:
         """Run retrieval for every example and aggregate the metrics."""
@@ -189,9 +212,16 @@ class RetrievalEvaluator:
         per_query_metrics: List[Dict[str, Any]] = []
 
         for example in examples:
-            chunks = self.retriever.retrieve(example.question, k=self.max_k)
-            retrieved_keys = _retrieved_keys(chunks)
-            relevant = set(example.relevant_chunks)
+            retrieve_kwargs: Dict[str, Any] = {"k": self.max_k}
+            if self.locality_code:
+                retrieve_kwargs["locality_code"] = self.locality_code
+            chunks = self.retriever.retrieve(example.question, **retrieve_kwargs)
+            retrieved_keys = _retrieved_keys(chunks, example.relevance_level)
+            relevant = (
+                set(example.relevant_documents)
+                if example.relevance_level == "document"
+                else set(example.relevant_chunks)
+            )
 
             metrics: Dict[str, Any] = {
                 "precision": {},
@@ -221,6 +251,7 @@ class RetrievalEvaluator:
                     "question": example.question,
                     "difficulty": example.difficulty,
                     "answer_type": example.answer_type,
+                    "relevance_level": example.relevance_level,
                     "relevant_chunks": sorted(relevant),
                     "retrieved_chunks": retrieved_keys,
                     "first_relevant_rank": first_relevant_rank(
@@ -318,8 +349,9 @@ class AnswerEvaluation:
 class AnswerEvaluator:
     """Evaluate generated answers against expected answers and citations."""
 
-    def __init__(self, pipeline: Any) -> None:
+    def __init__(self, pipeline: Any, locality_code: Optional[str] = None) -> None:
         self.pipeline = pipeline
+        self.locality_code = locality_code
 
     def evaluate(
         self,
@@ -329,14 +361,21 @@ class AnswerEvaluator:
         per_query: List[Dict[str, Any]] = []
 
         for example in examples:
-            response = self.pipeline.query(example.question, k=k)
+            query_kwargs: Dict[str, Any] = {"k": k}
+            if self.locality_code:
+                query_kwargs["locality_code"] = self.locality_code
+            response = self.pipeline.query(example.question, **query_kwargs)
             answer = response.answer or ""
-            cited_keys = [
-                chunk_key(chunk.document_id, chunk.chunk_index)
-                for chunk in response.source_chunks
-            ]
+            if example.relevance_level == "document":
+                cited_keys = [chunk.document_id for chunk in response.source_chunks]
+                relevant = set(example.relevant_documents)
+            else:
+                cited_keys = [
+                    chunk_key(chunk.document_id, chunk.chunk_index)
+                    for chunk in response.source_chunks
+                ]
+                relevant = set(example.relevant_chunks)
             cited_set = set(cited_keys)
-            relevant = set(example.relevant_chunks)
 
             expected_tokens = _content_tokens(example.expected_answer)
             answer_tokens = _content_tokens(answer)

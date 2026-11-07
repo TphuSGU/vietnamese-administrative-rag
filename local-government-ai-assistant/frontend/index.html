@@ -28,6 +28,7 @@
             <div class="sidebar-footer">
                 <div id="user-box" class="user-box hidden">
                     <span id="user-email" class="user-email"></span>
+                    <a id="admin-link" class="link-btn hidden" href="admin.html">Quản trị hệ thống</a>
                     <button id="logout-btn" class="link-btn" type="button">Đăng xuất</button>
                 </div>
                 <button id="login-btn" class="secondary-btn" type="button">Đăng nhập</button>
@@ -41,6 +42,7 @@
                     <h1>Trợ lý Tra cứu Hành chính</h1>
                     <p>Hỗ trợ tra cứu thông tin văn bản pháp luật</p>
                 </div>
+                <button id="feedback-btn" class="feedback-btn" type="button">Góp ý</button>
             </header>
 
             <div id="chat-container">
@@ -68,7 +70,7 @@
                     <span id="loading-icon" class="hidden">⏳</span>
                 </button>
             </div>
-            <p class="input-hint">Enter để gửi, Shift + Enter để xuống dòng. Câu hỏi 10–500 ký tự.</p>
+            <p class="input-hint">Enter để gửi, Shift + Enter để xuống dòng. Câu hỏi tối thiểu 10 ký tự.</p>
         </main>
     </div>
 
@@ -102,6 +104,52 @@
         </div>
     </div>
 
+    <div id="feedback-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="feedback-title">
+        <div class="modal-card feedback-modal-card">
+            <button id="feedback-close" class="modal-close" type="button" aria-label="Đóng">×</button>
+            <h2 id="feedback-title">Gửi ý kiến người dân</h2>
+            <p class="modal-subtitle">Phản ánh, kiến nghị hoặc góp ý của bạn sẽ được cán bộ phường tiếp nhận và xử lý.</p>
+
+            <form id="feedback-form">
+                <div class="feedback-grid">
+                    <label>
+                        Họ tên
+                        <input id="feedback-name" type="text" maxlength="120" autocomplete="name" placeholder="Nguyễn Văn A">
+                    </label>
+                    <label>
+                        Số điện thoại
+                        <input id="feedback-phone" type="tel" maxlength="40" autocomplete="tel" placeholder="0901234567">
+                    </label>
+                </div>
+                <label>
+                    Email
+                    <input id="feedback-email" type="email" maxlength="255" autocomplete="email" placeholder="ban@example.com">
+                </label>
+                <label>
+                    Loại ý kiến
+                    <select id="feedback-category">
+                        <option value="gop_y">Góp ý</option>
+                        <option value="phan_anh">Phản ánh</option>
+                        <option value="kien_nghi">Kiến nghị</option>
+                        <option value="hoi_dap">Hỏi đáp</option>
+                    </select>
+                </label>
+                <label>
+                    Tiêu đề
+                    <input id="feedback-subject" type="text" maxlength="255" required placeholder="Ví dụ: Đề nghị bổ sung lịch tiếp dân">
+                </label>
+                <label>
+                    Nội dung
+                    <textarea id="feedback-content" rows="5" maxlength="5000" required placeholder="Nhập nội dung chi tiết (tối thiểu 10 ký tự)..."></textarea>
+                </label>
+                <p id="feedback-error" class="form-error hidden"></p>
+                <p id="feedback-success" class="form-success hidden"></p>
+                <button id="feedback-submit" type="submit" class="primary-btn">Gửi ý kiến</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

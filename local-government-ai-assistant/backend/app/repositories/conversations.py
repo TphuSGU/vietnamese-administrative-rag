@@ -44,6 +44,15 @@ async def get_conversation(
     return result.scalar_one_or_none()
 
 
+async def update_conversation_title(
+    db: AsyncSession, conversation: Conversation, title: str
+) -> Conversation:
+    conversation.title = title[:255]
+    await db.commit()
+    await db.refresh(conversation)
+    return conversation
+
+
 async def delete_conversation(db: AsyncSession, conversation: Conversation) -> None:
     await db.delete(conversation)
     await db.commit()

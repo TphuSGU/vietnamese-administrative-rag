@@ -58,10 +58,10 @@ def test_output_validator():
 
 def test_bm25_keyword_search():
     """Test BM25 finds exact keywords"""
-    from app.rag.retrieval.bm25_index import BM25Index
+    from app.rag.retrieval.bm25s_index import BM25SIndex
 
     # Create index
-    bm25 = BM25Index()
+    bm25 = BM25SIndex()
 
     # Mock chunks with more text for better scoring
     chunks = [

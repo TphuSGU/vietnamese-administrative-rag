@@ -11,6 +11,10 @@ class ConversationCreate(BaseModel):
     title: Optional[str] = Field(default=None, max_length=255)
 
 
+class ConversationUpdate(BaseModel):
+    title: str = Field(min_length=1, max_length=255)
+
+
 class MessageResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

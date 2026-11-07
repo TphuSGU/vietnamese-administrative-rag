@@ -1,0 +1,2588 @@
+{
+  "dataset_size": 30,
+  "metrics_by_k": {
+    "5": {
+      "precision": {
+        "mean": 0.2,
+        "std": 0.0,
+        "count": 30
+      },
+      "recall": {
+        "mean": 1.0,
+        "std": 0.0,
+        "count": 30
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "std": 0.0,
+        "count": 30
+      },
+      "ndcg": {
+        "mean": 0.9107821939595921,
+        "std": 0.18202318666255304,
+        "count": 30
+      }
+    },
+    "mrr": {
+      "mean": 0.8805555555555555,
+      "std": 0.24313094069037708,
+      "count": 30
+    },
+    "map": {
+      "mean": 0.8805555555555555,
+      "std": 0.24313094069037708,
+      "count": 30
+    },
+    "document_hit_rate": {
+      "mean": 1.0,
+      "std": 0.0,
+      "count": 30
+    }
+  },
+  "per_query_results": [
+    {
+      "id": "ap-q001",
+      "question": "Quy chế tiếp công dân của HĐND phường An Phú được ban hành tại văn bản nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_2838"
+      ],
+      "retrieved_chunks": [
+        "an_phu_2838",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-3032026-den-0442026",
+        "an_phu_2468"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_2838",
+          "chunk_index": 3,
+          "score": 0.018235,
+          "heading_context": "HỘI ĐỒNG NHÂN DÂN PHƯỜNG AN PHÚ\nKHÓA II, KỲ HỌP THỨ 4 (CHUYÊN ĐỀ)",
+          "text_preview": "Xét Tờ trình số 20/TTr-HĐND ngày 29 ngày 7 tháng 7 năm 2026 của Thường trực Hội đồng nhân dân phường về dự thảo Nghị quyết ban hành Quy chế tiếp công dân, tiếp nhận, phân loại, xử lý và giám sát việc giải quyết khiếu nại"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-3032026-den-0442026",
+          "chunk_index": 1,
+          "score": 0.017494,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 30/3/2026 đến 04/4/2026.",
+          "text_preview": "N\nĐịa điểm: Phòng Tiếp công dân phường. LĐVP: Trinh VP: Phương.\n- 08 giờ, Chủ tịch UBND, các Phó Chú tịch HDND-UBND phường\ndự Kỳ họp lân thứ nhât HĐND phường An Phú khoá II, nhiệm kỳ 2026 -\n2031.\nhà Mời dự: Đại điện lãnh"
+        },
+        {
+          "document_id": "an_phu_2468",
+          "chunk_index": 2,
+          "score": 0.016884,
+          "heading_context": "Thực hiện Luật tiếp công dân Quốc hội khóa XIII thông qua ngày 25/11/2013 và Nghị quyết số 759/2014/UBTVQH13 ngày 15/5/2014 của Ủy ban Thường vụ Quốc hội.\nThường trực HĐND phường, thông báo lịch tiếp công dân của Đại biểu HĐND phường 6 tháng cuối năm 2025, cụ thể như sau:",
+          "text_preview": "I. TIẾP CÔNG DÂN TẠI ĐIỂM TIẾP CÔNG DÂN PHƯỜNG\nTheo lịch làm việc của Thường trực HĐND – UBND phường An Phú:\nGồm các đại biểu:\n1. Bà Nguyễn Thị Hiền – Bí thư Đảng ủy – CT.HĐND phường.\n2. Bà Nguyễn Thị Ngọc Bích – Đảng ủy"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-3032026-den-0442026",
+          "chunk_index": 6,
+          "score": 0.016805,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 30/3/2026 đến 04/4/2026.",
+          "text_preview": "Mời dự: Thành viên Ủy ban nhân phường An Phú.\n(Giao Phòng Văn hóa - Xã hội chuẩn bị nội dung, tài liệu họp)\nĐịa điểm: Hội trường B- UBND phường. ˆ\nLĐVP: Trinh, Tuấn.. |\n¬- ty\n_ THỨ NĂM - 02/4/2026 z\nSứng - 08 giờ, Chủ tị"
+        },
+        {
+          "document_id": "an_phu_2838",
+          "chunk_index": 1,
+          "score": 0.016375,
+          "heading_context": "Số: 25 /NQ-HĐND An Phú, ngày 29 tháng 7 năm 2026",
+          "text_preview": "NGHỊ QUYẾT\nBan hành Quy chế tiếp công dân, tiếp nhận, phân loại, xử lý đơn và giám sát của Hội đồng nhân dân phường đối với việc giải quyết khiếu\nnại, tố cáo, kiến nghị, phản ánh của cơ quan, tổ chức, cá nhân trên địa bà"
+        }
+      ]
+    },
+    {
+      "id": "ap-q002",
+      "question": "Nghị quyết số 15/NQ-HĐND quy định nội dung gì?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_2466"
+      ],
+      "retrieved_chunks": [
+        "an_phu_2466"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_2466",
+          "chunk_index": 0,
+          "score": 1.002,
+          "heading_context": "",
+          "text_preview": "HỘI ĐỒNG NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯỜNG AN PHÚ Độc lập - Tự do - Hạnh phúc\nSố: 15/NQ-HĐND An Phú, ngày 29 tháng 7 năm 2025\n\nNGHỊ QUYẾT\nPhân bổ dự toán thu, chi ngân sách nhà nước phường An Phú năm 202"
+        },
+        {
+          "document_id": "an_phu_2466",
+          "chunk_index": 1,
+          "score": 1.002,
+          "heading_context": "",
+          "text_preview": "Căn cứ Luật Tổ chức chính quyền địa phương ngày 16/6/2025; Căn cứ Luật Ngân sách nhà nước số 83/2015/QH13 ngày 25/6/2015; Căn cứ Luật Ngân sách nhà nước số 89/2025/QH15 ngày 25/6/2025; Căn cứ Luật số 56/2024/QH15 ngày 29"
+        },
+        {
+          "document_id": "an_phu_2466",
+          "chunk_index": 10,
+          "score": 1.002,
+          "heading_context": "Đơn vị tính: đồng",
+          "text_preview": "II. Các khoản thu phân chia theo tỷ lệ(1) | 2.980.000.000 | II. Chi thường xuyên | 187.218.000.000\n\nIII. Thu bổ sung | 151.358.000.000 | III. Dự phòng | 3.781.000.000"
+        },
+        {
+          "document_id": "an_phu_2466",
+          "chunk_index": 11,
+          "score": 1.002,
+          "heading_context": "Đơn vị tính: đồng",
+          "text_preview": "- Bổ sung cân đối ngân sách cấp trên | 150.034.000.000 | |\n\n- Bổ sung có mục tiêu | 1.324.000.000 | |"
+        },
+        {
+          "document_id": "an_phu_2466",
+          "chunk_index": 12,
+          "score": 1.002,
+          "heading_context": "Đơn vị tính: đồng",
+          "text_preview": "IV. Thu chuyển nguồn | 30.759.000.000 | |\n\n- Chuyển nguồn CCTL | 26.316.000.000 | |"
+        }
+      ]
+    },
+    {
+      "id": "ap-q003",
+      "question": "Dự toán thu, chi ngân sách phường An Phú năm 2026 được quy định ở văn bản nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_2790"
+      ],
+      "retrieved_chunks": [
+        "an_phu_2809",
+        "an_phu_2793",
+        "an_phu_2790"
+      ],
+      "first_relevant_rank": 3,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 0.5
+        },
+        "mrr": 0.3333333333333333,
+        "average_precision": 0.3333333333333333
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_2809",
+          "chunk_index": 4,
+          "score": 0.01819,
+          "heading_context": "",
+          "text_preview": "Căn cứ Nghị quyết số 22/NQ-HĐND ngày 24 tháng 12 năm 2025 của Hội đồng nhân dân phường An Phú về Dự toán thu, chi ngân sách Nhà nước năm 2026 và phương án phân bổ dự toán ngân sách phường năm 2026;\n\nCăn cứ Nghị quyết số "
+        },
+        {
+          "document_id": "an_phu_2793",
+          "chunk_index": 4,
+          "score": 0.017543,
+          "heading_context": "",
+          "text_preview": "Căn cứ Nghị quyết số 21/NQ-HĐND ngày 24 tháng 12 năm 2025 của Hội đồng nhân dân phường An Phú về Dự toán thu, chi ngân sách Nhà nước năm 2026 và phương án phân bổ dự toán ngân sách phường năm 2026;\n\nCăn cứ Quyết định số "
+        },
+        {
+          "document_id": "an_phu_2793",
+          "chunk_index": 66,
+          "score": 0.017031,
+          "heading_context": "TỔNG CỘNG | | | | | | | 13.719.000.000 | 13.719.000.000 | |",
+          "text_preview": "PHÂN BỔ DỰ TOÁN CHI NGÂN SÁCH NĂM 2026 SAU ĐIỀU CHỈNH\n(Ban hành kèm theo Nghị quyết số: 02 /NQ-HĐND ngày 09 /01/2026 của Hội đồng nhân dân phường An Phú)\nĐơn vị: đồng\n\nSTT | Chương | Loại | Khoản | Diễn giải | Dự toán nă"
+        },
+        {
+          "document_id": "an_phu_2790",
+          "chunk_index": 2,
+          "score": 0.016884,
+          "heading_context": "HỘI ĐỒNG NHÂN DÂN PHƯỜNG AN PHÚ\nKHÓA I, KỲ HỌP THỨ TƯ",
+          "text_preview": "Căn cứ Quyết định số 3199/QĐ-UBND ngày 15 tháng 12 năm 2025 của Ủy ban nhân dân Thành phố Hồ Chí Minh về giao dự toán ngân sách địa phương năm 2026; Xét Tờ trình số 1585/TTr-UBND ngày 22 tháng 12 năm 2025 của Ủy ban nhân"
+        },
+        {
+          "document_id": "an_phu_2809",
+          "chunk_index": 6,
+          "score": 0.0168,
+          "heading_context": "",
+          "text_preview": "Căn cứ Quyết định số 2589/QĐ-UBND ngày 30 tháng 4 năm 2026 của Ủy ban nhân dân Thành phố Hồ Chí Minh về điều chỉnh dự toán thu ngân sách nhà nước; thu, chi ngân sách địa phương năm 2026;\n\nXét theo Tờ trình số 32/TTr-UBND"
+        }
+      ]
+    },
+    {
+      "id": "ap-q004",
+      "question": "Quyết toán ngân sách phường An Phú năm 2025 được phê chuẩn tại văn bản nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_2796"
+      ],
+      "retrieved_chunks": [
+        "an_phu_2796",
+        "an_phu_2786"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_2796",
+          "chunk_index": 1,
+          "score": 0.018667,
+          "heading_context": "",
+          "text_preview": "NGHỊ QUYẾT\nPhê chuẩn quyết toán ngân sách phường An Phú năm 2025\n\nCăn cứ Luật Tổ chức chính quyền địa phương ngày 16 tháng 6 năm 2025;"
+        },
+        {
+          "document_id": "an_phu_2796",
+          "chunk_index": 7,
+          "score": 0.018393,
+          "heading_context": "Điều 1. Phê chuẩn quyết toán ngân sách phường An Phú năm 2025 như sau:",
+          "text_preview": "Điều 1. Phê chuẩn quyết toán ngân sách phường An Phú năm 2025 như sau:\n\n1. Tổng thu ngân sách Nhà nước trên địa bàn: 457.674 triệu đồng, đạt 330% so với dự toán (138.844 triệu đồng). Trong đó:"
+        },
+        {
+          "document_id": "an_phu_2786",
+          "chunk_index": 14,
+          "score": 0.017774,
+          "heading_context": "Điều 1. Thông qua điều chỉnh dự toán ngân sách phường năm 2025 từ nguồn ngân sách Thành phố bổ sung cho ngân sách phường năm 2025 và điều chỉnh phân bổ dự toán ngân sách phường năm 2025",
+          "text_preview": "1. Điều chỉnh dự toán ngân sách phường năm 2025 từ nguồn ngân sách Thành phố bổ sung cho ngân sách phường năm 2025\n\nĐiều chỉnh nội dung Điều 1 Nghị quyết số 15/NQ-HĐND ngày 29 tháng 7 năm 2025 của Hội đồng nhân dân phườn"
+        },
+        {
+          "document_id": "an_phu_2796",
+          "chunk_index": 4,
+          "score": 0.017475,
+          "heading_context": "Căn cứ Luật Ngân sách nhà nước ngày 25 tháng 6 năm 2015;",
+          "text_preview": "Căn cứ Quyết định số 126/QĐ-UBND ngày 31 tháng 7 năm 2025 của Ủy ban nhân dân phường An Phú về việc giao dự toán thu, chi ngân sách phường An Phú năm 2025 sau sắp xếp;\n\nCăn cứ Quyết định số 2051/QĐ-UBND ngày 10 tháng 10 "
+        },
+        {
+          "document_id": "an_phu_2796",
+          "chunk_index": 5,
+          "score": 0.017113,
+          "heading_context": "Căn cứ Luật Ngân sách nhà nước ngày 25 tháng 6 năm 2015;",
+          "text_preview": "Căn cứ Quyết định số 2735/QĐ-UBND ngày 14 tháng 11 năm 2025 của Ủy ban nhân dân Thành phố Hồ Chí Minh Về điều chỉnh dự toán thu, chi ngân sách địa phương năm 2025 của Thành phố Hồ Chí Minh;\n\nCăn cứ Quyết định số 1406/QĐ-"
+        }
+      ]
+    },
+    {
+      "id": "ap-q005",
+      "question": "Chương trình giám sát của HĐND phường An Phú năm 2026 nằm ở văn bản nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_2783"
+      ],
+      "retrieved_chunks": [
+        "an_phu_2782",
+        "an_phu_2783",
+        "an_phu_2810",
+        "an_phu_2794"
+      ],
+      "first_relevant_rank": 2,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 0.6309297535714575
+        },
+        "mrr": 0.5,
+        "average_precision": 0.5
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_2782",
+          "chunk_index": 1,
+          "score": 0.01825,
+          "heading_context": "",
+          "text_preview": "Căn cứ Luật Tổ chức chính quyền địa phương ngày 16/6/2025; Căn cứ Luật hoạt động giám sát của Quốc hội và Hội đồng nhân dân ngày 20/11/2015; Xét tờ trình số 07/TTr –TT.HĐND ngày 28/7/2025 của Thường trực Hội đồng nhân dâ"
+        },
+        {
+          "document_id": "an_phu_2783",
+          "chunk_index": 2,
+          "score": 0.017873,
+          "heading_context": "",
+          "text_preview": "Thường trực Hội đồng nhân dân phường:\n- Ban hành kế hoạch tổ chức thực hiện chương trình giám sát của Hội đồng nhân dân phường năm 2026 và báo cáo kết quả thực hiện tại kỳ họp thường lệ giữa năm 2026.\n- Quyết định chương"
+        },
+        {
+          "document_id": "an_phu_2783",
+          "chunk_index": 1,
+          "score": 0.017682,
+          "heading_context": "",
+          "text_preview": "Căn cứ Luật Tổ chức chính quyền địa phương ngày 16/6/2025; Căn cứ Luật Hoạt động giám sát của Quốc hội và Hội đồng nhân dân ngày 20/11/2015; Xét tờ trình số 06/TTr-HĐND ngày 28/7/2025 của Hội đồng nhân dân phường về chươ"
+        },
+        {
+          "document_id": "an_phu_2810",
+          "chunk_index": 2,
+          "score": 0.017381,
+          "heading_context": "HỘI ĐỒNG NHÂN DÂN PHƯỜNG AN PHÚ\nKHÓA XII, KỲ HỌP THỨ 3",
+          "text_preview": "Căn cứ Luật Tổ chức chính quyền địa phương số 72/2025/QH15;\nCăn cứ Luật hoạt động giám sát của Quốc hội và Hội đồng nhân dân số 121/2025/QH15; Nghị quyết số 114/2025/UBTVQH15 về Quy định chi tiết và hướng dẫn thi hành Lu"
+        },
+        {
+          "document_id": "an_phu_2794",
+          "chunk_index": 21,
+          "score": 0.016137,
+          "heading_context": "7",
+          "text_preview": "7\n\ntrực Ủy ban Mặt trận Tổ quốc Việt Nam phường giám sát Nghị quyết.\nNghị quyết này được Hội đồng nhân dân phường An Phú khóa I, kỳ họp lần thứ 5 thông qua ngày 09 tháng 01 năm 2026 và có hiệu lực thi hành kể từ ngày thô"
+        }
+      ]
+    },
+    {
+      "id": "ap-q006",
+      "question": "Văn bản nào sắp xếp, tổ chức lại khu phố trên địa bàn phường An Phú?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_2812"
+      ],
+      "retrieved_chunks": [
+        "an_phu_2777",
+        "an_phu_2812"
+      ],
+      "first_relevant_rank": 2,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 0.6309297535714575
+        },
+        "mrr": 0.5,
+        "average_precision": 0.5
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_2777",
+          "chunk_index": 1,
+          "score": 0.018557,
+          "heading_context": "",
+          "text_preview": "Căn cứ Luật Tổ chức chính quyền địa phương ngày 16 tháng 6 năm 2025; Căn cứ Nghị định số 185/2026/NĐ-CP ngày 26 tháng 5 năm 2026 của Chính phủ quy định về tổ chức, hoạt động của thôn, tổ dân phố và chính sách đối với ngư"
+        },
+        {
+          "document_id": "an_phu_2812",
+          "chunk_index": 1,
+          "score": 0.017873,
+          "heading_context": "",
+          "text_preview": "NGHỊ QUYẾT\nVề việc sắp xếp, tổ chức lại khu phố\ntrên địa bàn phường An Phú năm 2026\n\nHỘI ĐỒNG NHÂN DÂN PHƯỜNG AN PHÚ\nKHÓA II, KỲ HỌP THỨ 3"
+        },
+        {
+          "document_id": "an_phu_2777",
+          "chunk_index": 2,
+          "score": 0.017831,
+          "heading_context": "",
+          "text_preview": "Việc sắp xếp khu phố nhằm bảo đảm tổ chức khu phố phù hợp với tình hình thực tiễn, nâng cao hiệu quả hoạt động tự quản ở cộng đồng dân cư, tạo điều kiện thuận lợi trong công tác quản lý, điều hành, triển khai các nhiệm v"
+        },
+        {
+          "document_id": "an_phu_2812",
+          "chunk_index": 12,
+          "score": 0.017827,
+          "heading_context": "3",
+          "text_preview": "DANH SÁCH KHU PHỐ SAU KHI THỰC HIỆN\nSẮP XẾP, TỔ CHỨC LẠI TRÊN ĐỊA BÀN PHƯỜNG AN PHÚ\n(Ban hành kèm theo Nghị quyết số 21 /NQ-HĐND ngày 22 tháng 6 năm 2026)\n\nSTT | Tên khu phố sau sắp xếp | Số hộ gia đình"
+        },
+        {
+          "document_id": "an_phu_2812",
+          "chunk_index": 5,
+          "score": 0.017806,
+          "heading_context": "QUYẾT NGHỊ:",
+          "text_preview": "QUYẾT NGHỊ:\n\nĐiều 1 Sắp xếp, tổ chức lại 07 Khu phố thành 14 Khu phố trực thuộc phường An Phú như sau:\n1 Giữ nguyên 03 Khu phố gồm: Khu phố 1A, Khu phố 2 và Khu phố 3.\n2"
+        }
+      ]
+    },
+    {
+      "id": "ap-q007",
+      "question": "Nghị quyết về biện pháp bảo đảm thực hiện dân chủ ở cơ sở là văn bản nào?",
+      "difficulty": "medium",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_2791"
+      ],
+      "retrieved_chunks": [
+        "an_phu_2791"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_2791",
+          "chunk_index": 4,
+          "score": 0.018667,
+          "heading_context": "QUYẾT NGHỊ:",
+          "text_preview": "QUYẾT NGHỊ:\n\nĐiều 1. Quyết định các biện pháp bảo đảm thực hiện dân chủ ở cơ sở trên\n2"
+        },
+        {
+          "document_id": "an_phu_2791",
+          "chunk_index": 1,
+          "score": 0.018393,
+          "heading_context": "",
+          "text_preview": "NGHỊ QUYẾT\nVề các biện pháp bảo đảm thực hiện dân chủ ở cơ sở\ntrên địa bàn phường An Phú\n\nHỘI ĐỒNG NHÂN DÂN PHƯỜNG AN PHÚ\nKHÓA I, KỲ HỌP THỨ TƯ"
+        },
+        {
+          "document_id": "an_phu_2791",
+          "chunk_index": 7,
+          "score": 0.017873,
+          "heading_context": "Điều 2. Đối tượng áp dụng.\n1. Cán bộ, công chức, viên chức, người lao động.\n2. Các cơ quan, tổ chức và cá nhân có liên quan đến thực hiện dân chủ ở cơ sở tại phường.",
+          "text_preview": "Điều 2 Đối tượng áp dụng.\n1 Cán bộ, công chức, viên chức, người lao động.\n2 Các cơ quan, tổ chức và cá nhân có liên quan đến thực hiện dân chủ ở cơ sở tại phường. Điều 3 Các biện pháp bảo đảm thực hiện dân chủ ở cơ sở tr"
+        },
+        {
+          "document_id": "an_phu_2791",
+          "chunk_index": 5,
+          "score": 0.016487,
+          "heading_context": "Điều 1. Quyết định các biện pháp bảo đảm thực hiện dân chủ ở cơ sở trên\n2",
+          "text_preview": "địa bàn phường An Phú bao gồm:\n1 Bồi dưỡng nâng cao năng lực chuyên môn, nghiệp vụ cho người được giao nhiệm vụ tổ chức thực hiện pháp luật về thực hiện dân chủ ở cơ sở.\n2 Tăng cường công tác thông tin, tuyên truyền, phổ"
+        },
+        {
+          "document_id": "an_phu_2791",
+          "chunk_index": 11,
+          "score": 0.016435,
+          "heading_context": "Điều 3. Các biện pháp bảo đảm thực hiện dân chủ ở cơ sở trên địa bàn phường An Phú.\n1. Bồi dưỡng nâng cao năng lực chuyên môn, nghiệp vụ cho người được giao nhiệm vụ tổ chức thực hiện pháp luật về thực hiện dân chủ ở cơ sở.\na) Bồi dưỡng theo tiêu chuẩn ngạch công chức, chức danh nghề nghiệp viên chức; theo yêu cầu vị trí việc làm; bồi dưỡng kiến thức kỹ năng chuyên ngành hằng năm theo quy định.\nb) Bồi dưỡng, cập nhật kiến thức dành cho cán bộ lãnh đạo, quản lý.\nc) Bồi dưỡng, tập huấn nâng cao năng lực, nghiệp vụ cho người được giao nhiệm vụ tổ chức thực hiện pháp luật về thực hiện quy chế dân chủ ở cơ sở, nội dung bồi dưỡng tập trung vào những điểm mới cần lưu ý và giải đáp, hướng dẫn các vấn đề quy định chưa cụ thể, các nội dung khó khăn, vướng mắc phát sinh thực tế tại cơ quan, đơn vị.\nd) Tổ chức Đoàn đi học tập, trao đổi kinh nghiệm thực tế trong nước và\n3",
+          "text_preview": "các điều kiện tiếp cận pháp luật, các quy định về thực hiện dân chủ ở cơ sở rộng rãi trong Nhân dân, doanh nghiệp; thực hiện có hiệu quả các quy định dân chủ ở cơ sở gắn với phương châm “dân biết, dân bàn, dân làm, dân k"
+        }
+      ]
+    },
+    {
+      "id": "ap-q008",
+      "question": "Nghị quyết phát triển Kinh tế - Xã hội phường An Phú giai đoạn 2026-2030 là văn bản nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_2794"
+      ],
+      "retrieved_chunks": [
+        "an_phu_2794",
+        "an_phu_2808",
+        "an_phu_2837"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_2794",
+          "chunk_index": 2,
+          "score": 0.018393,
+          "heading_context": "QUYẾT NGHỊ:",
+          "text_preview": "QUYẾT NGHỊ:\n\nĐiều 1 Hội đồng nhân dân phường tán thành nội dung phương hướng, nhiệm vụ và các chỉ tiêu, giải pháp thực hiện Kế hoạch phát triển Kinh tế - Xã hội giai đoạn 2026 - 2030 của Ủy ban nhân dân phường, đồng thời"
+        },
+        {
+          "document_id": "an_phu_2808",
+          "chunk_index": 15,
+          "score": 0.016819,
+          "heading_context": "Điều 3. Điều khoản thi hành",
+          "text_preview": "PHỤ LỤC\nChỉ tiêu phát triển Kinh tế - Xã hội năm 2026 sau điều chỉnh, bổ sung\n(Kèm theo Nghị quyết số 17 /NQ-HĐND ngày 10 / 6 /2026\ncủa UBND phường An Phú)\n\nPhấn đấu thực hiện đạt và vượt các chỉ tiêu chủ yếu về phát tri"
+        },
+        {
+          "document_id": "an_phu_2837",
+          "chunk_index": 1,
+          "score": 0.016286,
+          "heading_context": "Số: 24 /NQ-HĐND An Phú, ngày 31 tháng 7 năm 2026",
+          "text_preview": "NGHỊ QUYẾT\nVề mục tiêu, nhiệm vụ và giải pháp bảo đảm an sinh xã hội\ngiai đoạn 2025 - 2030 trên địa bàn phường An Phú\n\nHỘI ĐỒNG NHÂN DÂN PHƯỜNG AN PHÚ\nKHÓA II, KỲ HỌP THỨ 4 (CHUYÊN ĐỀ)"
+        },
+        {
+          "document_id": "an_phu_2794",
+          "chunk_index": 0,
+          "score": 0.015896,
+          "heading_context": "",
+          "text_preview": "HỘI ĐỒNG NHÂN DÂN CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯỜNG AN PHÚ Độc lập - Tự do - Hạnh phúc\nSố: 03 /NQ-HĐND An Phú, ngày 09 tháng 01 năm 2026\n\nNGHỊ QUYẾT\nVề kế hoạch phát triển Kinh tế - Xã hội phường An Phú\ngiai đoạn"
+        },
+        {
+          "document_id": "an_phu_2794",
+          "chunk_index": 10,
+          "score": 0.015869,
+          "heading_context": "3",
+          "text_preview": "Nghị quyết số 68-NQ/TW ngày 04/5/2025 Nghị quyết số 70-NQ/TW ngày 20/8/2025 Nghị quyết số 71-NQ/TW ngày 22/8/2025 Nghị quyết số 72-NQ/TW ngày 09/9/2025 Thực hiện kế hoạch phát triển giai đoạn 05 năm theo Nghị quyết số 48"
+        }
+      ]
+    },
+    {
+      "id": "ap-q009",
+      "question": "Quy chế làm việc của HĐND phường An Phú khóa II được ban hành tại văn bản nào?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_2813"
+      ],
+      "retrieved_chunks": [
+        "an_phu_2803",
+        "an_phu_2798",
+        "an_phu_2797",
+        "an_phu_2813"
+      ],
+      "first_relevant_rank": 4,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 0.43067655807339306
+        },
+        "mrr": 0.25,
+        "average_precision": 0.25
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_2803",
+          "chunk_index": 7,
+          "score": 0.017479,
+          "heading_context": "Điều 1. Thông qua kế hoạch tổ chức các kỳ họp thường lệ năm 2026 của Hội đồng nhân dân phường An Phú khóa II, nhiệm kỳ 2026 - 2031 gồm các nội dung cụ thể sau:",
+          "text_preview": "Nghị quyết này đã được Hội đồng nhân dân phường An Phú khóa II, kỳ họp thứ nhất thông qua ngày 31 tháng 3 năm 2026 và có hiệu lực kể từ ngày thông qua./.\n\nNơi nhận: CHỦ TỊCH\n- Thường trực HĐND Thành phố;\n- Văn phòng Đoàn"
+        },
+        {
+          "document_id": "an_phu_2798",
+          "chunk_index": 2,
+          "score": 0.017109,
+          "heading_context": "HỘI ĐỒNG NHÂN DÂN PHƯỜNG AN PHÚ\nKHOÁ II, KỲ HỌP THỨ NHẤT",
+          "text_preview": "Căn cứ Luật Tổ chức chính quyền địa phương ngày 16 tháng 6 năm 2025;\nCăn cứ hướng dẫn số 1563/HD-UBTVQH15 ngày 13 tháng 3 năm 2026 của Ủy ban thường vụ Quốc hội về hướng dẫn một số nội dung về việc tổ chức kỳ họp thứ nhấ"
+        },
+        {
+          "document_id": "an_phu_2797",
+          "chunk_index": 2,
+          "score": 0.016538,
+          "heading_context": "HỘI ĐỒNG NHÂN DÂN PHƯỜNG AN PHÚ\nKHOÁ II - KỲ HỌP THỨ NHẤT",
+          "text_preview": "Căn cứ Luật Tổ chức chính quyền địa phương ngày 16 tháng 6 năm 2025;\nCăn cứ hướng dẫn số 1563/HD-UBTVQH15 ngày 13 tháng 3 năm 2026 của Ủy ban thường vụ Quốc hội về hướng dẫn một số nội dung về việc tổ chức kỳ họp thứ nhấ"
+        },
+        {
+          "document_id": "an_phu_2813",
+          "chunk_index": 4,
+          "score": 0.015272,
+          "heading_context": "HỘI ĐỒNG NHÂN DÂN PHƯỜNG AN PHÚ\nKHÓA II, KỲ HỌP THỨ HAI",
+          "text_preview": "Căn cứ Nghị quyết số 104/2025/UBTVQH15 ngày 26 tháng 9 năm 2025 của Ủy ban Thường vụ Quốc hội về ban hành Quy chế làm việc mẫu của Hội đồng nhân dân xã, phường, đặc khu,\n\nXét Tờ trình số 19/TTr-HĐND ngày 10 tháng 6 năm 2"
+        },
+        {
+          "document_id": "an_phu_2813",
+          "chunk_index": 5,
+          "score": 0.01527,
+          "heading_context": "QUYẾT NGHỊ:",
+          "text_preview": "QUYẾT NGHỊ:\n\nĐiều 1. Ban hành kèm theo Nghị quyết này là Quy chế làm việc của Hội đồng nhân dân phường An Phú khóa II, nhiệm kỳ 2026 - 2031."
+        }
+      ]
+    },
+    {
+      "id": "ap-q010",
+      "question": "Thông báo phân công các Tổ đại biểu HĐND phường An Phú khóa I là văn bản nào?",
+      "difficulty": "medium",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_2467"
+      ],
+      "retrieved_chunks": [
+        "an_phu_2467",
+        "an_phu_2806",
+        "an_phu_2784"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_2467",
+          "chunk_index": 8,
+          "score": 0.018667,
+          "heading_context": "Căn cứ Luật Tổ chức chính quyền địa phương số 72/2025/QH15 ngày 16/6/2025;\nCăn cứ Nghị quyết số 1685/NQ-UBTVQH15 ngày 16/6/2025 của Ủy ban Thường vụ Quốc hội về sắp xếp các đơn vị hành chính cấp xã của Thành phố Hồ Chí Minh năm 2025;\nCăn cứ thông báo số 06/TB-HĐND ngày 01 tháng 7 năm 2025 của Hội đồng nhân dân phường An Phú về Thông báo số lượng và danh sách đại biểu Hội đồng nhân dân phường An Phú nhiệm kỳ 2021 – 2026;\nNhằm đảm bảo cho các đại biểu Hội đồng nhân dân phường thực hiện tốt nhiệm vụ đối với cử tri. Thường trực Hội đồng nhân dân phường An Phú thông báo phân công đại biểu về sinh hoạt tại các Tổ đại biểu HĐND phường nhiệm kỳ 2021 - 2026 như sau:",
+          "text_preview": "Trên đây là Thông báo về việc phân công đại biểu sinh hoạt tại các Tổ đại biểu HĐND phường khóa I, nhiệm kỳ 2021 – 2026. Thường trực HĐND phường An Phú đề nghị đại biểu HĐND phường sắp xếp thời gian công tác tham dự đầy "
+        },
+        {
+          "document_id": "an_phu_2806",
+          "chunk_index": 5,
+          "score": 0.018288,
+          "heading_context": "Điều 1. Thành lập 07 Tổ đại biểu Hội đồng nhân dân và chỉ định Tổ trưởng, Tổ phó các Tổ đại biểu Hội đồng nhân dân phường An Phú khóa II, nhiệm kỳ 2026 - 2031.\n(Có Danh sách kèm theo)\nĐiều 2. Tổ đại biểu Hội đồng nhân dân phường An Phú; Tổ trưởng, Tổ phó các Tổ đại biểu Hội đồng nhân dân phường An Phú có trách nhiệm thực hiện chức năng, nhiệm vụ và quyền hạn theo quy định của pháp luật.\nĐiều 3. Nghị quyết này có hiệu lực thi hành kể từ ngày ký. Các Tổ đại biểu và đại biểu Hội đồng nhân dân phường An Phú theo chức năng, nhiệm vụ thực hiện Nghị quyết này.\nNghị quyết này được Hội đồng nhân dân phường An Phú khóa II, kỳ họp thứ nhất thông qua ngày 31 tháng 3 năm 2026 và có hiệu lực thi hành kể từ ngày ký./.",
+          "text_preview": "DANH SÁCH\nCác Tổ đại biểu Hội đồng nhân dân và chỉ định Tổ trưởng, Tổ phó các Tổ\nđại biểu Hội đồng nhân dân phường An Phú khóa II, nhiệm kỳ 2026 - 2031\n(Kèm theo Nghị quyết số: 15 /NQ-HĐND ngày 31/3/2026 của HĐND phường "
+        },
+        {
+          "document_id": "an_phu_2467",
+          "chunk_index": 1,
+          "score": 0.017831,
+          "heading_context": "Căn cứ Luật Tổ chức chính quyền địa phương số 72/2025/QH15 ngày 16/6/2025;\nCăn cứ Nghị quyết số 1685/NQ-UBTVQH15 ngày 16/6/2025 của Ủy ban Thường vụ Quốc hội về sắp xếp các đơn vị hành chính cấp xã của Thành phố Hồ Chí Minh năm 2025;\nCăn cứ thông báo số 06/TB-HĐND ngày 01 tháng 7 năm 2025 của Hội đồng nhân dân phường An Phú về Thông báo số lượng và danh sách đại biểu Hội đồng nhân dân phường An Phú nhiệm kỳ 2021 – 2026;\nNhằm đảm bảo cho các đại biểu Hội đồng nhân dân phường thực hiện tốt nhiệm vụ đối với cử tri. Thường trực Hội đồng nhân dân phường An Phú thông báo phân công đại biểu về sinh hoạt tại các Tổ đại biểu HĐND phường nhiệm kỳ 2021 - 2026 như sau:",
+          "text_preview": "Căn cứ Luật Tổ chức chính quyền địa phương số 72/2025/QH15 ngày 16/6/2025;\nCăn cứ Nghị quyết số 1685/NQ-UBTVQH15 ngày 16/6/2025 của Ủy ban Thường vụ Quốc hội về sắp xếp các đơn vị hành chính cấp xã của Thành phố Hồ Chí M"
+        },
+        {
+          "document_id": "an_phu_2806",
+          "chunk_index": 3,
+          "score": 0.016929,
+          "heading_context": "QUYẾT NGHỊ:",
+          "text_preview": "QUYẾT NGHỊ:\n\nĐiều 1. Thành lập 07 Tổ đại biểu Hội đồng nhân dân và chỉ định Tổ trưởng, Tổ phó các Tổ đại biểu Hội đồng nhân dân phường An Phú khóa II, nhiệm kỳ 2026 - 2031.\n(Có Danh sách kèm theo)\nĐiều 2. Tổ đại biểu Hội"
+        },
+        {
+          "document_id": "an_phu_2784",
+          "chunk_index": 2,
+          "score": 0.016821,
+          "heading_context": "QUYẾT NGHỊ:",
+          "text_preview": "QUYẾT NGHỊ:\n\nĐiều 1. Xác nhận kết quả miễn nhiệm chức vụ Ủy viên Ủy ban nhân dân phường An Phú khóa I, nhiệm kỳ 2021 – 2026 đối với các ông (bà) có tên sau:\nÔng Lê Tuấn Anh - Nguyên trưởng Công an phường An Phú.\nĐiều 2. "
+        }
+      ]
+    },
+    {
+      "id": "ap-q011",
+      "question": "Thủ tục đăng ký khai sinh có lệ phí bao nhiêu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "dvc_procedure_019d2bfd-3fe0-70ac-b9d6-5e9e20d6eef7"
+      ],
+      "retrieved_chunks": [
+        "dvc_procedure_019d2bfd-3fe0-70ac-b9d6-5e9e20d6eef7",
+        "dvc_procedure_019d2bfc-ab02-72f7-8377-62acdf116a4c",
+        "dvc_procedure_019d2bfd-6eac-7598-b88b-15f8a61b366a"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "dvc_procedure_019d2bfd-3fe0-70ac-b9d6-5e9e20d6eef7",
+          "chunk_index": 13,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Trường hợp người yêu cầu nộp bản chụp kèm theo bản chính giấy tờ thì người tiếp nhận có trách nhiệm kiểm tra, đối chiếu bản chụp với bản chính và ký xác nhận, không được yêu cầu nộp bản sao giấy tờ đó.; - Người có yêu cầ"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-3fe0-70ac-b9d6-5e9e20d6eef7",
+          "chunk_index": 15,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Sửa đổi, bổ sung một số điều của Thông tư số 02/2020/TT-BTP ngày 08/4/2020 của Bộ trưởng Bộ Tư pháp ban hành, hướng dẫn sử dụng, quản lý mẫu sổ quốc tịch và mẫu giấy tờ về quốc tịch và Thông tư số 04/2020/TT-BTP ngày 28/"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfc-ab02-72f7-8377-62acdf116a4c",
+          "chunk_index": 0,
+          "score": 0.002,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Đăng ký sử dụng hoá đơn điện tử/Thay đổi nội dung đăng ký sử dụng hoá đơn điện tử/Ủy nhiệm lập hóa đơn điện tử/Chuyển đổi áp dụng hóa đơn điện tử có mã của cơ quan thuế/Khai thác dữ liệu của chi nhánh, đơn vị ph"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-6eac-7598-b88b-15f8a61b366a",
+          "chunk_index": 4,
+          "score": 0.01416,
+          "heading_context": "",
+          "text_preview": "Giấy tờ khác có thông tin về họ, tên, ngày, tháng, năm sinh của cá nhân.; + Bản sao Giấy khai sinh do cơ quan có thẩm quyền của Việt Nam cấp hợp lệ (bản sao được chứng thực từ bản chính, bản sao được cấp từ Sổ đăng ký kh"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-6eac-7598-b88b-15f8a61b366a",
+          "chunk_index": 0,
+          "score": 0.011677,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Thủ tục đăng ký lại khai sinh\nMã thủ tục: 1.004884\nCơ quan thực hiện: Ủy ban nhân dân cấp xã\nHồ sơ: Trường hợp các thông tin cá nhân trong các giấy tờ này đã có trong Cơ sở dữ liệu quốc gia về dân cư, Cơ sơ"
+        }
+      ]
+    },
+    {
+      "id": "ap-q012",
+      "question": "Cấp bản sao trích lục hộ tịch mất bao lâu và lệ phí bao nhiêu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "dvc_procedure_019d2bfd-867c-72db-b6a7-dcbd8c763807"
+      ],
+      "retrieved_chunks": [
+        "dvc_procedure_019d2bfd-867c-72db-b6a7-dcbd8c763807",
+        "dvc_procedure_019d2bfd-8e5d-72f9-8cf2-c71780251483",
+        "dvc_procedure_019d2c00-009b-747f-89bc-b5c3ddc311ab"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "dvc_procedure_019d2bfd-867c-72db-b6a7-dcbd8c763807",
+          "chunk_index": 10,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "bản sao Trích lục hộ tịch (do người yêu cầu cung cấp thông tin theo hướng dẫn trên Cổng dịch vụ công, nếu người có yêu cầu lựa chọn nộp hồ sơ theo hình thức trực tuyến); - Người có yêu cầu cấp bản sao Trích lục hộ tịch t"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-867c-72db-b6a7-dcbd8c763807",
+          "chunk_index": 11,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Nghị định sửa đổi, bổ sung một số điều của các Nghị định trong lĩnh vực hộ tịch, quốc tịch, chứng thực. Nghị định số 120/2025/NĐ-CP ngày 11/6/2025 của Chính phủ quy định về phân định thẩm quyền của chính quyền địa phương"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-8e5d-72f9-8cf2-c71780251483",
+          "chunk_index": 0,
+          "score": 0.008383,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Thủ tục cấp bản sao từ sổ gốc\nMã thủ tục: 2.000908\nCơ quan thực hiện: UBND phường An Phú\nMô tả: Cơ quan, tổ chức căn cứ vào sổ gốc để cấp bản sao; nội dung bản sao phải đúng theo sổ gốc. Hồ sơ: Một trong các giấ"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-8e5d-72f9-8cf2-c71780251483",
+          "chunk_index": 1,
+          "score": 0.006444,
+          "heading_context": "",
+          "text_preview": "Bản chính hoặc bản sao có chứng thực giấy tờ chứng minh quan hệ với người được cấp bản chính trong trường hợp người yêu cầu là người đại diện theo pháp luật, người đại diện theo ủy quyền của cá nhân, tổ chức được cấp bản"
+        },
+        {
+          "document_id": "dvc_procedure_019d2c00-009b-747f-89bc-b5c3ddc311ab",
+          "chunk_index": 0,
+          "score": 0.009692,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Đăng ký cấp sao bản án, tài liệu trong hồ sơ vụ án\nMã thủ tục: 3.000165\nCơ quan thực hiện: UBND phường An Phú\nHồ sơ: Đơn đăng ký cấp sao tài liệu; Chứng minh nhân dân/Căn cước công dân\nThời gian giải quyết: 1 OT"
+        }
+      ]
+    },
+    {
+      "id": "ap-q013",
+      "question": "Thủ tục đăng ký kết hôn có lệ phí bao nhiêu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "dvc_procedure_019d2bfd-3fac-7489-b53b-a15eb239a6fe"
+      ],
+      "retrieved_chunks": [
+        "dvc_procedure_019d2bfd-3fac-7489-b53b-a15eb239a6fe",
+        "dvc_procedure_019d2bfd-6711-733d-b674-f82cb6606242",
+        "dvc_procedure_019d2bfd-8e13-728a-a0cd-635811d8432e"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "dvc_procedure_019d2bfd-3fac-7489-b53b-a15eb239a6fe",
+          "chunk_index": 9,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Hai bên nam, nữ có thể khai chung vào một Tờ khai đăng ký kết hôn (nếu người có yêu cầu lựa chọn nộp hồ sơ theo hình thức trực tiếp); Thời gian giải quyết: 1 OTHER\nLệ phí: 0 VNĐ\nCăn cứ pháp lý: Nghị định số 120/2025/NĐ-C"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-3fac-7489-b53b-a15eb239a6fe",
+          "chunk_index": 11,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Sửa đổi, bổ sung một số điều của Thông tư số 02/2020/TT-BTP ngày 08/4/2020 của Bộ trưởng Bộ Tư pháp ban hành, hướng dẫn sử dụng, quản lý mẫu sổ quốc tịch và mẫu giấy tờ về quốc tịch và Thông tư số 04/2020/TT-BTP ngày 28/"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-6711-733d-b674-f82cb6606242",
+          "chunk_index": 0,
+          "score": 0.017304,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Thủ tục đăng ký lại kết hôn\nMã thủ tục: 1.004746\nCơ quan thực hiện: UBND phường An Phú\nHồ sơ: Bản sao Giấy chứng nhận kết hôn được cấp trước đây Nếu không có bản sao Giấy chứng nhận kết hôn thì nộp bản sao hồ sơ"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-6711-733d-b674-f82cb6606242",
+          "chunk_index": 3,
+          "score": 0.007405,
+          "heading_context": "",
+          "text_preview": "Trường hợp giấy tờ tùy thân sử dụng là: Hộ chiếu, Thẻ căn cước, Căn cước công dân, Giấy chứng nhận căn cước thì người có yêu cầu đăng ký hộ tịch chỉ cần cung cấp thông tin số định danh cá nh"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-8e13-728a-a0cd-635811d8432e",
+          "chunk_index": 13,
+          "score": 0.017714,
+          "heading_context": "",
+          "text_preview": "Hai bên nam, nữ có thể khai chung vào một Tờ khai đăng ký kết hôn (nếu người có yêu cầu lựa chọn nộp hồ sơ theo hình thức trực tiếp);; - Người có yêu cầu đăng ký kết hôn thực hiện việc nộp/xuất trình (theo hình thức trực"
+        }
+      ]
+    },
+    {
+      "id": "ap-q014",
+      "question": "Cấp Giấy xác nhận tình trạng hôn nhân có lệ phí bao nhiêu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "dvc_procedure_019d2bfd-6eb3-7019-bf3f-fc58c9ee44b9"
+      ],
+      "retrieved_chunks": [
+        "dvc_procedure_019d2bfd-6eb3-7019-bf3f-fc58c9ee44b9",
+        "dvc_procedure_019d2bfb-03d5-700b-9bb5-d92070224137",
+        "dvc_procedure_019d2bfe-b7ab-731d-844a-5e232b77afef",
+        "dvc_procedure_019d2bfe-9088-744d-aa0a-e846b6dce3d5"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "dvc_procedure_019d2bfd-6eb3-7019-bf3f-fc58c9ee44b9",
+          "chunk_index": 14,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Thời gian giải quyết: 3 OTHER\nLệ phí: 0 VNĐ\nCăn cứ pháp lý: Thông tư Hướng dẫn về phí và lệ phí thuộc thẩm quyền quyết định của Hội đồng nhân dân tỉnh, thành phố trực thuộc Trung ương Nghị định sửa đổi, bổ sung một số đi"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-6eb3-7019-bf3f-fc58c9ee44b9",
+          "chunk_index": 15,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Sửa đổi, bổ sung một số điều của Thông tư số 02/2020/TT-BTP ngày 08/4/2020 của Bộ trưởng Bộ Tư pháp ban hành, hướng dẫn sử dụng, quản lý mẫu sổ quốc tịch và mẫu giấy tờ về quốc tịch và Thông tư số 04/2020/TT-BTP ngày 28/"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfb-03d5-700b-9bb5-d92070224137",
+          "chunk_index": 0,
+          "score": 0.010824,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Cấp giấy xác nhận thân nhân của người có công\nMã thủ tục: 1.010833\nCơ quan thực hiện: UBND phường An Phú\nMô tả: không\nHồ sơ: - Bản sao được chứng thực từ một trong các giấy tờ sau: + Giấy chứng nhận người có côn"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfe-b7ab-731d-844a-5e232b77afef",
+          "chunk_index": 0,
+          "score": 0.002,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Đổi, cấp lại Giấy xác nhận khuyết tật\nMã thủ tục: 1.001653\nCơ quan thực hiện: UBND phường An Phú\nMô tả: a) Cấp đổi Giấy xác nhận khuyết tật trong những trường hợp sau:\n- Giấy xác nhận khuyết tật sai thông tin so"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfe-9088-744d-aa0a-e846b6dce3d5",
+          "chunk_index": 0,
+          "score": 0.002,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Cấp giấy phép xây dựng mới, có thời hạn đối với công trình cấp III, cấp IV và công trình nhà ở riêng lẻ của hộ gia đình, cá nhân   (công trình không theo tuyến/Theo tuyến trong đô thị/Tín ngưỡng, tôn giáo /Tượng"
+        }
+      ]
+    },
+    {
+      "id": "ap-q015",
+      "question": "Đăng ký tạm trú mất bao lâu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "dvc_procedure_01a0f011-315c-7373-9678-d13f6e83bbb3"
+      ],
+      "retrieved_chunks": [
+        "dvc_procedure_01a0f011-315c-7373-9678-d13f6e83bbb3",
+        "dvc_procedure_019d2bf7-7efc-7491-9ac8-527fe53522e4",
+        "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "dvc_procedure_01a0f011-315c-7373-9678-d13f6e83bbb3",
+          "chunk_index": 13,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Trường hợp thông tin chưa được kết nối, chia sẻ thì công dân xuất trình giấy tờ, tài liệu chứng minh thuộc một trong các trường hợp xóa đăng ký tạm trú theo quy định tại điểm c, e, g, h khoản 1 Điều 29 Luật Cư trú\nThời g"
+        },
+        {
+          "document_id": "dvc_procedure_01a0f011-315c-7373-9678-d13f6e83bbb3",
+          "chunk_index": 0,
+          "score": 0.018667,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Đăng ký tạm trú\nMã thủ tục: 1.116789\nCơ quan thực hiện: UBND phường An Phú\nMô tả: a) Đối với trường hợp “Đăng ký tạm trú”\nNgười thực hiện thủ tục đã được thu thập, cập nhật thông tin công dân vào Cơ sở dữ liệu q"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bf7-7efc-7491-9ac8-527fe53522e4",
+          "chunk_index": 0,
+          "score": 0.013317,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Khai báo thông tin về cư trú đối với người chưa đủ điều kiện đăng ký thường trú, đăng ký tạm trú\nMã thủ tục: 1.010040\nCơ quan thực hiện: UBND phường An Phú\nHồ sơ: * Lưu ý:  - Người nước ngoài được nhập quốc tịch"
+        },
+        {
+          "document_id": "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0",
+          "chunk_index": 23,
+          "score": 0.01547,
+          "heading_context": "",
+          "text_preview": "Thông tư số 190/2021/TT-BQP ngày 31/12/2021 của Bộ trưởng Bộ Quốc phòng quy định điều kiện, hồ sơ, thủ tục đăng ký thường trú, đăng ký tạm trú trong Bộ Quốc phòng."
+        },
+        {
+          "document_id": "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0",
+          "chunk_index": 1,
+          "score": 0.014801,
+          "heading_context": "",
+          "text_preview": "thực hiện xóa đăng ký thường trú đối với công dân và cập nhật việc xóa đăng ký thường trú vào Cơ sở dữ liệu về cư trú, Cơ sở dữ liệu quốc gia về dân cư.\n- Trong thời hạn 07 ngày, kể từ ngày hộ gia đình có người thuộc diệ"
+        }
+      ]
+    },
+    {
+      "id": "ap-q016",
+      "question": "Thủ tục thông báo lưu trú mất bao lâu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "dvc_procedure_019d2bf7-adb7-7329-8d7c-db89ef073ced"
+      ],
+      "retrieved_chunks": [
+        "dvc_procedure_019d2bf7-adb7-7329-8d7c-db89ef073ced",
+        "dvc_procedure_01a0652d-8382-7446-9ade-c7b7b0d15c72",
+        "dvc_procedure_019d2bfc-baa3-7642-a506-1841aaf7d92a",
+        "dvc_procedure_019f1695-894f-72b8-80a8-2fee368722be"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "dvc_procedure_019d2bf7-adb7-7329-8d7c-db89ef073ced",
+          "chunk_index": 1,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Hồ sơ: Khi có người đến lưu trú, đại diện hộ gia đình, cơ sở khám bệnh, chữa bệnh, cơ sở lưu trú du lịch, cơ sở lưu trú ở khu công nghiệp, cơ sở khác có chức năng lưu trú thì phải thực hiện việc thông báo lưu trú cho ngư"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bf7-adb7-7329-8d7c-db89ef073ced",
+          "chunk_index": 0,
+          "score": 0.018667,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Thông báo lưu trú\nMã thủ tục: 2.001159\nCơ quan thực hiện: UBND phường An Phú\nMô tả: Việc thông báo lưu trú được thực hiện trước 23 giờ của ngày bắt đầu lưu trú; trường hợp người đến lưu trú sau 23 giờ thì việc t"
+        },
+        {
+          "document_id": "dvc_procedure_01a0652d-8382-7446-9ade-c7b7b0d15c72",
+          "chunk_index": 0,
+          "score": 0.007797,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Phê duyệt kinh phí hỗ trợ lắp đặt hệ thống điện mặt trời mái nhà tự sản xuất, tự tiêu thụ và hệ thống lưu trữ điện cho hộ gia đình\nMã thủ tục: 1.116540\nCơ quan thực hiện: Ủy ban nhân dân cấp xã\nMô tả: a) Đối với"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfc-baa3-7642-a506-1841aaf7d92a",
+          "chunk_index": 0,
+          "score": 0.007063,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Thông báo mất, cháy/kết quả huỷ tem điện tử thuốc lá hoặc tem điện tử rượu sản xuất để tiêu thụ trong nước\nMã thủ tục: 1.011049\nCơ quan thực hiện: UBND phường An Phú\nMô tả: Không\nHồ sơ: Thông báo mất, cháy/kết q"
+        },
+        {
+          "document_id": "dvc_procedure_019f1695-894f-72b8-80a8-2fee368722be",
+          "chunk_index": 0,
+          "score": 0.002,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Thông báo phát triển nguồn điện mặt trời mái nhà tự sản xuất, tự tiêu thụ đấu nối với hệ thống điện quốc gia tại cấp điện áp hạ áp\nMã thủ tục: 1.115377\nCơ quan thực hiện: Ủy ban nhân dân cấp xã\nMô tả: Không quy "
+        }
+      ]
+    },
+    {
+      "id": "ap-q017",
+      "question": "Khai báo tạm vắng mất bao lâu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "dvc_procedure_019d2bf7-6f56-704f-95b8-8d949272c6ad"
+      ],
+      "retrieved_chunks": [
+        "dvc_procedure_019d2bf7-6f56-704f-95b8-8d949272c6ad",
+        "dvc_procedure_019d2bf7-4fc4-7716-bab8-167242b3fcda",
+        "dvc_procedure_019d2bf7-7efc-7491-9ac8-527fe53522e4",
+        "dvc_procedure_019d2bfc-ab02-72f7-8377-62acdf116a4c"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "dvc_procedure_019d2bf7-6f56-704f-95b8-8d949272c6ad",
+          "chunk_index": 0,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Khai báo tạm vắng\nMã thủ tục: 1.003677\nCơ quan thực hiện: UBND phường An Phú\nHồ sơ: + Đề nghị khai báo tạm vắng;; + Văn bản đồng ý của cơ quan có thẩm quyền giám sát, quản lý, giáo dục người đó.; Nội dung khai b"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bf7-4fc4-7716-bab8-167242b3fcda",
+          "chunk_index": 0,
+          "score": 0.018393,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Khai báo tạm trú cho người nước ngoài tại Việt Nam bằng Phiếu khai báo tạm trú\nMã thủ tục: 1.000253\nCơ quan thực hiện: UBND phường An Phú\nMô tả: Thực hiện khai báo ngay khi người nước ngoài đến đăng ký tạm trú. "
+        },
+        {
+          "document_id": "dvc_procedure_019d2bf7-4fc4-7716-bab8-167242b3fcda",
+          "chunk_index": 1,
+          "score": 0.01258,
+          "heading_context": "",
+          "text_preview": "Thời gian giải quyết: 7 DAY\nCăn cứ pháp lý: Luật Xuất cảnh, nhập cảnh của công dân Việt Nam và Luật Nhập cảnh, xuất cảnh, quá cảnh, cư trú của người nước ngoài tại Việt Nam sửa đổi 2023 Thông tư của Bộ trưởng Bộ Công an "
+        },
+        {
+          "document_id": "dvc_procedure_019d2bf7-7efc-7491-9ac8-527fe53522e4",
+          "chunk_index": 0,
+          "score": 0.011754,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Khai báo thông tin về cư trú đối với người chưa đủ điều kiện đăng ký thường trú, đăng ký tạm trú\nMã thủ tục: 1.010040\nCơ quan thực hiện: UBND phường An Phú\nHồ sơ: * Lưu ý:  - Người nước ngoài được nhập quốc tịch"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfc-ab02-72f7-8377-62acdf116a4c",
+          "chunk_index": 0,
+          "score": 0.002,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Đăng ký sử dụng hoá đơn điện tử/Thay đổi nội dung đăng ký sử dụng hoá đơn điện tử/Ủy nhiệm lập hóa đơn điện tử/Chuyển đổi áp dụng hóa đơn điện tử có mã của cơ quan thuế/Khai thác dữ liệu của chi nhánh, đơn vị ph"
+        }
+      ]
+    },
+    {
+      "id": "ap-q018",
+      "question": "Đăng ký thường trú mất bao lâu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0"
+      ],
+      "retrieved_chunks": [
+        "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0",
+        "dvc_procedure_019d2bf7-7efc-7491-9ac8-527fe53522e4",
+        "dvc_procedure_019ff40e-c013-704a-be47-cee8794be2e2"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0",
+          "chunk_index": 22,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Thời gian giải quyết: 7 WORKING_DAY\nLệ phí: 20000 019b3fb2-b5b8-70ac-85e2-9409ec1eaffa; 10000 019b3fb2-b5b8-70ac-85e2-9409ec1eaffa; 5000 019b3fb2-b5b8-70ac-85e2-9409ec1eaffa\nCăn cứ pháp lý: Luật Cư trú 2020 Nghị quyết số"
+        },
+        {
+          "document_id": "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0",
+          "chunk_index": 1,
+          "score": 0.018185,
+          "heading_context": "",
+          "text_preview": "thực hiện xóa đăng ký thường trú đối với công dân và cập nhật việc xóa đăng ký thường trú vào Cơ sở dữ liệu về cư trú, Cơ sở dữ liệu quốc gia về dân cư.\n- Trong thời hạn 07 ngày, kể từ ngày hộ gia đình có người thuộc diệ"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bf7-7efc-7491-9ac8-527fe53522e4",
+          "chunk_index": 0,
+          "score": 0.009921,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Khai báo thông tin về cư trú đối với người chưa đủ điều kiện đăng ký thường trú, đăng ký tạm trú\nMã thủ tục: 1.010040\nCơ quan thực hiện: UBND phường An Phú\nHồ sơ: * Lưu ý:  - Người nước ngoài được nhập quốc tịch"
+        },
+        {
+          "document_id": "dvc_procedure_019ff40e-c013-704a-be47-cee8794be2e2",
+          "chunk_index": 0,
+          "score": 0.007195,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Liên thông điện tử: đăng ký khai sinh, đăng ký thường trú, cấp thẻ bảo hiểm y tế, cấp thẻ căn cước cho trẻ em dưới 6 tuổi\nMã thủ tục: 3.000722\nCơ quan thực hiện: Ủy ban nhân dân cấp xã\nMô tả: Không\nHồ sơ: Tờ kha"
+        },
+        {
+          "document_id": "dvc_procedure_019ff40e-c013-704a-be47-cee8794be2e2",
+          "chunk_index": 1,
+          "score": 0.006444,
+          "heading_context": "",
+          "text_preview": "Các thành phần hồ sơ trên là bản giấy thì phải thực hiện số hóa theo quy định tại Nghị định số 118/2025/NĐ-CP, được sửa đổi, bổ sung bởi Nghị định số 367/2025/NĐ-CP ngày 31 tháng 12 năm 2025\nThời gian giải quyết: Xem phầ"
+        }
+      ]
+    },
+    {
+      "id": "ap-q019",
+      "question": "Chứng thực di chúc có lệ phí bao nhiêu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "dvc_procedure_019d2bfd-95f0-7610-845f-c097f144bd55"
+      ],
+      "retrieved_chunks": [
+        "dvc_procedure_019d2bfd-95f0-7610-845f-c097f144bd55",
+        "dvc_procedure_019d2bfc-54c0-70db-af4b-ff0020265dd1",
+        "dvc_procedure_019d2bfd-c4cb-734d-bb80-29723a707c08",
+        "dvc_procedure_019d2bf8-c7e3-746e-8437-305980ee5536",
+        "dvc_procedure_019d2bfd-8e22-77ef-819f-e49460350904"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "dvc_procedure_019d2bfd-95f0-7610-845f-c097f144bd55",
+          "chunk_index": 0,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Chứng thực di chúc\nMã thủ tục: 2.001019\nCơ quan thực hiện: Ủy ban nhân dân cấp xã\nMô tả: Không\nHồ sơ: Bản chính hoặc bản sao có  chứng thực hoặc bản sao điện tử được chứng thực từ bản chính của giấy c"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfc-54c0-70db-af4b-ff0020265dd1",
+          "chunk_index": 0,
+          "score": 0.002,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Khai thuế đối với tổ chức, cá nhân trả thu nhập thực hiện khấu trừ thuế đối với thu nhập của cá nhân cư trú và cá nhân không cư trú bao gồm: đầu tư vốn, chuyển nhượng chứng khoán, nhận cổ phiếu thưởng của người "
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-c4cb-734d-bb80-29723a707c08",
+          "chunk_index": 0,
+          "score": 0.002,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Thủ tục thông báo tổ chức lễ hội cấp xã\nMã thủ tục: 1.003622\nCơ quan thực hiện: Ủy ban nhân dân cấp xã\nHồ sơ: Văn bản thông báo tổ chức lễ hội gồm những nội dung: (1) Tên lễ hội, sự cần thiết về việc tổ chức lễ "
+        },
+        {
+          "document_id": "dvc_procedure_019d2bf8-c7e3-746e-8437-305980ee5536",
+          "chunk_index": 0,
+          "score": 0.002,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Đề nghị miễn, giảm học phí trong cơ sở giáo dục nghề nghiệp, cơ sở giáo dục đại học tư thục và cơ sở giáo dục nghề nghiệp, cơ sở giáo dục đại học thuộc tổ chức kinh tế, doanh nghiệp nhà nước\nMã thủ tục: 1.014335"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bfd-8e22-77ef-819f-e49460350904",
+          "chunk_index": 0,
+          "score": 0.002,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Chứng thực bản sao từ bản chính giấy tờ, văn bản do cơ quan, tổ chức có thẩm quyền của Việt Nam; cơ quan, tổ chức có thẩm quyền của nước ngoài; cơ quan, tổ chức có thẩm quyền của Việt Nam liên kết với cơ quan, t"
+        }
+      ]
+    },
+    {
+      "id": "ap-q020",
+      "question": "Hỗ trợ người cao tuổi từ 70 đến dưới 75 tuổi cần hồ sơ gì?",
+      "difficulty": "medium",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "dvc_procedure_019d7c4f-0f4f-756f-a7db-e8f96edb8171"
+      ],
+      "retrieved_chunks": [
+        "dvc_procedure_019d7c4f-0f4f-756f-a7db-e8f96edb8171",
+        "dvc_procedure_01a01d63-1115-70ae-b9e7-80298abb5b0c",
+        "dvc_procedure_019d2bf8-c7e7-71f7-81cf-28778a076923",
+        "dvc_procedure_019dbd39-e163-77cc-aae1-d4361d962cec"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "dvc_procedure_019d7c4f-0f4f-756f-a7db-e8f96edb8171",
+          "chunk_index": 0,
+          "score": 0.602,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Thủ tục Hỗ trợ cho Người cao tuổi từ đủ 70 tuổi đến dưới 75 tuổi; Người cao tuổi dưới 75 tuổi thường trú trên địa bàn tỉnh, là Đảng viên được tặng huy hiệu 40 năm tuổi đảng trở lên, không có lương hưu, trợ cấp b"
+        },
+        {
+          "document_id": "dvc_procedure_01a01d63-1115-70ae-b9e7-80298abb5b0c",
+          "chunk_index": 0,
+          "score": 0.00797,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Hỗ trợ chi phí vận chuyển người tử vong đến cơ sở hỏa táng\nMã thủ tục: 3.000721\nCơ quan thực hiện: Ủy ban nhân dân cấp xã\nMô tả: Người tử vong thuộc đối tượng quy định tại điểm a khoản 1 Điều 2 và được hỏa táng "
+        },
+        {
+          "document_id": "dvc_procedure_019d2bf8-c7e7-71f7-81cf-28778a076923",
+          "chunk_index": 0,
+          "score": 0.013238,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Đề nghị hỗ trợ chi phí học tập trong cơ sở giáo dục mầm non dân lập, tư thục; trường tiểu học tư thục, trường trung học cơ sở tư thục, cơ sở giáo dục thường xuyên tư thục; cơ sở giáo dục mầm non, trường tiểu học"
+        },
+        {
+          "document_id": "dvc_procedure_019d2bf8-c7e7-71f7-81cf-28778a076923",
+          "chunk_index": 2,
+          "score": 0.0068,
+          "heading_context": "",
+          "text_preview": "Trường hợp cơ quan giải quyết thủ tục hành chính khai thác dữ liệu điện tử đã có trong Cơ sở dữ liệu quốc gia về dân cư, các cơ sở dữ liệu chuyên ngành khác và cơ sở dữ liệu có đầy đủ thông tin, hồ sơ theo yêu cầu của Ng"
+        },
+        {
+          "document_id": "dvc_procedure_019dbd39-e163-77cc-aae1-d4361d962cec",
+          "chunk_index": 0,
+          "score": 0.013387,
+          "heading_context": "",
+          "text_preview": "Thủ tục: Hỗ trợ sinh kế, tự học nghề\nMã thủ tục: 1.012825\nCơ quan thực hiện: Ủy ban nhân dân cấp xã\nMô tả: - Người có đăng ký thường trú hoặc có đăng ký tạm trú 01 năm trở lên trên địa bàn thành phố Đà Nẵng.\n- Có hoàn cả"
+        }
+      ]
+    },
+    {
+      "id": "ap-q021",
+      "question": "Lịch làm việc HĐND - UBND phường An Phú tuần 03/11/2025 đến 08/11/2025?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-03112025-den-08112025"
+      ],
+      "retrieved_chunks": [
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-03112025-den-08112025",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-tu-ngay-24112025-den-29112025",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-10112025-den-15112025"
+      ],
+      "first_relevant_rank": 2,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 0.6309297535714575
+        },
+        "mrr": 0.5,
+        "average_precision": 0.5
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd",
+          "chunk_index": 0,
+          "score": 0.017975,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 17/11/2025 đến 21/11/2025",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 17/11/2025 đến 21/11/2025\n\n|\n_\nỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯỜNG AN PHỤ Độc lập —- Tự do - Hạnh phúc\nAn Phú, ngày (|FÏ tháng A4. năm 2025\n: 3 _LỊCH LÀM VIỆC\nCUA CHU "
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-03112025-den-08112025",
+          "chunk_index": 0,
+          "score": 0.017117,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 03/11/2025 đến 08/11/2025",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 03/11/2025 đến 08/11/2025\n\n|\nỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHÚ NGHĨA VIE'T NAM\nPHƯƠNG AN PHÙ Độc lập — Tự do - Hạnh phúc\n|\n| An Phú, ngày 05 tháng 4Â năm 2025\n| | LỊCH LÀM VIỆC\nCUA CHỦ TỊ"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-tu-ngay-24112025-den-29112025",
+          "chunk_index": 0,
+          "score": 0.016152,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 24/11/2025 đến 29/11/2025",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 24/11/2025 đến 29/11/2025\n\nỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯƠNG AN PHỦ Độc lập —- Tự do - Hạnh phúc\nAn Phú, ngày c\\)| tháng ẢÍ năm 2025\n: _ LỊCH LÀM VIỆC\nCUA CHỦ TỊCH V"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-10112025-den-15112025",
+          "chunk_index": 0,
+          "score": 0.016042,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 10/11/2025 đến 15/11/2025",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 10/11/2025 đến 15/11/2025\n\n| ỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\n| PHƯỜNG AN PHU Độc lập - Tự do - Hạnh phúc\nAn Phú, ngày ÑÙ tháng lÍÏ_ năm 2025\n: : _ LỊCH LÀM VIỆC\nCUA CHỦ T"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-10112025-den-15112025",
+          "chunk_index": 5,
+          "score": 0.01362,
+          "heading_context": "2",
+          "text_preview": "3\nTHỨ TƯ - 12/11/2025\n| S,Hg - 08 giờ, Chủ tịch UBND, Phó Chủ tịch HĐND và các Phó Chủ tịch\nUBND phường dự Hội nghị giao ban tháng 1T năm 2025.\n| Mời dự: Đại diện lãnh đạo: Công an, Ban Chỉ huy quân sự, Phòng Kinh\n_ tê, "
+        }
+      ]
+    },
+    {
+      "id": "ap-q022",
+      "question": "Lịch làm việc HĐND - UBND phường An Phú tuần 17/11/2025 đến 21/11/2025?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd"
+      ],
+      "retrieved_chunks": [
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-03112025-den-08112025",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-10112025-den-15112025",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-tu-ngay-24112025-den-29112025"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd",
+          "chunk_index": 0,
+          "score": 0.018503,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 17/11/2025 đến 21/11/2025",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 17/11/2025 đến 21/11/2025\n\n|\n_\nỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯỜNG AN PHỤ Độc lập —- Tự do - Hạnh phúc\nAn Phú, ngày (|FÏ tháng A4. năm 2025\n: 3 _LỊCH LÀM VIỆC\nCUA CHU "
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-03112025-den-08112025",
+          "chunk_index": 0,
+          "score": 0.016665,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 03/11/2025 đến 08/11/2025",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 03/11/2025 đến 08/11/2025\n\n|\nỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHÚ NGHĨA VIE'T NAM\nPHƯƠNG AN PHÙ Độc lập — Tự do - Hạnh phúc\n|\n| An Phú, ngày 05 tháng 4Â năm 2025\n| | LỊCH LÀM VIỆC\nCUA CHỦ TỊ"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-10112025-den-15112025",
+          "chunk_index": 0,
+          "score": 0.016141,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 10/11/2025 đến 15/11/2025",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 10/11/2025 đến 15/11/2025\n\n| ỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\n| PHƯỜNG AN PHU Độc lập - Tự do - Hạnh phúc\nAn Phú, ngày ÑÙ tháng lÍÏ_ năm 2025\n: : _ LỊCH LÀM VIỆC\nCUA CHỦ T"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-tu-ngay-24112025-den-29112025",
+          "chunk_index": 0,
+          "score": 0.016047,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 24/11/2025 đến 29/11/2025",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 24/11/2025 đến 29/11/2025\n\nỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯƠNG AN PHỦ Độc lập —- Tự do - Hạnh phúc\nAn Phú, ngày c\\)| tháng ẢÍ năm 2025\n: _ LỊCH LÀM VIỆC\nCUA CHỦ TỊCH V"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-10112025-den-15112025",
+          "chunk_index": 5,
+          "score": 0.013393,
+          "heading_context": "2",
+          "text_preview": "3\nTHỨ TƯ - 12/11/2025\n| S,Hg - 08 giờ, Chủ tịch UBND, Phó Chủ tịch HĐND và các Phó Chủ tịch\nUBND phường dự Hội nghị giao ban tháng 1T năm 2025.\n| Mời dự: Đại diện lãnh đạo: Công an, Ban Chỉ huy quân sự, Phòng Kinh\n_ tê, "
+        }
+      ]
+    },
+    {
+      "id": "ap-q023",
+      "question": "Lịch làm việc HĐND - UBND phường An Phú tuần 12/01/2026 đến 17/01/2026?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-12012026-den-17012026"
+      ],
+      "retrieved_chunks": [
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-12012026-den-17012026",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-29122025-den-03012025",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-05012026-den-10012026"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-12012026-den-17012026",
+          "chunk_index": 0,
+          "score": 0.018503,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 12/01/2026 đến 17/01/2026",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 12/01/2026 đến 17/01/2026\n\nỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯƠNG AN PHU Độc lập - Tự do —- Hạnh phúc\nAn Phú, ngày k2, tháng 04 năm 2026\n: ¬ LỊCH LÀM VIỆC\nCỦA CHỦ TỊCH VÀ"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-29122025-den-03012025",
+          "chunk_index": 0,
+          "score": 0.017724,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 29/12/2025 đến 03/01/2025",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 29/12/2025 đến 03/01/2025\n\nỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯỜNG AN PHÙ Độc lập —- Tự do - Hạnh phúc\nAn Phú, ngày¿2 tháng J2 năm 2025\n¬ -...... LỊCH LÀM VIỆC | |\nCUA CHU"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-05012026-den-10012026",
+          "chunk_index": 0,
+          "score": 0.016946,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 05/01/2026 đến 10/01/2026",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 05/01/2026 đến 10/01/2026\n\nÚY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯỜNG AN PHÙ Độc lập —- Tự do - Hạnh phúc\nAn Phú, ngày 05 tháng O4 năm 2026\nLỊCH LÀM VIỆC\nCUA CHU TỊCH VÀ CÁC "
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-29122025-den-03012025",
+          "chunk_index": 5,
+          "score": 0.014221,
+          "heading_context": "3\n| nạn cứu hộ.",
+          "text_preview": "Chiều  - 14 giờ, Chủ tịch UBND Nguyễn Hữu Châu, Phó Chủ tịch HĐND\nNguyễn Thị Ngọc Bích, Phó Chủ tịch UBND Tôn Quang Vinh dự\n\n| - tiếp xúc cử tri sau Kỳ họp thứ tư (Thường lệ cuối năm 2025).\nMời dự: Lãnh đạo các đơn vị: C"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-05012026-den-10012026",
+          "chunk_index": 3,
+          "score": 0.01114,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 05/01/2026 đến 10/01/2026",
+          "text_preview": "Mời dự: Đại diện lãnh dạo: UBMTTQVN phường, Công an, Ban Chỉ .\n\"¬ huy Quân sự, Phòng Kinh tê, Hạ tâng và Đô thị, Phòng Văn hóa - Xã\nhội, Trung tâm Phục vụ hành chính công. Địa điểm: Phòng Tiếp công dân phường. LĐVP: Trìn"
+        }
+      ]
+    },
+    {
+      "id": "ap-q024",
+      "question": "Lịch làm việc HĐND - UBND phường An Phú từ 29/6/2026 đến 05/7/2026?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-2962026-den-ngay-0572026"
+      ],
+      "retrieved_chunks": [
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-2962026-den-ngay-0572026",
+        "an_phu_schedule_lich-lam-viec-dang-uy-phuong-ngay-2962026-den-ngay-0572026"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-2962026-den-ngay-0572026",
+          "chunk_index": 0,
+          "score": 0.018667,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 29/6/2026 đến ngày 05/7/2026",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 29/6/2026 đến ngày 05/7/2026\n\nỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯỜNG AN PHU Độc lập - Tự do - Hạnh phúc _\nAn Phú, ngày 23 tháng 6 năm 2026\n-....... LỊCH LÀM VIỆC _\nCỦA CH"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-dang-uy-phuong-ngay-2962026-den-ngay-0572026",
+          "chunk_index": 0,
+          "score": 0.016891,
+          "heading_context": "",
+          "text_preview": "Lịch làm việc Đảng ủy phường ngày 29/6/2026 đến ngày 05/7/2026\n\nĐẢNG BỘ THÀNH PHỐ HỒ CHÍ MINH \nĐẢNG ỦY PHƯỜNG AN PHÚ \nĐẢNG CỘNG SẢN VIỆT NAM \nAn Phú, ngày 28 tháng 6 năm 2026 \n* \nSố 25-LLV/ĐU \nLỊCH LÀM VIỆC \ncủa Ban Thườ"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-2962026-den-ngay-0572026",
+          "chunk_index": 15,
+          "score": 0.008977,
+          "heading_context": "THỨ NĂM - 02/7/2026",
+          "text_preview": "THỨ NĂM - 02/7/2026\n\nSúng - 08 giờ, Phó Chủ tịch HĐND Nguyễn Thị Ngọc Bích tiếp\ncông dân định kỳ."
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-2962026-den-ngay-0572026",
+          "chunk_index": 6,
+          "score": 0.008522,
+          "heading_context": "THỨ BA - 30/6/2026",
+          "text_preview": "THỨ BA - 30/6/2026\n\nSúng - 08 giờ, Chủ tịch UBND Phạm Phú Nam tiếp công dân\nđịnh kỳ."
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-2962026-den-ngay-0572026",
+          "chunk_index": 22,
+          "score": 0.007941,
+          "heading_context": "LĐVP: Trinh; VP: Phương.",
+          "text_preview": "Súng - 08 giờ, Chủ tịch UBND Phạm Phú Nam, các Phó Chủ\ntịch HĐND — UBND phường dụ Hội nghị phản biện xã hội\nđôi với dự thảo Kê hoạch thúc đây tăng trường 02 con sô\ntrên địa bàn phường An Phú năm 2026 do Ban Thường trực\nỦ"
+        }
+      ]
+    },
+    {
+      "id": "ap-q025",
+      "question": "Lịch làm việc HĐND - UBND phường An Phú tuần 13/4/2026 đến 18/4/2026?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-1342026-den-ngay-1842026"
+      ],
+      "retrieved_chunks": [
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-0642026-den-ngay-1242026",
+        "an_phu_schedule_lich-lam-viec-dang-uy-phuong-ngay-0642026-den-ngay-1242026",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-1342026-den-ngay-1842026",
+        "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-3032026-den-0442026",
+        "an_phu_schedule_lich-lam-viec-dang-uy-phuong-ngay-0642026-den-ngay-1242026-1"
+      ],
+      "first_relevant_rank": 3,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 0.5
+        },
+        "mrr": 0.3333333333333333,
+        "average_precision": 0.3333333333333333
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-0642026-den-ngay-1242026",
+          "chunk_index": 0,
+          "score": 0.018452,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 06/4/2026 đến ngày 12/4/2026",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 06/4/2026 đến ngày 12/4/2026\n\nỦY BAN NHÂN DÂN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯỜNG AN PHU Độc lập — Tự do —- Hạnh phúc\nAn Phú, ngày C tháng hị năm 2026\n¬ -_...... LỊCH LÀM VIỆC | |\nCUA"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-dang-uy-phuong-ngay-0642026-den-ngay-1242026",
+          "chunk_index": 0,
+          "score": 0.018393,
+          "heading_context": "",
+          "text_preview": "Lịch làm việc Đảng ủy phường ngày 06/4/2026 đến ngày 12/4/2026. ĐẢNG BỘ THÀNH PHỐ HỒ CHÍ MINH  \nĐẢNG ỦY PHƯỜNG AN PHÚ \nĐẢNG CỘNG SẢN VIỆT NAM \nAn Phú, ngày 06 tháng 4 năm 2026 \n* \n \nSố  13- LLV/ĐU                        "
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-1342026-den-ngay-1842026",
+          "chunk_index": 0,
+          "score": 0.018042,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 13/4/2026 đến ngày 18/4/2026",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 13/4/2026 đến ngày 18/4/2026\n\n|\n| ỦY BAN NHÂN DẦN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\n| PHƯƠNG AN PHUÚ Độc lập — Tự do - Hạnh phúc\n| An Phú, ngày ÄĐ tháng h_ năm 2026\n_ -..... LỊCH LÀM VIỆC "
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-3032026-den-0442026",
+          "chunk_index": 0,
+          "score": 0.017341,
+          "heading_context": "Lịch làm việc HĐND - UBND ngày 30/3/2026 đến 04/4/2026.",
+          "text_preview": "Lịch làm việc HĐND - UBND ngày 30/3/2026 đến 04/4/2026. ỦY BAN NHÂN DẪN CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nPHƯƠNG AN PHÙ Độc lập - Tự do - Hạnh phúc\nAn Phú, ngày 2D tháng -5 năm 2026\n¬ -_...._ LỊCHLÀM VIỆC |\nCUA CHU TỊCH"
+        },
+        {
+          "document_id": "an_phu_schedule_lich-lam-viec-dang-uy-phuong-ngay-0642026-den-ngay-1242026-1",
+          "chunk_index": 0,
+          "score": 0.017173,
+          "heading_context": "",
+          "text_preview": "Lịch làm việc Đảng ủy phường ngày 06/4/2026 đến ngày 12/4/2026\n\nĐẢNG BỘ THÀNH PHỐ HỒ CHÍ MINH  \nĐẢNG ỦY PHƯỜNG AN PHÚ \nĐẢNG CỘNG SẢN VIỆT NAM \nAn Phú, ngày 13 tháng 4 năm 2026 \n* \n \nSố  14- LLV/ĐU                        "
+        }
+      ]
+    },
+    {
+      "id": "ap-q026",
+      "question": "Địa chỉ UBND phường An Phú ở đâu?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_profile"
+      ],
+      "retrieved_chunks": [
+        "an_phu_profile"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_profile",
+          "chunk_index": 0,
+          "score": 0.012,
+          "heading_context": "",
+          "text_preview": "Địa phương: Phường An Phú\nMã địa phương: 25975\nCấp: phuong\nTrang thông tin: https://phuonganphu.gov.vn\nĐịa chỉ: Số 9, đường ĐT 743, khu phố 1A, Thành phố Hồ Chí Minh\nĐiện thoại: 02743 740021\nEmail: anphu@tphcm.gov.vn\nGiờ"
+        }
+      ]
+    },
+    {
+      "id": "ap-q027",
+      "question": "Số điện thoại liên hệ UBND phường An Phú?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_profile"
+      ],
+      "retrieved_chunks": [
+        "an_phu_profile"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_profile",
+          "chunk_index": 0,
+          "score": 0.018667,
+          "heading_context": "",
+          "text_preview": "Địa phương: Phường An Phú\nMã địa phương: 25975\nCấp: phuong\nTrang thông tin: https://phuonganphu.gov.vn\nĐịa chỉ: Số 9, đường ĐT 743, khu phố 1A, Thành phố Hồ Chí Minh\nĐiện thoại: 02743 740021\nEmail: anphu@tphcm.gov.vn\nGiờ"
+        }
+      ]
+    },
+    {
+      "id": "ap-q028",
+      "question": "Email liên hệ của phường An Phú?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_profile"
+      ],
+      "retrieved_chunks": [
+        "an_phu_profile"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_profile",
+          "chunk_index": 0,
+          "score": 0.018667,
+          "heading_context": "",
+          "text_preview": "Địa phương: Phường An Phú\nMã địa phương: 25975\nCấp: phuong\nTrang thông tin: https://phuonganphu.gov.vn\nĐịa chỉ: Số 9, đường ĐT 743, khu phố 1A, Thành phố Hồ Chí Minh\nĐiện thoại: 02743 740021\nEmail: anphu@tphcm.gov.vn\nGiờ"
+        }
+      ]
+    },
+    {
+      "id": "ap-q029",
+      "question": "Giờ làm việc ngày thường của phường An Phú?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_profile"
+      ],
+      "retrieved_chunks": [
+        "an_phu_profile"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_profile",
+          "chunk_index": 0,
+          "score": 0.018667,
+          "heading_context": "",
+          "text_preview": "Địa phương: Phường An Phú\nMã địa phương: 25975\nCấp: phuong\nTrang thông tin: https://phuonganphu.gov.vn\nĐịa chỉ: Số 9, đường ĐT 743, khu phố 1A, Thành phố Hồ Chí Minh\nĐiện thoại: 02743 740021\nEmail: anphu@tphcm.gov.vn\nGiờ"
+        }
+      ]
+    },
+    {
+      "id": "ap-q030",
+      "question": "Giờ làm việc thứ Bảy và Chủ nhật của phường An Phú?",
+      "difficulty": "easy",
+      "answer_type": "factual",
+      "relevance_level": "document",
+      "relevant_chunks": [
+        "an_phu_profile"
+      ],
+      "retrieved_chunks": [
+        "an_phu_profile"
+      ],
+      "first_relevant_rank": 1,
+      "document_hit": 1.0,
+      "metrics": {
+        "precision": {
+          "5": 0.2
+        },
+        "recall": {
+          "5": 1.0
+        },
+        "hit_rate": {
+          "5": 1.0
+        },
+        "ndcg": {
+          "5": 1.0
+        },
+        "mrr": 1.0,
+        "average_precision": 1.0
+      },
+      "retrieved_details": [
+        {
+          "document_id": "an_phu_profile",
+          "chunk_index": 0,
+          "score": 0.018667,
+          "heading_context": "",
+          "text_preview": "Địa phương: Phường An Phú\nMã địa phương: 25975\nCấp: phuong\nTrang thông tin: https://phuonganphu.gov.vn\nĐịa chỉ: Số 9, đường ĐT 743, khu phố 1A, Thành phố Hồ Chí Minh\nĐiện thoại: 02743 740021\nEmail: anphu@tphcm.gov.vn\nGiờ"
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-11-03T15:07:24.013111",
+  "config": {
+    "dataset": "evaluation/an_phu_questions.jsonl",
+    "alpha": 0.6,
+    "min_similarity": 0.25,
+    "k": [
+      5
+    ],
+    "limit": 0,
+    "locality_code": "25975",
+    "embedding_model": "bkai-foundation-models/vietnamese-bi-encoder",
+    "generated_at": "2026-11-03T15:07:24.013146+00:00"
+  },
+  "answer_evaluation": {
+    "summary": {
+      "citation_precision": {
+        "mean": 0.47444444444444445,
+        "std": 0.29934290176903505,
+        "count": 30
+      },
+      "citation_recall": {
+        "mean": 1.0,
+        "std": 0.0,
+        "count": 30
+      },
+      "expected_term_recall": {
+        "mean": 0.9444444444444444,
+        "std": 0.19404721329525534,
+        "count": 30
+      },
+      "abstention_rate": {
+        "mean": 0.03333333333333333,
+        "std": 0.17950549357115014,
+        "count": 30
+      }
+    },
+    "per_query": [
+      {
+        "id": "ap-q001",
+        "question": "Quy chế tiếp công dân của HĐND phường An Phú được ban hành tại văn bản nào?",
+        "answer": "Quy chế tiếp công dân, tiếp nhận, phân loại, xử lý đơn và giám sát của Hội đồng nhân dân phường đối với việc giải quyết khiếu nại, tố cáo, kiến nghị, phản ánh của cơ quan, tổ chức, cá nhân trên địa bàn phường An Phú được ban hành tại Nghị quyết số 25/NQ-HĐND ngày 29/7/2026 của HĐND phường An Phú.",
+        "expected_answer": "Nghị quyết số 25/NQ-HĐND ngày 29/7/2026 của HĐND phường An Phú.",
+        "cited_chunks": [
+          "an_phu_2838",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-3032026-den-0442026",
+          "an_phu_2468",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-3032026-den-0442026",
+          "an_phu_2838"
+        ],
+        "citation_precision": 0.3333333333333333,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 297,
+        "processing_time": 25.920801162719727
+      },
+      {
+        "id": "ap-q002",
+        "question": "Nghị quyết số 15/NQ-HĐND quy định nội dung gì?",
+        "answer": "Theo Nghị quyết số 15/NQ-HĐND ngày 29/7/2025 của HĐND phường An Phú, văn bản này quy định về việc phân bổ dự toán thu, chi ngân sách nhà nước phường An Phú năm 2025.",
+        "expected_answer": "Nghị quyết phân bổ dự toán thu, chi ngân sách nhà nước phường An Phú năm 2025.",
+        "cited_chunks": [
+          "an_phu_2466",
+          "an_phu_2466",
+          "an_phu_2466",
+          "an_phu_2466",
+          "an_phu_2466"
+        ],
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 165,
+        "processing_time": 24.97665810585022
+      },
+      {
+        "id": "ap-q003",
+        "question": "Dự toán thu, chi ngân sách phường An Phú năm 2026 được quy định ở văn bản nào?",
+        "answer": "Theo Nghị quyết số 22/NQ-HĐND ngày 24/12/2025 của HĐND phường An Phú, dự toán thu, chi ngân sách Nhà nước năm 2026 và phương án phân bổ dự toán ngân sách phường năm 2026 được quy định tại Nghị quyết số 22/NQ-HĐND ngày 24 tháng 12 năm 2025 của Hội đồng nhân dân phường An Phú. Ngoài ra, việc điều chỉnh dự toán thu, chi ngân sách phường năm 2026 được quy định tại Nghị quyết số 02/NQ-HĐND ngày 9/1/2026 của HĐND phường An Phú.",
+        "expected_answer": "Nghị quyết số 22/NQ-HĐND ngày 24/12/2025 của HĐND phường An Phú.",
+        "cited_chunks": [
+          "an_phu_2809",
+          "an_phu_2793",
+          "an_phu_2793",
+          "an_phu_2790",
+          "an_phu_2809"
+        ],
+        "citation_precision": 0.3333333333333333,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 425,
+        "processing_time": 22.529266834259033
+      },
+      {
+        "id": "ap-q004",
+        "question": "Quyết toán ngân sách phường An Phú năm 2025 được phê chuẩn tại văn bản nào?",
+        "answer": "Theo Nghị quyết số 05/NQ-HĐND ngày 30/3/2026 của HĐND phường An Phú, quyết toán ngân sách phường An Phú năm 2025 được phê chuẩn tại nghị quyết này.",
+        "expected_answer": "Nghị quyết số 05/NQ-HĐND ngày 30/3/2026 của HĐND phường An Phú.",
+        "cited_chunks": [
+          "an_phu_2796",
+          "an_phu_2796",
+          "an_phu_2786",
+          "an_phu_2796",
+          "an_phu_2796"
+        ],
+        "citation_precision": 0.5,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 147,
+        "processing_time": 18.12349534034729
+      },
+      {
+        "id": "ap-q005",
+        "question": "Chương trình giám sát của HĐND phường An Phú năm 2026 nằm ở văn bản nào?",
+        "answer": "Theo Nghị quyết số 14/NQ-HĐND ngày 29/7/2025 của HĐND phường An Phú, Hội đồng nhân dân phường đã ban hành chương trình giám sát của Hội đồng nhân dân phường năm 2026. Ngoài ra, chương trình giám sát năm 2026 của Hội đồng nhân dân phường cũng được đề cập trong Nghị quyết số 13/NQ-HĐND ngày 29/7/2025 của HĐND phường An Phú về Chương trình giám sát năm 2026.",
+        "expected_answer": "Nghị quyết số 14/NQ-HĐND ngày 29/7/2025 của HĐND phường An Phú.",
+        "cited_chunks": [
+          "an_phu_2782",
+          "an_phu_2783",
+          "an_phu_2783",
+          "an_phu_2810",
+          "an_phu_2794"
+        ],
+        "citation_precision": 0.25,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 357,
+        "processing_time": 18.432658195495605
+      },
+      {
+        "id": "ap-q006",
+        "question": "Văn bản nào sắp xếp, tổ chức lại khu phố trên địa bàn phường An Phú?",
+        "answer": "Việc sắp xếp, tổ chức lại khu phố trên địa bàn phường An Phú được quy định tại Nghị quyết số 21/NQ-HĐND ngày 22/6/2026 của HĐND phường An Phú.",
+        "expected_answer": "Nghị quyết số 21/NQ-HĐND ngày 22/6/2026 của HĐND phường An Phú.",
+        "cited_chunks": [
+          "an_phu_2777",
+          "an_phu_2812",
+          "an_phu_2777",
+          "an_phu_2812",
+          "an_phu_2812"
+        ],
+        "citation_precision": 0.5,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 142,
+        "processing_time": 26.836483478546143
+      },
+      {
+        "id": "ap-q007",
+        "question": "Nghị quyết về biện pháp bảo đảm thực hiện dân chủ ở cơ sở là văn bản nào?",
+        "answer": "Theo Nghị quyết số 23/NQ-HĐND ngày 24/12/2025 của HĐND phường An Phú, văn bản về các biện pháp bảo đảm thực hiện dân chủ ở cơ sở trên địa bàn phường An Phú là Nghị quyết số 23/NQ-HĐND ngày 24/12/2025 của HĐND phường An Phú (Khóa I, Kỳ họp thứ tư).",
+        "expected_answer": "Nghị quyết số 23/NQ-HĐND ngày 24/12/2025 của HĐND phường An Phú.",
+        "cited_chunks": [
+          "an_phu_2791",
+          "an_phu_2791",
+          "an_phu_2791",
+          "an_phu_2791",
+          "an_phu_2791"
+        ],
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 247,
+        "processing_time": 15.455686807632446
+      },
+      {
+        "id": "ap-q008",
+        "question": "Nghị quyết phát triển Kinh tế - Xã hội phường An Phú giai đoạn 2026-2030 là văn bản nào?",
+        "answer": "Theo Nghị quyết số 03/NQ-HĐND ngày 9/1/2026 của HĐND phường An Phú, văn bản về kế hoạch phát triển Kinh tế - Xã hội phường An Phú giai đoạn 2026 - 2030 là Nghị quyết Về kế hoạch phát triển Kinh tế - Xã hội phường An Phú giai đoạn 2026 - 2030.",
+        "expected_answer": "Nghị quyết số 03/NQ-HĐND ngày 9/1/2026 của HĐND phường An Phú.",
+        "cited_chunks": [
+          "an_phu_2794",
+          "an_phu_2808",
+          "an_phu_2837",
+          "an_phu_2794",
+          "an_phu_2794"
+        ],
+        "citation_precision": 0.3333333333333333,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 242,
+        "processing_time": 25.70241403579712
+      },
+      {
+        "id": "ap-q009",
+        "question": "Quy chế làm việc của HĐND phường An Phú khóa II được ban hành tại văn bản nào?",
+        "answer": "Quy chế làm việc của Hội đồng nhân dân phường An Phú khóa II, nhiệm kỳ 2026 - 2031 được ban hành kèm theo Nghị quyết số 01/2026/NQ-HĐND ngày 10/6/2026 của HĐND phường An Phú, Điều 1.",
+        "expected_answer": "Nghị quyết số 01/2026/NQ-HĐND ngày 10/6/2026 của HĐND phường An Phú.",
+        "cited_chunks": [
+          "an_phu_2803",
+          "an_phu_2798",
+          "an_phu_2797",
+          "an_phu_2813",
+          "an_phu_2813"
+        ],
+        "citation_precision": 0.25,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 182,
+        "processing_time": 30.6169593334198
+      },
+      {
+        "id": "ap-q010",
+        "question": "Thông báo phân công các Tổ đại biểu HĐND phường An Phú khóa I là văn bản nào?",
+        "answer": "Theo Thông báo số 07/TB-TT.HĐND ngày 8/7/2025 của HĐND phường An Phú, văn bản về việc phân công đại biểu sinh hoạt tại các Tổ đại biểu HĐND phường khóa I, nhiệm kỳ 2021 – 2026 là Thông báo số 07/TB-TT.HĐND ngày 8/7/2025 của HĐND phường An Phú.",
+        "expected_answer": "Thông báo số 07/TB-TT.HĐND ngày 8/7/2025 của HĐND phường An Phú.",
+        "cited_chunks": [
+          "an_phu_2467",
+          "an_phu_2806",
+          "an_phu_2467",
+          "an_phu_2806",
+          "an_phu_2784"
+        ],
+        "citation_precision": 0.3333333333333333,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 243,
+        "processing_time": 21.4037184715271
+      },
+      {
+        "id": "ap-q011",
+        "question": "Thủ tục đăng ký khai sinh có lệ phí bao nhiêu?",
+        "answer": "Theo Thủ tục đăng ký khai sinh, mã 1.001193, Cổng DVC quốc gia, lệ phí thực hiện thủ tục đăng ký khai sinh là 0 VNĐ.",
+        "expected_answer": "Lệ phí 0 VNĐ.",
+        "cited_chunks": [
+          "dvc_procedure_019d2bfd-3fe0-70ac-b9d6-5e9e20d6eef7",
+          "dvc_procedure_019d2bfd-3fe0-70ac-b9d6-5e9e20d6eef7",
+          "dvc_procedure_019d2bfc-ab02-72f7-8377-62acdf116a4c",
+          "dvc_procedure_019d2bfd-6eac-7598-b88b-15f8a61b366a",
+          "dvc_procedure_019d2bfd-6eac-7598-b88b-15f8a61b366a"
+        ],
+        "citation_precision": 0.3333333333333333,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 116,
+        "processing_time": 21.094609260559082
+      },
+      {
+        "id": "ap-q012",
+        "question": "Cấp bản sao trích lục hộ tịch mất bao lâu và lệ phí bao nhiêu?",
+        "answer": "Theo Thủ tục Cấp bản sao Trích lục hộ tịch, bản sao Giấy khai sinh, mã 2.000635, Cổng DVC quốc gia, thời gian giải quyết là 1 ngày và lệ phí là 8000 đồng.",
+        "expected_answer": "Thời gian 01 ngày, lệ phí 8.000 VNĐ.",
+        "cited_chunks": [
+          "dvc_procedure_019d2bfd-867c-72db-b6a7-dcbd8c763807",
+          "dvc_procedure_019d2bfd-867c-72db-b6a7-dcbd8c763807",
+          "dvc_procedure_019d2bfd-8e5d-72f9-8cf2-c71780251483",
+          "dvc_procedure_019d2bfd-8e5d-72f9-8cf2-c71780251483",
+          "dvc_procedure_019d2c00-009b-747f-89bc-b5c3ddc311ab"
+        ],
+        "citation_precision": 0.3333333333333333,
+        "citation_recall": 1.0,
+        "expected_term_recall": 0.6666666666666666,
+        "abstained": false,
+        "answer_length": 154,
+        "processing_time": 21.400898694992065
+      },
+      {
+        "id": "ap-q013",
+        "question": "Thủ tục đăng ký kết hôn có lệ phí bao nhiêu?",
+        "answer": "Theo Thủ tục đăng ký kết hôn, mã 1.000894, Cổng DVC quốc gia, mức lệ phí cho thủ tục đăng ký kết hôn là 0 VNĐ.",
+        "expected_answer": "Lệ phí 0 VNĐ.",
+        "cited_chunks": [
+          "dvc_procedure_019d2bfd-3fac-7489-b53b-a15eb239a6fe",
+          "dvc_procedure_019d2bfd-3fac-7489-b53b-a15eb239a6fe",
+          "dvc_procedure_019d2bfd-6711-733d-b674-f82cb6606242",
+          "dvc_procedure_019d2bfd-6711-733d-b674-f82cb6606242",
+          "dvc_procedure_019d2bfd-8e13-728a-a0cd-635811d8432e"
+        ],
+        "citation_precision": 0.3333333333333333,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 110,
+        "processing_time": 19.55861520767212
+      },
+      {
+        "id": "ap-q014",
+        "question": "Cấp Giấy xác nhận tình trạng hôn nhân có lệ phí bao nhiêu?",
+        "answer": "Theo Thủ tục cấp Giấy xác nhận tình trạng hôn nhân, mã 1.004873, Cổng DVC quốc gia, mức lệ phí khi thực hiện thủ tục cấp Giấy xác nhận tình trạng hôn nhân là 0 VNĐ.",
+        "expected_answer": "Lệ phí 0 VNĐ.",
+        "cited_chunks": [
+          "dvc_procedure_019d2bfd-6eb3-7019-bf3f-fc58c9ee44b9",
+          "dvc_procedure_019d2bfd-6eb3-7019-bf3f-fc58c9ee44b9",
+          "dvc_procedure_019d2bfb-03d5-700b-9bb5-d92070224137",
+          "dvc_procedure_019d2bfe-b7ab-731d-844a-5e232b77afef",
+          "dvc_procedure_019d2bfe-9088-744d-aa0a-e846b6dce3d5"
+        ],
+        "citation_precision": 0.25,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 164,
+        "processing_time": 22.016563653945923
+      },
+      {
+        "id": "ap-q015",
+        "question": "Đăng ký tạm trú mất bao lâu?",
+        "answer": "Theo Thủ tục Đăng ký tạm trú, mã 1.116789, Cổng DVC quốc gia, thời gian giải quyết là 3 ngày làm việc.",
+        "expected_answer": "Thời gian 03 ngày làm việc.",
+        "cited_chunks": [
+          "dvc_procedure_01a0f011-315c-7373-9678-d13f6e83bbb3",
+          "dvc_procedure_01a0f011-315c-7373-9678-d13f6e83bbb3",
+          "dvc_procedure_019d2bf7-7efc-7491-9ac8-527fe53522e4",
+          "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0",
+          "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0"
+        ],
+        "citation_precision": 0.3333333333333333,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 102,
+        "processing_time": 19.455813884735107
+      },
+      {
+        "id": "ap-q016",
+        "question": "Thủ tục thông báo lưu trú mất bao lâu?",
+        "answer": "Theo Thủ tục Thông báo lưu trú, mã 2.001159, Cổng DVC quốc gia, thời gian giải quyết là 01 giờ.",
+        "expected_answer": "Thời gian 01 giờ.",
+        "cited_chunks": [
+          "dvc_procedure_019d2bf7-adb7-7329-8d7c-db89ef073ced",
+          "dvc_procedure_019d2bf7-adb7-7329-8d7c-db89ef073ced",
+          "dvc_procedure_01a0652d-8382-7446-9ade-c7b7b0d15c72",
+          "dvc_procedure_019d2bfc-baa3-7642-a506-1841aaf7d92a",
+          "dvc_procedure_019f1695-894f-72b8-80a8-2fee368722be"
+        ],
+        "citation_precision": 0.25,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 95,
+        "processing_time": 14.028774976730347
+      },
+      {
+        "id": "ap-q017",
+        "question": "Khai báo tạm vắng mất bao lâu?",
+        "answer": "Theo Thủ tục Khai báo tạm vắng, mã 1.003677, Cổng DVC quốc gia, thời gian giải quyết thủ tục khai báo tạm vắng là 1 ngày làm việc.",
+        "expected_answer": "Thời gian 01 ngày làm việc.",
+        "cited_chunks": [
+          "dvc_procedure_019d2bf7-6f56-704f-95b8-8d949272c6ad",
+          "dvc_procedure_019d2bf7-4fc4-7716-bab8-167242b3fcda",
+          "dvc_procedure_019d2bf7-4fc4-7716-bab8-167242b3fcda",
+          "dvc_procedure_019d2bf7-7efc-7491-9ac8-527fe53522e4",
+          "dvc_procedure_019d2bfc-ab02-72f7-8377-62acdf116a4c"
+        ],
+        "citation_precision": 0.25,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 130,
+        "processing_time": 22.527950048446655
+      },
+      {
+        "id": "ap-q018",
+        "question": "Đăng ký thường trú mất bao lâu?",
+        "answer": "Theo Thủ tục Đăng ký thường trú, mã 1.116788, Cổng DVC quốc gia, thời gian giải quyết thủ tục đăng ký thường trú là 07 ngày làm việc.",
+        "expected_answer": "Thời gian 07 ngày làm việc.",
+        "cited_chunks": [
+          "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0",
+          "dvc_procedure_01a0e614-34b3-7355-929c-9f54d24e6bc0",
+          "dvc_procedure_019d2bf7-7efc-7491-9ac8-527fe53522e4",
+          "dvc_procedure_019ff40e-c013-704a-be47-cee8794be2e2",
+          "dvc_procedure_019ff40e-c013-704a-be47-cee8794be2e2"
+        ],
+        "citation_precision": 0.3333333333333333,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 133,
+        "processing_time": 14.028707265853882
+      },
+      {
+        "id": "ap-q019",
+        "question": "Chứng thực di chúc có lệ phí bao nhiêu?",
+        "answer": "Theo Thủ tục Chứng thực di chúc, mã 2.001019, Cổng DVC quốc gia, mức lệ phí khi thực hiện thủ tục chứng thực di chúc là 50.000 đồng.",
+        "expected_answer": "Lệ phí 50.000 VNĐ.",
+        "cited_chunks": [
+          "dvc_procedure_019d2bfd-95f0-7610-845f-c097f144bd55",
+          "dvc_procedure_019d2bfc-54c0-70db-af4b-ff0020265dd1",
+          "dvc_procedure_019d2bfd-c4cb-734d-bb80-29723a707c08",
+          "dvc_procedure_019d2bf8-c7e3-746e-8437-305980ee5536",
+          "dvc_procedure_019d2bfd-8e22-77ef-819f-e49460350904"
+        ],
+        "citation_precision": 0.2,
+        "citation_recall": 1.0,
+        "expected_term_recall": 0.6666666666666666,
+        "abstained": false,
+        "answer_length": 132,
+        "processing_time": 14.745333194732666
+      },
+      {
+        "id": "ap-q020",
+        "question": "Hỗ trợ người cao tuổi từ 70 đến dưới 75 tuổi cần hồ sơ gì?",
+        "answer": "Theo Thủ tục Hỗ trợ cho Người cao tuổi từ đủ 70 tuổi đến dưới 75 tuổi; Người cao tuổi dưới 75 tuổi thường trú trên địa bàn tỉnh, là Đảng viên được tặng huy hiệu 40 năm tuổi đảng trở lên, không có lương hưu, trợ cấp bảo hiểm xã hội, trợ cấp xã hội hàng tháng, mã 1.014589, Cổng DVC quốc gia, hồ sơ để giải quyết thủ tục này bao gồm: Tờ khai đề nghị hưởng trợ cấp xã hội: 01 (một) bản chính.",
+        "expected_answer": "Tờ khai đề nghị hưởng trợ cấp xã hội 01 bản chính.",
+        "cited_chunks": [
+          "dvc_procedure_019d7c4f-0f4f-756f-a7db-e8f96edb8171",
+          "dvc_procedure_01a01d63-1115-70ae-b9e7-80298abb5b0c",
+          "dvc_procedure_019d2bf8-c7e7-71f7-81cf-28778a076923",
+          "dvc_procedure_019d2bf8-c7e7-71f7-81cf-28778a076923",
+          "dvc_procedure_019dbd39-e163-77cc-aae1-d4361d962cec"
+        ],
+        "citation_precision": 0.25,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 389,
+        "processing_time": 22.119985342025757
+      },
+      {
+        "id": "ap-q021",
+        "question": "Lịch làm việc HĐND - UBND phường An Phú tuần 03/11/2025 đến 08/11/2025?",
+        "answer": "Theo Lịch làm việc UBND phường An Phú: Lịch làm việc HĐND - UBND ngày 03/11/2025 đến 08/11/2025, vào thứ Hai - 03/11/2025, vào lúc sáng - 08 giờ, Chủ tịch UBND và các Phó Chủ tịch UBND phường họp Ủy viên UBND phường liên quan đến các nội dung được nêu. \n\nTôi không tìm thấy thông tin đầy đủ trong các tài liệu được cung cấp đối với các ngày còn lại trong tuần từ 03/11/2025 đến 08/11/2025.",
+        "expected_answer": "Lịch làm việc HĐND - UBND phường An Phú ngày 03/11/2025 đến 08/11/2025.",
+        "cited_chunks": [
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-03112025-den-08112025",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-tu-ngay-24112025-den-29112025",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-10112025-den-15112025",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-10112025-den-15112025"
+        ],
+        "citation_precision": 0.25,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": true,
+        "answer_length": 389,
+        "processing_time": 19.25110626220703
+      },
+      {
+        "id": "ap-q022",
+        "question": "Lịch làm việc HĐND - UBND phường An Phú tuần 17/11/2025 đến 21/11/2025?",
+        "answer": "Theo Lịch làm việc UBND phường An Phú: Lịch làm việc HĐND - UBND ngày 17/11/2025 đến 21/11/2025, lịch làm việc của Chủ tịch và các Phó Chủ tịch HĐND - UBND phường An Phú cụ thể như sau:\n\n- **Thứ Hai - 17/11/2025:**\n  - **Sáng (08 giờ):** Chủ tịch UBND, các Phó Chủ tịch HĐND và UBND phường giải quyết công việc tại cơ quan.\n  - **Chiều (14 giờ):** Chủ tịch UBND, các Phó Chủ tịch HĐND và UBND phường dự Hội nghị học tập, quán triệt Nghị quyết Đại hội đại biểu Đảng bộ Thành phố Hồ Chí Minh lần thứ I, nhiệm kỳ 2025 - 2030 tại Hội trường A - UBND phường. Thành phần tham dự gồm Trưởng, Phó các ban ngành phường và Ban giám hiệu các trường học trên địa bàn phường.\n\n- **Thứ Ba - 18/11/2025:**\n  - **Sáng (08 giờ):** Chủ tịch UBND Nguyễn Hữu Châu tiếp công dân định kỳ.",
+        "expected_answer": "Lịch làm việc HĐND - UBND phường An Phú ngày 17/11/2025 đến 21/11/2025.",
+        "cited_chunks": [
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-03112025-den-08112025",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-10112025-den-15112025",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-tu-ngay-24112025-den-29112025",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-10112025-den-15112025"
+        ],
+        "citation_precision": 0.25,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 766,
+        "processing_time": 18.54392647743225
+      },
+      {
+        "id": "ap-q023",
+        "question": "Lịch làm việc HĐND - UBND phường An Phú tuần 12/01/2026 đến 17/01/2026?",
+        "answer": "Theo Lịch làm việc UBND phường An Phú: Lịch làm việc HĐND - UBND ngày 12/01/2026 đến 17/01/2026, lịch làm việc của Chủ tịch và các Phó Chủ tịch HĐND-UBND phường An Phú trong tuần từ 12/01/2026 đến 17/01/2026 cụ thể như sau:\n\n**THỨ HAI - 12/01/2026:**\n*   **Buổi sáng (08 giờ):** Chủ tịch UBND, các Phó Chủ tịch HĐND-UBND phường giải quyết công việc tại cơ quan.\n*   **Buổi chiều (14 giờ):** Chủ tịch UBND Phạm Phú Nam nghe Ban Chỉ huy Quân sự phường báo cáo khó khăn, vướng mắc trong công việc; phương hướng hoạt động quý I/2026. \n    *   *Thành phần mời dự:* Chỉ huy Ban Chỉ huy Quân sự phường.\n    *   *Địa điểm:* Hội trường B - UBND phường.\n    *   *Lãnh đạo văn phòng (LĐVP):* Trình, Trọng.\n\n**THỨ BA - 13/01/2026:**\n*   **Buổi sáng (08 giờ):** Chủ tịch UBND Phạm Phú Nam tiếp công dân định kỳ. \n    *   *Thành phần mời dự:* Đại diện lãnh đạo UBMTTOVN phường, Công an, Ban Chỉ huy Quân sự, Phòng Kinh tế, Hạ tầng và Đô thị, Phòng Văn hóa - Xã hội, Trung tâm Phục vụ hành chính công.",
+        "expected_answer": "Lịch làm việc HĐND - UBND phường An Phú ngày 12/01/2026 đến 17/01/2026.",
+        "cited_chunks": [
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-12012026-den-17012026",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-29122025-den-03012025",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-05012026-den-10012026",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-29122025-den-03012025",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-05012026-den-10012026"
+        ],
+        "citation_precision": 0.3333333333333333,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 986,
+        "processing_time": 21.605491399765015
+      },
+      {
+        "id": "ap-q024",
+        "question": "Lịch làm việc HĐND - UBND phường An Phú từ 29/6/2026 đến 05/7/2026?",
+        "answer": "Theo Lịch làm việc UBND phường An Phú: Lịch làm việc Đảng ủy phường ngày 29/6/2026 đến ngày 05/7/2026, lịch làm việc của Chủ tịch HĐND phường Nguyễn Thị Hiền vào thứ Hai, ngày 29/6/2026 như sau:\n- Sáng (08h00): Dự họp đánh giá cán bộ, công chức của Cơ quan HĐND quý II để đề xuất chi tăng thu nhập theo Nghị quyết số 27-NQ/HĐND của HĐND Thành phố tại Hội trường C - UBND phường. Thành phần tham dự gồm Phó Chủ tịch HĐND và 2 Phó Trưởng Ban Kinh tế - Ngân sách và Ban Văn hóa - Xã hội HĐND phường.\n- Chiều (14h00): Kiểm tra Đảng ủy các cơ quan Đảng phường tại Hội trường B - UBND phường với tư cách là Trưởng Đoàn Kiểm tra số 291. Thành phần tham dự gồm thành viên Đoàn kiểm tra theo Quyết định số 291-QĐ/ĐU, ngày 19/5/2026 của Ban Thường vụ Đảng ủy và các đồng chí Ủy viên Ban Chấp hành Đảng bộ các cơ quan Đảng phường.\n\nTheo Lịch làm việc UBND phường An Phú: Lịch làm việc HĐND - UBND ngày 29/6/2026 đến ngày 05/7/2026, lịch làm việc tiếp theo trong tuần bao gồm:\n- Thứ Ba (30/6/2026) vào lúc 08 giờ: Chủ tịch UBND Phạm Phú Nam tiếp công dân định kỳ, đồng thời Chủ tịch UBND Phạm Phú Nam cùng các Phó Chủ tịch HĐND - UBND phường dự Hội nghị phản biện xã hội đối với dự thảo Kế hoạch thúc đẩy tăng trưởng 02 con số trên địa bàn phường An Phú năm 2026 do Ban Thường trực Ủy ban Mặt trận Tổ quốc Việt Nam phường tổ chức.\n- Thứ Năm (02/7/2026) vào lúc 08 giờ: Phó Chủ tịch HĐND Nguyễn Thị Ngọc Bích tiếp công dân định kỳ.",
+        "expected_answer": "Lịch làm việc HĐND - UBND phường An Phú ngày 29/6/2026 đến ngày 05/7/2026.",
+        "cited_chunks": [
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-2962026-den-ngay-0572026",
+          "an_phu_schedule_lich-lam-viec-dang-uy-phuong-ngay-2962026-den-ngay-0572026",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-2962026-den-ngay-0572026",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-2962026-den-ngay-0572026",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-2962026-den-ngay-0572026"
+        ],
+        "citation_precision": 0.5,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 1418,
+        "processing_time": 17.70766019821167
+      },
+      {
+        "id": "ap-q025",
+        "question": "Lịch làm việc HĐND - UBND phường An Phú tuần 13/4/2026 đến 18/4/2026?",
+        "answer": "Theo Lịch làm việc UBND phường An Phú: Lịch làm việc HĐND - UBND ngày 13/4/2026 đến ngày 18/4/2026, lịch làm việc cụ thể trong tuần như sau:\n\n- **Thứ Hai (13/4/2026):**\n  - **Sáng (08 giờ):** Chủ tịch UBND, các Phó Chủ tịch HĐND-UBND phường dự Hội nghị trực tuyến toàn quốc nghiên cứu, học tập, quán triệt và triển khai thực hiện Nghị quyết Hội nghị lần thứ hai Ban Chấp hành Trung ương Đảng khóa XIV. Cùng dự có toàn thể Cán bộ, Công chức, Viên chức phường. Địa điểm tại Hội trường A - UBND phường.\n  - **Chiều (14 giờ):** Chủ tịch UBND, các Phó Chủ tịch UBND phường họp Thành viên Ủy ban nhân dân phường về công tác nhân sự (giao Phòng Văn hóa - Xã hội chuẩn bị nội dung và thông báo thành phần dự họp). Địa điểm tại Hội trường C - UBND phường.",
+        "expected_answer": "Lịch làm việc HĐND - UBND phường An Phú ngày 13/4/2026 đến ngày 18/4/2026.",
+        "cited_chunks": [
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-0642026-den-ngay-1242026",
+          "an_phu_schedule_lich-lam-viec-dang-uy-phuong-ngay-0642026-den-ngay-1242026",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-1342026-den-ngay-1842026",
+          "an_phu_schedule_lich-lam-viec-hdnd-ubnd-ngay-3032026-den-0442026",
+          "an_phu_schedule_lich-lam-viec-dang-uy-phuong-ngay-0642026-den-ngay-1242026-1"
+        ],
+        "citation_precision": 0.2,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 746,
+        "processing_time": 17.201436042785645
+      },
+      {
+        "id": "ap-q026",
+        "question": "Địa chỉ UBND phường An Phú ở đâu?",
+        "answer": "Theo Thông tin liên hệ và giờ làm việc của UBND phường An Phú, địa chỉ của UBND phường An Phú là số 9, đường ĐT 743, khu phố 1A, Thành phố Hồ Chí Minh.",
+        "expected_answer": "Số 9, đường ĐT 743, khu phố 1A, Thành phố Hồ Chí Minh.",
+        "cited_chunks": [
+          "an_phu_profile"
+        ],
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 151,
+        "processing_time": 18.32684326171875
+      },
+      {
+        "id": "ap-q027",
+        "question": "Số điện thoại liên hệ UBND phường An Phú?",
+        "answer": "Theo Thông tin liên hệ và giờ làm việc của UBND phường An Phú, số điện thoại liên hệ của UBND phường An Phú là 02743 740021.",
+        "expected_answer": "02743 740021.",
+        "cited_chunks": [
+          "an_phu_profile"
+        ],
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 124,
+        "processing_time": 15.156518697738647
+      },
+      {
+        "id": "ap-q028",
+        "question": "Email liên hệ của phường An Phú?",
+        "answer": "Theo Thông tin liên hệ và giờ làm việc của UBND phường An Phú, email liên hệ của phường An Phú là: anphu@tphcm.gov.vn.",
+        "expected_answer": "anphu@tphcm.gov.vn.",
+        "cited_chunks": [
+          "an_phu_profile"
+        ],
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 118,
+        "processing_time": 18.4394588470459
+      },
+      {
+        "id": "ap-q029",
+        "question": "Giờ làm việc ngày thường của phường An Phú?",
+        "answer": "Theo Thông tin liên hệ và giờ làm việc của UBND phường An Phú, giờ làm việc ngày thường của phường An Phú là từ 07:30 đến 11:30 và từ 13:30 đến 17:00.",
+        "expected_answer": "07:30-11:30 và 13:30-17:00.",
+        "cited_chunks": [
+          "an_phu_profile"
+        ],
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "expected_term_recall": 0.0,
+        "abstained": false,
+        "answer_length": 150,
+        "processing_time": 19.959967374801636
+      },
+      {
+        "id": "ap-q030",
+        "question": "Giờ làm việc thứ Bảy và Chủ nhật của phường An Phú?",
+        "answer": "Theo Thông tin liên hệ và giờ làm việc của UBND phường An Phú, giờ làm việc ngày thứ Bảy của phường An Phú là từ 07:30 đến 11:30, còn ngày Chủ nhật thì nghỉ.",
+        "expected_answer": "Thứ Bảy 07:30-11:30; Chủ nhật nghỉ.",
+        "cited_chunks": [
+          "an_phu_profile"
+        ],
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "expected_term_recall": 1.0,
+        "abstained": false,
+        "answer_length": 157,
+        "processing_time": 20.479983806610107
+      }
+    ]
+  }
+}

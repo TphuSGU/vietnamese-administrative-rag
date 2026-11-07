@@ -263,6 +263,12 @@ class TestLowercaseConversion:
         assert result == result.lower()
         assert result.isupper() is False
 
+    def test_lowercase_false_preserves_case(self):
+        """Legal ingestion must preserve headings and original case."""
+        cleaner = TextCleaner()
+        result = cleaner.clean("ĐIỀU 1. QUY ĐỊNH CHUNG", lowercase=False)
+        assert result == "ĐIỀU 1. QUY ĐỊNH CHUNG"
+
 
 class TestEdgeCases:
     """Edge case tests."""

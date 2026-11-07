@@ -64,7 +64,11 @@ def collect_documents(target: Path) -> List[Path]:
     return files
 
 
-async def ingest_all(paths: List[Path]) -> int:
+async def ingest_all(
+    paths: List[Path],
+    replace: bool = False,
+    doc_scope: str = "central",
+) -> int:
     pipeline = get_ingestion_pipeline()
     failures = 0
 
@@ -72,7 +76,17 @@ async def ingest_all(paths: List[Path]) -> int:
         document_id = make_document_id(path)
         print(f"\n[{index}/{len(paths)}] {path.name} -> document_id={document_id}")
 
-        result = await pipeline.ingest_document(path, document_id=document_id)
+        if replace:
+            deleted = pipeline.vector_store.delete_document(document_id)
+            print(f"    replaced existing chunks: {deleted}")
+
+        result = await pipeline.ingest_document(
+            path,
+            document_id=document_id,
+            # Seed corpus files are national legal documents; without this the
+            # chunks are stored with an empty doc_scope (Phase 5 requires none).
+            extra_metadata={"doc_scope": doc_scope},
+        )
 
         status = result.status.value if hasattr(result.status, "value") else result.status
         print(f"    status={status} chunks={result.chunk_count} job={result.job_id}")
@@ -103,6 +117,17 @@ def main() -> int:
         action="store_true",
         help="Skip BM25S rebuild after ingestion"
     )
+    parser.add_argument(
+        "--replace",
+        action="store_true",
+        help="Delete existing chunks for each document before re-ingesting"
+    )
+    parser.add_argument(
+        "--doc-scope",
+        default="central",
+        choices=["central", "hcmc", "local"],
+        help="doc_scope stamped on every chunk (default: central)"
+    )
     args = parser.parse_args()
 
     setup_logging(settings.log_level)
@@ -120,7 +145,7 @@ def main() -> int:
         reset_bm25_index(settings.bm25s_persist_dir)
 
     print(f"Ingesting {len(paths)} document(s) from {args.path}")
-    failures = asyncio.run(ingest_all(paths))
+    failures = asyncio.run(ingest_all(paths, replace=args.replace, doc_scope=args.doc_scope))
 
     if not args.no_rebuild_bm25:
         print("\nRebuilding BM25S index from stored chunks...")

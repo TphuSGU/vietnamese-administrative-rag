@@ -1,0 +1,25 @@
+locality:
+  code: "25975"
+  name: "Phường An Phú"
+  level: "phuong"
+  parent: "Thành phố Hồ Chí Minh"
+  portal: "https://phuonganphu.gov.vn"
+
+contact:
+  address: "Số 9, đường ĐT 743, khu phố 1A, Thành phố Hồ Chí Minh"
+  phone: "02743 740021"
+  email: "anphu@tphcm.gov.vn"
+
+working_hours:
+  weekdays: "07:30-11:30, 13:30-17:00"
+  saturday: "07:30-11:30"
+  sunday: "Nghỉ"
+
+# Xác minh Phase 0 qua DVC ward API ngày 2026-11-06
+verification:
+  dvc_ward_code: "25975"
+  dvc_ward_name: "Phường An Phú"
+  dvc_ward_uuid: "019bad30-cd8e-7296-afa4-f836804d385b"
+  dvc_ward_state: "ACTIVE"
+  dvc_checked_at: "2026-11-06"
+  tthc_ward_filter: "wardCode=25975 tra 0 ket qua; fallback 1506 TTHC COMMUNE toan quoc + applies_to_an_phu=true"

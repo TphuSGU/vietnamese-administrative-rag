@@ -13,6 +13,7 @@ from app.schemas.conversation import (
     ConversationCreate,
     ConversationDetail,
     ConversationResponse,
+    ConversationUpdate,
 )
 from app.services.conversations import (
     get_conversation_detail,
@@ -64,6 +65,36 @@ async def get_conversation(
             detail="Không tìm thấy cuộc hội thoại",
         )
     return detail
+
+
+@router.patch("/{conversation_id}", response_model=ConversationResponse)
+async def rename_conversation(
+    conversation_id: UUID,
+    payload: ConversationUpdate,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+) -> ConversationResponse:
+    conversation = await conversation_repo.get_conversation(
+        db, conversation_id, user.id
+    )
+    if conversation is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Không tìm thấy cuộc hội thoại",
+        )
+
+    title = payload.title.strip()
+    if not title:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Tên cuộc hội thoại không được để trống",
+        )
+
+    updated = await conversation_repo.update_conversation_title(
+        db, conversation, title
+    )
+    messages = await conversation_repo.list_messages(db, conversation.id)
+    return to_conversation_response(updated, message_count=len(messages))
 
 
 @router.delete("/{conversation_id}", status_code=status.HTTP_204_NO_CONTENT)

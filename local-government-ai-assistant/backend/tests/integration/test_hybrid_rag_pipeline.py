@@ -504,10 +504,20 @@ def test_pipeline_handles_empty_results(
     # Query when no documents exist
     query = "Điều 99 quy định gì?"
     
+    direct_answer = GeneratedAnswer(
+        answer="Tôi không tìm thấy thông tin trong tài liệu của địa phương "
+               "cho câu hỏi này (nguồn tổng quát, không có trong tài liệu).",
+        source_chunks=[],
+        model="mock-model",
+        tokens_used=20,
+    )
+    mock_llm_service.generate_answer_without_context.return_value = direct_answer
+    
     response = pipeline.query(query, k=3)
     
-    # Should return "no results" message
-    assert "Không tìm thấy" in response.answer
+    # Retrieval rỗng → vẫn gửi câu hỏi cho LLM trực tiếp
+    mock_llm_service.generate_answer_without_context.assert_called_once_with(query)
+    assert response.answer == direct_answer.answer
     assert len(response.source_chunks) == 0
     assert len(response.relevance_scores) == 0
 

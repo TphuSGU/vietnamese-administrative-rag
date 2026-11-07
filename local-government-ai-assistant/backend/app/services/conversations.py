@@ -6,6 +6,7 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.db_models import Conversation
+from app.models.data_models import strip_urls
 from app.repositories import conversations as conversation_repo
 from app.schemas.conversation import (
     ConversationDetail,
@@ -63,7 +64,13 @@ def sources_payload(source_chunks: list[Any]) -> list[dict[str, Any]]:
                 "document_id": data.get("document_id"),
                 "chunk_index": data.get("chunk_index"),
                 "similarity_score": data.get("similarity_score"),
-                "text": data.get("text"),
+                "text": strip_urls(data.get("text")),
+                "citation": data.get("citation") or "",
+                "doc_number": data.get("doc_number") or "",
+                "issued_date": data.get("issued_date") or "",
+                "issuer": data.get("issuer") or "",
+                "doc_scope": data.get("doc_scope") or "",
+                "doc_type": data.get("doc_type") or "",
             }
         )
     return payload

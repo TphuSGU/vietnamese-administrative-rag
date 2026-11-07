@@ -3,7 +3,7 @@ Retriever component for RAG pipeline.
 Validates: Requirements 7.4, 7.5, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6
 """
 
-from typing import List
+from typing import Any, Dict, List, Optional
 
 from app.rag.embedding.embedding_service import EmbeddingService
 from app.database.vector_store import VectorStore
@@ -36,7 +36,8 @@ class Retriever:
     def retrieve(
         self, 
         query: str, 
-        k: int = DEFAULT_K
+        k: int = DEFAULT_K,
+        where: Optional[Dict[str, Any]] = None,
     ) -> List[RetrievedChunk]:
         """
         Retrieve top-K relevant chunks for query.
@@ -44,6 +45,7 @@ class Retriever:
         Args:
             query: User query in Vietnamese
             k: Number of chunks to retrieve (1-20)
+            where: Optional Chroma metadata filter
             
         Returns:
             List of RetrievedChunk sorted by similarity (descending)
@@ -63,8 +65,9 @@ class Retriever:
         
         # Search vector store (Req 8.3)
         search_results: List[SearchResult] = self.vector_store.search(
-            query_embedding, 
-            k=k
+            query_embedding,
+            k=k,
+            where=where,
         )
         
         # Convert to RetrievedChunk (Req 8.4, 8.5, 8.6)

@@ -133,15 +133,13 @@ async def test_concurrent_ingestion_jobs(pipeline, pipeline_components, tmp_path
     # Setup
     loader, cleaner, chunker, embedder, vector_store = pipeline_components
     
-    async def mock_load(*args, **kwargs):
-        await asyncio.sleep(0.01)  # Simulate I/O
+    def mock_load(*args, **kwargs):
         mock_doc = Mock(spec=Document)
         mock_doc.text = "Text"
         mock_doc.id = "doc_test"
         return mock_doc
-    
-    # Make load_document async-compatible
-    loader.load_document.side_effect = lambda *args, **kwargs: mock_load(*args, **kwargs)
+
+    loader.load_document.side_effect = mock_load
     cleaner.clean.return_value = "Cleaned"
     chunker.chunk_document.return_value = [
         Chunk(text="Chunk", document_id="doc_test", chunk_index=0)

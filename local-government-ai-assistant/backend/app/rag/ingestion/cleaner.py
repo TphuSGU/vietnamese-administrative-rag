@@ -59,7 +59,7 @@ class TextCleaner:
         """Initialize the TextCleaner."""
         logger.info("TextCleaner initialized", extra={"component": "text_cleaner"})
     
-    def clean(self, text: str) -> str:
+    def clean(self, text: str, lowercase: bool = True) -> str:
         """
         Clean and normalize Vietnamese text.
         
@@ -67,10 +67,12 @@ class TextCleaner:
         1. Unicode normalization to NFC form
         2. Control character removal (except \\n and \\t)
         3. Whitespace normalization (collapse spaces, preserve paragraph breaks)
-        4. Lowercase conversion
+        4. Optional lowercase conversion (default True for legacy behavior)
         
         Args:
             text: Raw text content to clean
+            lowercase: Lowercase the result; set False for legal documents
+                where original case and headings must be preserved.
             
         Returns:
             Cleaned and normalized text
@@ -80,8 +82,8 @@ class TextCleaner:
             >>> cleaner.clean("Thủ  tục   đăng  ký")
             'thủ tục đăng ký'
             
-            >>> cleaner.clean("HƯỚNG DẪN\\n\\nNỘI DUNG")
-            'hướng dẫn\\n\\nnội dung'
+            >>> cleaner.clean("HƯỚNG DẪN\\n\\nNỘI DUNG", lowercase=False)
+            'HƯỚNG DẪN\\n\\nNỘI DUNG'
         """
         if not text:
             return ""
@@ -96,8 +98,9 @@ class TextCleaner:
             # Step 3: Normalize whitespace (Requirement 2.2, Property 4)
             text = self._normalize_whitespace(text)
             
-            # Step 4: Convert to lowercase (Requirement 2.5, Property 7)
-            text = self._to_lowercase(text)
+            # Step 4: Optional lowercase conversion (Requirement 2.5, Property 7)
+            if lowercase:
+                text = self._to_lowercase(text)
             
             # Verify diacritics preservation (Requirement 2.3, Property 5)
             # This is implicit - NFC normalization and lowercase preserve diacritics

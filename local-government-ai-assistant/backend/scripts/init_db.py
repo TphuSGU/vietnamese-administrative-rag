@@ -24,7 +24,7 @@ import app.models.db_models  # noqa: E402,F401  (register models)
 async def main() -> None:
     async with engine.begin() as connection:
         await connection.run_sync(Base.metadata.create_all)
-    print("Đã tạo bảng: users, conversations, messages")
+    print("Đã tạo bảng: users, conversations, messages, feedback")
     await engine.dispose()
 
 

@@ -59,9 +59,23 @@ def create_mock_rag_response(
     source_chunks = [
         ChunkReference(
             document_id=f"doc_{i}",
-            text=f"Nội dung tài liệu {i}...",
+            text=(
+                "Trang thông tin: https://phuonganphu.gov.vn\nNội dung tài liệu 0"
+                if i == 0
+                else f"Nội dung tài liệu {i}..."
+            ),
             similarity_score=0.9 - (i * 0.05),
-            chunk_index=i
+            chunk_index=i,
+            citation=(
+                "Nghị quyết số 25/NQ-HĐND ngày 29/7/2026 của HĐND phường An Phú"
+                if i == 0
+                else ""
+            ),
+            doc_number="25/NQ-HĐND" if i == 0 else "",
+            issued_date="2026-07-29" if i == 0 else "",
+            issuer="HĐND phường An Phú" if i == 0 else "",
+            doc_scope="local" if i == 0 else "",
+            doc_type="Nghị quyết" if i == 0 else "",
         )
         for i in range(num_sources)
     ]
@@ -142,6 +156,92 @@ def test_query_endpoint_success():
         app.dependency_overrides.clear()
 
 
+def test_query_response_source_chunks_include_citation():
+    """Phase 8: source_chunks expose citation metadata without URLs."""
+    mock_pipeline = Mock()
+    mock_pipeline.query.return_value = create_mock_rag_response()
+    app.dependency_overrides[get_hybrid_pipeline] = lambda: mock_pipeline
+
+    try:
+        response = client.post(
+            "/api/v1/chat/query",
+            json={"query": "Quy chế tiếp công dân của phường quy định gì?", "k": 5},
+        )
+
+        assert response.status_code == 200
+        source = response.json()["source_chunks"][0]
+        assert source["citation"] == (
+            "Nghị quyết số 25/NQ-HĐND ngày 29/7/2026 của HĐND phường An Phú"
+        )
+        assert source["doc_number"] == "25/NQ-HĐND"
+        assert source["issued_date"] == "2026-07-29"
+        assert source["issuer"] == "HĐND phường An Phú"
+        assert source["doc_scope"] == "local"
+        assert source["doc_type"] == "Nghị quyết"
+        assert "http" not in source["citation"]
+        # Plan §8.3: portal URL inside chunk text is stripped, not returned
+        assert "http" not in response.text.lower()
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_query_defaults_to_an_phu_locality_code():
+    """Phase 10: locality_code defaults to An Phú when the client omits it."""
+    mock_pipeline = Mock()
+    mock_pipeline.query.return_value = create_mock_rag_response()
+    app.dependency_overrides[get_hybrid_pipeline] = lambda: mock_pipeline
+
+    try:
+        response = client.post(
+            "/api/v1/chat/query",
+            json={"query": "Địa chỉ UBND phường An Phú?", "k": 5},
+        )
+        assert response.status_code == 200
+        assert mock_pipeline.query.call_args[1]["locality_code"] == "25975"
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_query_accepts_explicit_locality_code():
+    """Phase 10: an explicit locality_code is forwarded to the pipeline."""
+    mock_pipeline = Mock()
+    mock_pipeline.query.return_value = create_mock_rag_response()
+    app.dependency_overrides[get_hybrid_pipeline] = lambda: mock_pipeline
+
+    try:
+        response = client.post(
+            "/api/v1/chat/query",
+            json={
+                "query": "Lịch làm việc của phường?",
+                "k": 5,
+                "locality_code": "25975",
+            },
+        )
+        assert response.status_code == 200
+        assert mock_pipeline.query.call_args[1]["locality_code"] == "25975"
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_source_chunks_have_no_url_in_citation():
+    """Phase 10: citation never contains a URL."""
+    mock_pipeline = Mock()
+    mock_pipeline.query.return_value = create_mock_rag_response()
+    app.dependency_overrides[get_hybrid_pipeline] = lambda: mock_pipeline
+
+    try:
+        response = client.post(
+            "/api/v1/chat/query",
+            json={"query": "Quy chế tiếp công dân quy định gì?", "k": 5},
+        )
+        assert response.status_code == 200
+        for source in response.json()["source_chunks"]:
+            assert "http" not in (source.get("citation") or "").lower()
+            assert "://" not in (source.get("citation") or "")
+    finally:
+        app.dependency_overrides.clear()
+
+
 def test_query_endpoint_validation_error():
     """Test query with validation error."""
     # Setup mock to raise validation error
@@ -194,20 +294,23 @@ def test_query_endpoint_query_too_short():
     assert response.status_code == 422
 
 
-def test_query_endpoint_query_too_long():
-    """Test query that's too long."""
-    long_query = "A" * 501  # Exceeds 500 char limit
-    
-    response = client.post(
-        "/api/v1/chat/query",
-        json={
-            "query": long_query,
-            "k": 5
-        }
-    )
-    
-    # Should fail Pydantic validation
-    assert response.status_code == 422
+def test_query_endpoint_accepts_long_query():
+    """Long questions are allowed; only the minimum length is enforced."""
+    mock_pipeline = Mock()
+    mock_pipeline.query.return_value = create_mock_rag_response()
+    app.dependency_overrides[get_hybrid_pipeline] = lambda: mock_pipeline
+
+    try:
+        response = client.post(
+            "/api/v1/chat/query",
+            json={
+                "query": "A" * 1200,
+                "k": 5,
+            },
+        )
+        assert response.status_code == 200, response.text
+    finally:
+        app.dependency_overrides.clear()
 
 
 def test_query_endpoint_invalid_k_too_small():

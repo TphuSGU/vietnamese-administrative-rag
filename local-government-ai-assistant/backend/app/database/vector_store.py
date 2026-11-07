@@ -91,6 +91,7 @@ class VectorStore:
         chunks: List[Chunk],
         embeddings: np.ndarray,
         filename: Optional[str] = None,
+        extra_metadata: Optional[Dict[str, Any]] = None,
     ) -> None:
         """
         Store chunk embeddings with metadata.
@@ -98,6 +99,9 @@ class VectorStore:
         Args:
             chunks: List of Chunk objects (from SemanticChunker)
             embeddings: Array of shape (len(chunks), 768)
+            filename: Original filename for display/listing
+            extra_metadata: Document-level metadata merged into every chunk
+                (e.g. locality_code, citation_label, issued_date)
             
         Raises:
             VectorStoreError: If storage fails
@@ -129,18 +133,29 @@ class VectorStore:
                 for chunk in chunks
             ]
             
-            metadatas = [
-                {
+            def clean_metadata(source: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+                return {
+                    key: value
+                    for key, value in (source or {}).items()
+                    if value is not None
+                    and isinstance(value, (str, int, float, bool))
+                }
+
+            extra = clean_metadata(extra_metadata)
+            metadatas = []
+            for chunk in chunks:
+                metadata = {
                     "document_id": chunk.document_id,
                     "chunk_index": chunk.chunk_index,
                     "heading_context": chunk.heading_context or "",
                     "char_start": chunk.char_start,
                     "char_end": chunk.char_end,
                     "filename": filename or "",
-                    "timestamp": datetime.utcnow().isoformat()
+                    "timestamp": datetime.utcnow().isoformat(),
                 }
-                for chunk in chunks
-            ]
+                metadata.update(clean_metadata(chunk.metadata))
+                metadata.update(extra)
+                metadatas.append(metadata)
             
             documents = [chunk.text for chunk in chunks]
             
@@ -172,7 +187,8 @@ class VectorStore:
     def search(
         self,
         query_embedding: np.ndarray,
-        k: int = 5
+        k: int = 5,
+        where: Optional[Dict[str, Any]] = None,
     ) -> List[SearchResult]:
         """
         Search for similar chunks using cosine similarity.
@@ -180,6 +196,7 @@ class VectorStore:
         Args:
             query_embedding: Query vector of shape (768,)
             k: Number of results to return (default: 5)
+            where: Optional Chroma metadata filter
             
         Returns:
             List of SearchResult objects sorted by similarity (descending)
@@ -212,11 +229,14 @@ class VectorStore:
                 query_list = query_embedding[0].tolist()
             
             # Perform similarity search
-            results = self.collection.query(
-                query_embeddings=[query_list],
-                n_results=k,
-                include=["documents", "metadatas", "distances"]
-            )
+            query_kwargs = {
+                "query_embeddings": [query_list],
+                "n_results": k,
+                "include": ["documents", "metadatas", "distances"],
+            }
+            if where:
+                query_kwargs["where"] = where
+            results = self.collection.query(**query_kwargs)
             
             search_time = time.time() - start_time
             

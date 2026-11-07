@@ -158,6 +158,40 @@ def test_add_multiple_chunks(vector_store, sample_chunks, sample_embeddings):
     assert stats["count"] == 3
 
 
+def test_add_chunks_extra_metadata(vector_store):
+    """Document metadata is merged into every chunk and retrievable."""
+    chunk = Chunk(
+        text="Nghị quyết về ngân sách phường",
+        document_id="an_phu_2466",
+        chunk_index=0,
+        metadata={
+            "article_no": "5",
+            "citation": "Nghị quyết số 15/NQ-HĐND, Điều 5",
+        },
+    )
+    embedding = np.random.randn(1, 768).astype(np.float32)
+    embedding = embedding / np.linalg.norm(embedding)
+
+    vector_store.add_chunks(
+        [chunk],
+        embedding,
+        filename="an_phu_2466.txt",
+        extra_metadata={
+            "locality_code": "25975",
+            "citation_label": "Nghị quyết số 15/NQ-HĐND ngày 29/7/2025",
+            "ignored": None,
+        },
+    )
+
+    result = vector_store.collection.get(ids=["an_phu_2466_0"], include=["metadatas"])
+    metadata = result["metadatas"][0]
+    assert metadata["locality_code"] == "25975"
+    assert metadata["citation_label"] == "Nghị quyết số 15/NQ-HĐND ngày 29/7/2025"
+    assert metadata["article_no"] == "5"
+    assert metadata["citation"] == "Nghị quyết số 15/NQ-HĐND, Điều 5"
+    assert "ignored" not in metadata
+
+
 def test_add_chunks_incremental_indexing(vector_store, sample_chunks, sample_embeddings):
     """Test incremental indexing (add without rebuilding)."""
     # Add first batch
@@ -481,3 +515,64 @@ def test_chunk_metadata_stored_correctly(vector_store, sample_chunks, sample_emb
     assert "char_start" in result.metadata
     assert "char_end" in result.metadata
     assert "timestamp" in result.metadata
+
+
+def test_search_filters_by_doc_scope(vector_store):
+    """Phase 10: local/global doc_scope filter returns only matching chunks."""
+    local_chunk = Chunk(
+        text="Nghị quyết về ngân sách phường An Phú",
+        document_id="an_phu_2466",
+        chunk_index=0,
+        metadata={"doc_scope": "local"},
+    )
+    central_chunk = Chunk(
+        text="Nghị định quy định về đăng ký hộ tịch",
+        document_id="151-2025-ND-CP",
+        chunk_index=0,
+        metadata={"doc_scope": "central"},
+    )
+    embeddings = np.random.randn(2, 768).astype(np.float32)
+    embeddings = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
+    vector_store.add_chunks([local_chunk, central_chunk], embeddings, filename="seed.pdf")
+
+    query = np.random.randn(768).astype(np.float32)
+    query = query / np.linalg.norm(query)
+
+    local_hits = vector_store.search(query, k=5, where={"doc_scope": "local"})
+    assert local_hits
+    assert all(hit.metadata.get("doc_scope") == "local" for hit in local_hits)
+    assert all(hit.metadata.get("document_id") == "an_phu_2466" for hit in local_hits)
+
+    central_hits = vector_store.search(query, k=5, where={"doc_scope": "central"})
+    assert central_hits
+    assert all(hit.metadata.get("doc_scope") == "central" for hit in central_hits)
+    assert all(
+        hit.metadata.get("document_id") == "151-2025-ND-CP" for hit in central_hits
+    )
+
+
+def test_search_where_excludes_other_scopes(vector_store):
+    """A scope filter never returns chunks from another scope."""
+    chunks = [
+        Chunk(
+            text="Nội dung địa phương",
+            document_id="an_phu_2454",
+            chunk_index=0,
+            metadata={"doc_scope": "local"},
+        ),
+        Chunk(
+            text="Nội dung trung ương",
+            document_id="65-2025-QH",
+            chunk_index=0,
+            metadata={"doc_scope": "central"},
+        ),
+    ]
+    embeddings = np.random.randn(2, 768).astype(np.float32)
+    embeddings = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
+    vector_store.add_chunks(chunks, embeddings, filename="seed2.pdf")
+
+    query = np.random.randn(768).astype(np.float32)
+    query = query / np.linalg.norm(query)
+    results = vector_store.search(query, k=5, where={"doc_scope": "local"})
+    assert len(results) == 1
+    assert results[0].metadata["document_id"] == "an_phu_2454"

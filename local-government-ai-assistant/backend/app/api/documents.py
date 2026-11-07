@@ -297,6 +297,23 @@ async def delete_document(
 
 
 @router.get(
+    "/jobs",
+    response_model=list[IngestionJobResponse],
+    summary="List ingestion jobs (admin)"
+)
+async def list_ingestion_jobs(
+    _: User = Depends(require_admin),
+) -> list[IngestionJobResponse]:
+    """Return recent ingestion jobs kept in this process."""
+    jobs = sorted(
+        _ingestion_jobs.values(),
+        key=lambda job: job["created_at"],
+        reverse=True,
+    )
+    return [IngestionJobResponse(**job) for job in jobs]
+
+
+@router.get(
     "/{job_id}",
     response_model=IngestionJobResponse,
     summary="Check ingestion job status"

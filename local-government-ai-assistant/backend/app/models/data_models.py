@@ -4,10 +4,27 @@ Core data models for RAG LLM System.
 Defines dataclasses for documents, chunks, search results, and pipeline responses.
 Implements requirements from design document for data structure completeness.
 """
+import re
 from dataclasses import dataclass, field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 from enum import Enum
+
+_URL_RE = re.compile(r"(?:https?://|www\.)\S+", re.IGNORECASE)
+
+
+def strip_urls(text: Optional[str]) -> str:
+    """Remove raw URLs from serialized chunk text (plan §8.3: no links out).
+
+    Source profile chunks may contain the portal URL ("Trang thông tin:
+    https://...") from profile.yaml — it must never reach API responses.
+    Text without URLs is returned unchanged so existing equality tests hold.
+    """
+    if not text:
+        return ""
+    if not _URL_RE.search(text):
+        return text
+    return _URL_RE.sub("", text).strip()
 
 
 # ============================================================================
@@ -53,6 +70,7 @@ class Chunk:
     heading_context: Optional[str] = None
     char_start: int = 0
     char_end: int = 0
+    metadata: Dict[str, Any] = field(default_factory=dict)
     
     def __post_init__(self):
         """Validate chunk metadata completeness."""
@@ -76,7 +94,8 @@ class Chunk:
             "chunk_index": self.chunk_index,
             "heading_context": self.heading_context,
             "char_start": self.char_start,
-            "char_end": self.char_end
+            "char_end": self.char_end,
+            "metadata": self.metadata,
         }
 
 
@@ -192,6 +211,14 @@ class ChunkReference:
     text: str  # Preview text
     similarity_score: float
     chunk_index: Optional[int] = None
+    # Citation metadata copied from the retrieved chunk so API/history
+    # responses can show a source without the LLM inventing numbers.
+    citation: str = ""
+    doc_number: str = ""
+    issued_date: str = ""
+    issuer: str = ""
+    doc_scope: str = ""
+    doc_type: str = ""
 
 
 @dataclass
@@ -252,9 +279,15 @@ class RAGResponse:
             "source_chunks": [
                 {
                     "document_id": chunk.document_id,
-                    "text": chunk.text,
+                    "text": strip_urls(chunk.text),
                     "similarity_score": chunk.similarity_score,
-                    "chunk_index": chunk.chunk_index
+                    "chunk_index": chunk.chunk_index,
+                    "citation": getattr(chunk, "citation", "") or "",
+                    "doc_number": getattr(chunk, "doc_number", "") or "",
+                    "issued_date": getattr(chunk, "issued_date", "") or "",
+                    "issuer": getattr(chunk, "issuer", "") or "",
+                    "doc_scope": getattr(chunk, "doc_scope", "") or "",
+                    "doc_type": getattr(chunk, "doc_type", "") or "",
                 }
                 for chunk in self.source_chunks
             ],

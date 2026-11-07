@@ -10,13 +10,19 @@ from pydantic_settings import BaseSettings
 import logging
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+# Nạp .env vào os.environ TRƯỚC khi Settings khởi tạo, để mọi os.getenv(...) trong
+# app/tests đều đọc được cấu hình (.env nằm ở backend/, không phụ thuộc cwd).
+load_dotenv(Path(__file__).resolve().parents[2] / ".env")
+
 
 class Settings(BaseSettings):
     """Application configuration loaded from environment variables."""
     
     # Google Gemini Configuration (replaces OpenAI)
     gemini_api_key: str = Field(..., env="GEMINI_API_KEY")
-    gemini_model: str = Field("gemini-3.5-flash-lite", env="GEMINI_MODEL")
+    gemini_model: str = Field("gemini-3.1-flash-lite", env="GEMINI_MODEL")
     
     # Vietnamese Embedding Model (bkai-foundation-models/vietnamese-bi-encoder)
     embedding_model_name: str = Field(
@@ -62,6 +68,13 @@ class Settings(BaseSettings):
     cors_origins: str = Field(
         "http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173",
         env="CORS_ORIGINS"
+    )
+    cors_origin_regex: str = Field(
+        r"https?://(?:localhost|127\.0\.0\.1|0\.0\.0\.0|"
+        r"10\.\d{1,3}\.\d{1,3}\.\d{1,3}|"
+        r"192\.168\.\d{1,3}\.\d{1,3}|"
+        r"172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})(?::\d+)?$",
+        env="CORS_ORIGIN_REGEX",
     )
 
     @property

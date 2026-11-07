@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 import uuid
 import asyncio
-from typing import Optional, Dict
+from typing import Optional, Dict, Any
 from datetime import datetime
 
 from app.rag.ingestion.loader import DocumentLoader
@@ -135,7 +135,8 @@ class DocumentIngestionPipeline:
     async def ingest_document(
         self, 
         file_path: Path,
-        document_id: Optional[str] = None
+        document_id: Optional[str] = None,
+        extra_metadata: Optional[Dict[str, Any]] = None
     ) -> IngestionResult:
         """
         Ingest a document through the complete pipeline.
@@ -144,6 +145,8 @@ class DocumentIngestionPipeline:
             file_path: Path to document (PDF/DOCX/TXT)
             document_id: Optional stable document ID (e.g. "150-2025-ND-CP").
                          If omitted a random ID is generated.
+            extra_metadata: Document-level metadata merged into every chunk
+                            (e.g. doc_scope, locality_code)
             
         Returns:
             IngestionResult with job_id, status, chunk_count, document_id
@@ -186,7 +189,7 @@ class DocumentIngestionPipeline:
                 
                 # Stage 2: Clean text
                 try:
-                    cleaned_text = self.cleaner.clean(document.text)
+                    cleaned_text = self.cleaner.clean(document.text, lowercase=False)
                     document.text = cleaned_text
                     logger.info(f"Stage 2 complete: Text cleaned", extra={"job_id": job_id})
                 except Exception as e:
@@ -217,7 +220,10 @@ class DocumentIngestionPipeline:
                 # Stage 5: Store in vector DB
                 try:
                     self.vector_store.add_chunks(
-                        chunks, embeddings, filename=document.filename
+                        chunks,
+                        embeddings,
+                        filename=getattr(document, "filename", None) or Path(file_path).name,
+                        extra_metadata=extra_metadata,
                     )
                     logger.info(
                         f"Stage 5 complete: Chunks stored",

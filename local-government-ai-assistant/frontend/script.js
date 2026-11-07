@@ -1,6 +1,7 @@
-const API_BASE_URL = 'http://localhost:8000/api/v1';
+const API_BASE_URL = window.APP_CONFIG?.API_BASE_URL || '/api/v1';
 const TOKEN_KEY = 'admin_ai_token';
 const EMAIL_KEY = 'admin_ai_email';
+const ROLE_KEY = 'admin_ai_role';
 
 const WELCOME_HTML = `
     <div class="message bot-message">
@@ -19,6 +20,7 @@ const WELCOME_HTML = `
 const state = {
     token: localStorage.getItem(TOKEN_KEY) || '',
     email: localStorage.getItem(EMAIL_KEY) || '',
+    role: localStorage.getItem(ROLE_KEY) || '',
     currentConversationId: null,
     conversations: [],
     isLoading: false,
@@ -37,6 +39,7 @@ const els = {
     conversationList: document.getElementById('conversation-list'),
     userBox: document.getElementById('user-box'),
     userEmail: document.getElementById('user-email'),
+    adminLink: document.getElementById('admin-link'),
     loginBtn: document.getElementById('login-btn'),
     logoutBtn: document.getElementById('logout-btn'),
     authModal: document.getElementById('auth-modal'),
@@ -52,6 +55,19 @@ const els = {
     authSubmit: document.getElementById('auth-submit'),
     tabLogin: document.getElementById('tab-login'),
     tabRegister: document.getElementById('tab-register'),
+    feedbackBtn: document.getElementById('feedback-btn'),
+    feedbackModal: document.getElementById('feedback-modal'),
+    feedbackClose: document.getElementById('feedback-close'),
+    feedbackForm: document.getElementById('feedback-form'),
+    feedbackName: document.getElementById('feedback-name'),
+    feedbackPhone: document.getElementById('feedback-phone'),
+    feedbackEmail: document.getElementById('feedback-email'),
+    feedbackCategory: document.getElementById('feedback-category'),
+    feedbackSubject: document.getElementById('feedback-subject'),
+    feedbackContent: document.getElementById('feedback-content'),
+    feedbackError: document.getElementById('feedback-error'),
+    feedbackSuccess: document.getElementById('feedback-success'),
+    feedbackSubmit: document.getElementById('feedback-submit'),
 };
 
 function authHeaders(extra = {}) {
@@ -149,23 +165,28 @@ function setAuthUi() {
     els.userBox.classList.toggle('hidden', !loggedIn);
     els.loginBtn.classList.toggle('hidden', loggedIn);
     els.userEmail.textContent = state.email;
+    els.adminLink.classList.toggle('hidden', state.role !== 'admin');
 }
 
-function saveSession(token, email) {
+function saveSession(token, email, role) {
     state.token = token;
     state.email = email;
+    state.role = role || 'user';
     localStorage.setItem(TOKEN_KEY, token);
     localStorage.setItem(EMAIL_KEY, email);
+    localStorage.setItem(ROLE_KEY, state.role);
     setAuthUi();
 }
 
 function clearSession() {
     state.token = '';
     state.email = '';
+    state.role = '';
     state.currentConversationId = null;
     state.conversations = [];
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(EMAIL_KEY);
+    localStorage.removeItem(ROLE_KEY);
     setAuthUi();
     renderConversations();
     clearChat();
@@ -195,7 +216,7 @@ async function handleAuthSubmit(event) {
             body: JSON.stringify({ email, password }),
         });
 
-        saveSession(login.access_token, login.user.email);
+        saveSession(login.access_token, login.user.email, login.user.role);
         closeAuthModal();
         await loadConversations();
     } catch (error) {
@@ -214,11 +235,83 @@ async function restoreSession() {
     try {
         const me = await apiRequest('/auth/me');
         state.email = me.email;
+        state.role = me.role || 'user';
         localStorage.setItem(EMAIL_KEY, me.email);
+        localStorage.setItem(ROLE_KEY, state.role);
         setAuthUi();
         await loadConversations();
     } catch {
         clearSession();
+    }
+}
+
+/* ------------------------------------------------------------------------- */
+/* Citizen feedback                                                          */
+/* ------------------------------------------------------------------------- */
+
+function openFeedbackModal() {
+    els.feedbackError.classList.add('hidden');
+    els.feedbackSuccess.classList.add('hidden');
+    els.feedbackModal.classList.remove('hidden');
+    els.feedbackSubject.focus();
+}
+
+function closeFeedbackModal() {
+    els.feedbackModal.classList.add('hidden');
+}
+
+function showFeedbackError(message) {
+    els.feedbackSuccess.classList.add('hidden');
+    els.feedbackError.textContent = message;
+    els.feedbackError.classList.remove('hidden');
+}
+
+function showFeedbackSuccess(message) {
+    els.feedbackError.classList.add('hidden');
+    els.feedbackSuccess.textContent = message;
+    els.feedbackSuccess.classList.remove('hidden');
+}
+
+async function handleFeedbackSubmit(event) {
+    event.preventDefault();
+    const subject = els.feedbackSubject.value.trim();
+    const content = els.feedbackContent.value.trim();
+
+    if (subject.length < 3) {
+        showFeedbackError('Tiêu đề cần ít nhất 3 ký tự.');
+        return;
+    }
+    if (content.length < 10) {
+        showFeedbackError('Nội dung cần ít nhất 10 ký tự.');
+        return;
+    }
+
+    els.feedbackSubmit.disabled = true;
+    els.feedbackSubmit.textContent = 'Đang gửi...';
+    els.feedbackError.classList.add('hidden');
+    els.feedbackSuccess.classList.add('hidden');
+
+    try {
+        await apiRequest('/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                full_name: els.feedbackName.value.trim(),
+                phone: els.feedbackPhone.value.trim(),
+                email: els.feedbackEmail.value.trim(),
+                category: els.feedbackCategory.value,
+                subject,
+                content,
+            }),
+        });
+        els.feedbackForm.reset();
+        showFeedbackSuccess('Đã gửi ý kiến. Cán bộ phường sẽ tiếp nhận và xử lý.');
+        window.setTimeout(closeFeedbackModal, 1600);
+    } catch (error) {
+        showFeedbackError(error.message);
+    } finally {
+        els.feedbackSubmit.disabled = false;
+        els.feedbackSubmit.textContent = 'Gửi ý kiến';
     }
 }
 
@@ -261,6 +354,9 @@ function renderConversations() {
     }
 
     for (const conversation of state.conversations) {
+        const row = document.createElement('div');
+        row.className = 'conversation-row';
+
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'conversation-item';
@@ -278,7 +374,84 @@ function renderConversations() {
 
         button.append(title, meta);
         button.addEventListener('click', () => loadConversation(conversation.id));
-        els.conversationList.appendChild(button);
+
+        const actions = document.createElement('div');
+        actions.className = 'conversation-actions';
+
+        const renameBtn = document.createElement('button');
+        renameBtn.type = 'button';
+        renameBtn.className = 'conversation-action';
+        renameBtn.textContent = 'Sửa';
+        renameBtn.title = 'Đổi tên hội thoại';
+        renameBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            renameConversation(conversation);
+        });
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'conversation-action danger';
+        deleteBtn.textContent = 'Xóa';
+        deleteBtn.title = 'Xóa hội thoại';
+        deleteBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            deleteConversation(conversation);
+        });
+
+        actions.append(renameBtn, deleteBtn);
+        row.append(button, actions);
+        els.conversationList.appendChild(row);
+    }
+}
+
+async function renameConversation(conversation) {
+    const nextTitle = window.prompt(
+        'Tên mới cho cuộc hội thoại:',
+        conversation.title || 'Cuộc hội thoại'
+    );
+    if (nextTitle === null) return;
+
+    const title = nextTitle.trim();
+    if (!title) {
+        addMessage('Tên hội thoại không được để trống.', 'bot', true);
+        return;
+    }
+    if (title.length > 255) {
+        addMessage('Tên hội thoại tối đa 255 ký tự.', 'bot', true);
+        return;
+    }
+
+    try {
+        const updated = await apiRequest(`/conversations/${conversation.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title }),
+        });
+        const target = state.conversations.find((item) => item.id === conversation.id);
+        if (target) target.title = updated.title;
+        renderConversations();
+    } catch (error) {
+        addMessage(`Không đổi được tên hội thoại: ${error.message}`, 'bot', true);
+    }
+}
+
+async function deleteConversation(conversation) {
+    const confirmed = window.confirm(
+        `Xóa hội thoại "${conversation.title || 'Cuộc hội thoại'}"? Hành động này không thể hoàn tác.`
+    );
+    if (!confirmed) return;
+
+    try {
+        await apiRequest(`/conversations/${conversation.id}`, { method: 'DELETE' });
+        if (state.currentConversationId === conversation.id) {
+            newChat();
+        }
+        state.conversations = state.conversations.filter(
+            (item) => item.id !== conversation.id
+        );
+        renderConversations();
+    } catch (error) {
+        addMessage(`Không xóa được hội thoại: ${error.message}`, 'bot', true);
     }
 }
 
@@ -299,7 +472,6 @@ async function loadConversation(conversationId) {
             } else {
                 addBotMessage({
                     answer: message.content,
-                    source_chunks: message.sources || [],
                     model: null,
                     processing_time: null,
                     created_at: message.created_at,
@@ -349,35 +521,48 @@ function addMessage(text, sender, isError = false) {
     scrollToBottom();
 }
 
-function addSources(container, sourceChunks) {
-    if (!sourceChunks || !sourceChunks.length) return;
+/* ------------------------------------------------------------------------- */
+/* Source card (Phase 9): 1 nguồn đầu tiên — citation + badge, không URL.    */
+/* ------------------------------------------------------------------------- */
 
-    const sourcesDiv = document.createElement('div');
-    sourcesDiv.className = 'sources';
+function formatIsoDate(iso) {
+    const parts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+    return parts ? `${parts[3]}/${parts[2]}/${parts[1]}` : (iso || '');
+}
 
-    const heading = document.createElement('strong');
-    heading.textContent = '📚 Nguồn tham khảo:';
-    sourcesDiv.appendChild(heading);
+function sourceBadgeLabel(src) {
+    if (src.doc_type === 'Thủ tục hành chính') return 'TTHC';
+    if (src.doc_type === 'Lịch làm việc') return 'Lịch làm việc';
+    if (src.doc_scope === 'local') return 'Văn bản phường';
+    if (src.doc_scope === 'hcmc') return 'Văn bản TP.HCM';
+    if (src.doc_scope === 'central') return 'Trung ương';
+    return 'Nguồn';
+}
 
-    sourceChunks.forEach((chunk, index) => {
-        const item = document.createElement('div');
-        item.className = 'source-item';
+function buildSourceCard(src) {
+    const card = document.createElement('div');
+    card.className = 'source-card';
 
-        const doc = document.createElement('span');
-        doc.className = 'source-doc';
-        const chunkIndex = chunk.chunk_index == null ? '?' : chunk.chunk_index;
-        doc.textContent = `${index + 1}. ${chunk.document_id || 'Tài liệu'} — chunk ${chunkIndex}`;
+    const badge = document.createElement('span');
+    badge.className = 'source-badge';
+    badge.textContent = sourceBadgeLabel(src);
+    card.appendChild(badge);
 
-        const snippet = document.createElement('span');
-        snippet.className = 'source-snippet';
-        const text = (chunk.text || '').replace(/\s+/g, ' ').trim();
-        snippet.textContent = text.length > 180 ? `${text.slice(0, 180)}…` : text;
+    const citation = document.createElement('p');
+    citation.className = 'source-citation';
+    citation.textContent = src.citation || src.doc_number || 'Nguồn tham khảo';
+    card.appendChild(citation);
 
-        item.append(doc, snippet);
-        sourcesDiv.appendChild(item);
-    });
-
-    container.appendChild(sourcesDiv);
+    const meta = [];
+    if (src.issued_date) meta.push(`ban hành ${formatIsoDate(src.issued_date)}`);
+    if (src.issuer) meta.push(src.issuer);
+    if (meta.length) {
+        const metaDiv = document.createElement('div');
+        metaDiv.className = 'source-meta';
+        metaDiv.textContent = meta.join(' • ');
+        card.appendChild(metaDiv);
+    }
+    return card;
 }
 
 function addBotMessage(data) {
@@ -391,7 +576,10 @@ function addBotMessage(data) {
     paragraph.textContent = data.answer || 'Không có câu trả lời.';
     contentDiv.appendChild(paragraph);
 
-    addSources(contentDiv, data.source_chunks);
+    const source = Array.isArray(data.source_chunks) ? data.source_chunks[0] : null;
+    if (source && (source.citation || source.doc_number)) {
+        contentDiv.appendChild(buildSourceCard(source));
+    }
 
     if (data.model || data.processing_time != null || data.created_at) {
         const metaDiv = document.createElement('div');
@@ -427,11 +615,6 @@ async function sendMessage() {
 
     if (query.length < 10) {
         addMessage('❌ Câu hỏi quá ngắn. Vui lòng nhập ít nhất 10 ký tự.', 'bot', true);
-        return;
-    }
-
-    if (query.length > 500) {
-        addMessage('❌ Câu hỏi quá dài. Vui lòng nhập tối đa 500 ký tự.', 'bot', true);
         return;
     }
 
@@ -504,5 +687,11 @@ els.authForm.addEventListener('submit', handleAuthSubmit);
 els.logoutBtn.addEventListener('click', clearSession);
 els.newChatBtn.addEventListener('click', newChat);
 els.sidebarToggle.addEventListener('click', () => els.sidebar.classList.toggle('open'));
+els.feedbackBtn.addEventListener('click', openFeedbackModal);
+els.feedbackClose.addEventListener('click', closeFeedbackModal);
+els.feedbackModal.addEventListener('click', (event) => {
+    if (event.target === els.feedbackModal) closeFeedbackModal();
+});
+els.feedbackForm.addEventListener('submit', handleFeedbackSubmit);
 
 restoreSession();

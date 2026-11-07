@@ -58,7 +58,9 @@ def test_end_to_end_query_processing(rag_pipeline):
     assert response.query_id is not None
     assert "không tìm thấy" in response.answer.lower() or "không có" in response.answer.lower()
     assert response.processing_time > 0
-    assert response.model == "gemini-2.0-flash-exp"
+    # Model lấy từ cấu hình .env, không hardcode tên model trong test
+    from app.core.config import settings
+    assert response.model == settings.gemini_model
 
 
 def test_query_validation_min_length(rag_pipeline):

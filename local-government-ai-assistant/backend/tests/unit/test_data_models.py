@@ -217,3 +217,26 @@ class TestRAGResponse:
         assert response_dict["answer"] == "Test answer"
         assert "source_chunks" in response_dict
         assert "relevance_scores" in response_dict
+        # Phase 8: citation metadata exposed for source cards
+        source = response_dict["source_chunks"][0]
+        for key in ("citation", "doc_number", "issued_date", "issuer", "doc_scope", "doc_type"):
+            assert key in source
+            assert isinstance(source[key], str)
+
+    def test_rag_response_to_dict_strips_urls_from_text(self, sample_chunk_references):
+        """Plan §8.3: portal URL inside profile chunk text never reaches API."""
+        sample_chunk_references[0].text = (
+            "Trang thông tin: https://phuonganphu.gov.vn\nĐịa chỉ: Số 9"
+        )
+        response = RAGResponse(
+            query_id="q_001",
+            answer="Test answer",
+            source_chunks=sample_chunk_references,
+            relevance_scores=[0.85, 0.78],
+            processing_time=1.5,
+            model="gemini-2.0-flash-exp",
+        )
+
+        text = response.to_dict()["source_chunks"][0]["text"]
+        assert "http" not in text
+        assert "Địa chỉ: Số 9" in text

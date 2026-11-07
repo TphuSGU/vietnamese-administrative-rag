@@ -23,6 +23,7 @@ from typing import Optional
 from app.rag.retrieval.hybrid_retriever import HybridRetriever
 from app.rag.generation.llm_service import LLMService
 from app.rag.generation.output_validator import OutputValidator
+from app.rag.generation.social_intent import social_answer
 from app.models.data_models import RAGResponse, ChunkReference
 from app.core.logging import get_logger
 from app.models.exceptions import RAGValidationError
@@ -49,7 +50,6 @@ class HybridRAGPipeline:
     """
     
     MIN_QUERY_LENGTH = 10
-    MAX_QUERY_LENGTH = 500
     LOG_FILE = "hybrid_query_logs.jsonl"
     MAX_RETRIES = 1  # Max retries for failed validation
     
@@ -108,10 +108,6 @@ class HybridRAGPipeline:
             raise RAGValidationError(
                 f"Query too short (min {self.MIN_QUERY_LENGTH} chars)"
             )
-        if len(query) > self.MAX_QUERY_LENGTH:
-            raise RAGValidationError(
-                f"Query too long (max {self.MAX_QUERY_LENGTH} chars)"
-            )
         
         # Check UTF-8 encoding
         try:
@@ -160,11 +156,79 @@ class HybridRAGPipeline:
         
         with open(self.log_file, "a", encoding="utf-8") as f:
             f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
+
+    def _answer_without_context(
+        self,
+        query_id: str,
+        query: str,
+        start_time: float,
+        reason: str,
+    ) -> RAGResponse:
+        """
+        Fallback when RAG cannot supply context (no chunks or retrieval error).
+
+        Sends the question straight to the LLM. The answer must pass
+        ``validate_direct`` (structure/language/no internal IDs) and is returned
+        with no source chunks, so the UI never shows it as a grounded answer.
+        """
+        generated = None
+        validation_error: Optional[str] = None
+        answer: Optional[str] = None
+
+        try:
+            generated = self.llm_service.generate_answer_without_context(query)
+        except Exception as e:
+            logger.error(f"Direct LLM answer failed: {e}")
+            validation_error = f"Direct generation failed: {e}"
+
+        if generated is not None:
+            passed, error = self.output_validator.validate_direct(
+                generated.answer, query
+            )
+            if passed:
+                answer = generated.answer
+            else:
+                validation_error = error
+                logger.warning(f"Direct answer validation failed: {error}")
+
+        if answer is None:
+            answer = (
+                "Xin lỗi, tôi chưa tìm thấy thông tin đủ tin cậy "
+                "trong tài liệu hiện có để trả lời câu hỏi này."
+            )
+
+        processing_time = time.time() - start_time
+        response = RAGResponse(
+            query_id=query_id,
+            answer=answer,
+            source_chunks=[],
+            relevance_scores=[],
+            processing_time=processing_time,
+            model=self.llm_service.MODEL_NAME,
+        )
+
+        self._log_query(
+            query_id,
+            query,
+            [],
+            answer,
+            generated.tokens_used if generated else 0,
+            processing_time,
+            validation_error is None,
+            validation_error,
+        )
+
+        logger.info(
+            "Answered without RAG context",
+            extra={"query_id": query_id, "reason": reason},
+        )
+        return response
     
     def query(
         self, 
         query: str, 
-        k: int = 5
+        k: int = 5,
+        locality_code: Optional[str] = None,
     ) -> RAGResponse:
         """
         Execute enhanced RAG pipeline with hybrid retrieval and validation.
@@ -200,32 +264,47 @@ class HybridRAGPipeline:
         try:
             # Stage 1: Validate query
             self._validate_query(query)
-            
-            # Stage 2: Hybrid Retrieval
-            try:
-                retrieved_chunks = self.hybrid_retriever.retrieve(query, k=k)
-            except Exception as e:
-                logger.error(f"Hybrid retrieval failed: {e}")
-                raise RAGValidationError(f"Retrieval stage failed: {e}")
-            
-            # Handle empty results
-            if not retrieved_chunks:
+
+            # Greetings/thanks must not retrieve legal chunks: otherwise the
+            # LLM lists arbitrary document numbers in a simple welcome answer.
+            canned = social_answer(query)
+            if canned:
                 processing_time = time.time() - start_time
-                empty_response = RAGResponse(
+                social_response = RAGResponse(
                     query_id=query_id,
-                    answer="Không tìm thấy tài liệu liên quan đến câu hỏi của bạn.",
+                    answer=canned,
                     source_chunks=[],
                     relevance_scores=[],
                     processing_time=processing_time,
-                    model=self.llm_service.MODEL_NAME
+                    model=self.llm_service.MODEL_NAME,
                 )
-                
                 self._log_query(
-                    query_id, query, [], empty_response.answer, 0, 
-                    processing_time, True
+                    query_id, query, [], canned, 0, processing_time, True
                 )
-                
-                return empty_response
+                logger.info("Social query answered without retrieval")
+                return social_response
+
+            # Stage 2: Hybrid Retrieval
+            try:
+                retrieved_chunks = self.hybrid_retriever.retrieve(
+                    query,
+                    k=k,
+                    locality_code=locality_code,
+                )
+            except Exception as e:
+                # Retrieval broken (index/vector store down) → still answer via
+                # LLM with an explicit "not from local documents" disclaimer.
+                logger.error(f"Hybrid retrieval failed: {e}")
+                return self._answer_without_context(
+                    query_id, query, start_time, f"retrieval_error: {e}"
+                )
+
+            # No chunk matched → ask the LLM directly instead of dead-ending.
+            if not retrieved_chunks:
+                logger.warning("No chunks retrieved; falling back to direct LLM answer")
+                return self._answer_without_context(
+                    query_id, query, start_time, "empty_retrieval"
+                )
             
             # Stage 3: Generation + Validation Loop (with retry)
             generated_answer = None
@@ -274,7 +353,7 @@ class HybridRAGPipeline:
                     # Retrieve more chunks
                     try:
                         retrieved_chunks = self.hybrid_retriever.retrieve(
-                            query, k=current_k
+                            query, k=current_k, locality_code=locality_code
                         )
                     except Exception as e:
                         logger.error(f"Retry retrieval failed: {e}")
@@ -290,8 +369,8 @@ class HybridRAGPipeline:
             # If validation never passed, return error response
             if not validation_passed:
                 error_message = (
-                    f"Xin lỗi, tôi không thể tạo câu trả lời đáng tin cậy từ "
-                    f"tài liệu hiện có. Lý do: {validation_error}"
+                    "Xin lỗi, tôi chưa tìm thấy thông tin đủ tin cậy trong "
+                    "tài liệu hiện có để trả lời câu hỏi này."
                 )
                 
                 error_response = RAGResponse(

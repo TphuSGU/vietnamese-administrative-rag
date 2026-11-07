@@ -4,15 +4,16 @@ Validates: Requirements 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 15.3
 """
 
 import os
+import re
 from typing import List, Optional
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 import google.generativeai as genai
 
 from app.models.data_models import RetrievedChunk, GeneratedAnswer, ChunkReference
+from app.core.config import settings
 from app.core.logging import get_logger
 from app.models.exceptions import LLMGenerationError
-from app.rag.generation.output_validator import OutputValidator
 
 logger = get_logger(__name__)
 
@@ -24,23 +25,49 @@ class LLMService:
     Validates: Requirements 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7
     """
     
-    MAX_TOKENS = 500
-    TEMPERATURE = 0.3
-    MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
+    MAX_TOKENS = settings.max_tokens
+    TEMPERATURE = settings.temperature
+    # settings đã đọc .env (load_dotenv trong config) nên không cần hardcode tên model
+    MODEL_NAME = settings.gemini_model
+    UUID_RE = re.compile(
+        r"\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b",
+        re.IGNORECASE,
+    )
+    PROCEDURE_CODE_RE = re.compile(
+        r"(?im)^\s*Mã thủ tục:\s*[^\n]*\n?",
+    )
     
     SYSTEM_INSTRUCTION = """Bạn là trợ lý AI hỗ trợ công dân tra cứu thông tin về văn bản chính quyền địa phương.
 
 Nhiệm vụ của bạn:
 1. Trả lời câu hỏi dựa CHÍNH XÁC trên các tài liệu được cung cấp
 2. Trả lời HOÀN TOÀN bằng tiếng Việt
-3. Trích dẫn nguồn tài liệu khi trả lời (ví dụ: "Theo Tài liệu 1...")
+3. Trả lời trực tiếp vào nội dung trước; trích dẫn nguồn ngắn gọn trong ngoặc hoặc ngay sau ý, ví dụ: "UBND phường An Phú làm việc từ 07:30 đến 17:00 (Nghị quyết số 24/NQ-HĐND ngày 31/7/2026 của HĐND phường An Phú)." Không mở đầu bằng "Theo ..." nếu không cần.
 4. Nếu thông tin không đủ, hãy nói rõ "Tôi không tìm thấy thông tin đầy đủ trong các tài liệu được cung cấp"
+5. Viết tự nhiên, ngắn gọn (2–5 câu), đi thẳng vào câu trả lời; tránh mở đầu máy móc, tránh heading/bullet không cần và tránh lặp lại toàn bộ tiêu đề văn bản dài
 
 LƯU Ý QUAN TRỌNG:
 - KHÔNG tự suy đoán hoặc tạo thông tin không có trong tài liệu
+- Được phép tổng hợp/so sánh thông tin trong cùng tài liệu khi kết luận rút ra trực tiếp; không thêm kiến thức ngoài tài liệu
 - KHÔNG trả lời về chủ đề không liên quan đến hành chính công
 - CHỈ sử dụng thông tin từ các tài liệu được cung cấp bên dưới
-- Mỗi tài liệu có document_id; document_id là mã nội bộ, không phải số hiệu văn bản, chỉ dùng để đối chiếu và không trích dẫn như số hiệu chính thức"""
+- Chỉ trích dẫn theo trường "NGUỒN PHÁP LÝ"; không dùng nhãn đánh số tài liệu, mã nội bộ, số thứ tự đoạn hoặc tên file
+- Không thêm mục nguồn ở cuối câu trả lời
+- Nếu nguồn ghi "Văn bản tham khảo chưa có số hiệu", không được bịa số hiệu
+- Với thủ tục hành chính, trích dẫn dạng "Thủ tục <tên>, Cổng DVC quốc gia"; KHÔNG đưa mã thủ tục vào câu trả lời
+- Nếu người dùng chỉ chào hỏi/giới thiệu, trả lời ngắn và KHÔNG liệt kê tài liệu, mã văn bản hoặc nguồn
+- Không hiển thị UUID, mã kỹ thuật hoặc mã tiền tệ nội bộ trong câu trả lời"""
+
+    # Dùng khi retrieval không trả về chunk nào: vẫn hỏi LLM nhưng bắt model
+    # ghi rõ đây không phải thông tin lấy từ tài liệu địa phương.
+    NO_CONTEXT_INSTRUCTION = """Bạn là trợ lý AI trả lời câu hỏi của người dân KHÔNG có tài liệu địa phương nào được truy xuất.
+
+Nhiệm vụ:
+1. Trả lời HOÀN TOÀN bằng tiếng Việt, ngắn gọn (2-5 câu), đi thẳng vào nội dung.
+2. Bắt buộc nói rõ câu trả lời không lấy từ tài liệu của địa phương, đặt trong ngoặc ở cuối ý, ví dụ: "... (nguồn tổng quát, không có trong tài liệu của phường)".
+3. Chỉ trả lời câu hỏi chung, kiến thức tổng quát mà bạn chắc chắn. Nếu là thông tin riêng của một địa phương, một văn bản, một thủ tục cụ thể, hãy nói "Tôi không tìm thấy thông tin trong tài liệu của địa phương" và gợi ý liên hệ UBND phường để được trả lời chính thức.
+4. KHÔNG bịa số hiệu văn bản, ngày ban hành, tên lãnh đạo, mức phí hoặc thời gian giải quyết cụ thể.
+5. KHÔNG hiển thị UUID, mã kỹ thuật hoặc mã tiền tệ nội bộ trong câu trả lời."""
     
     def __init__(self, api_key: Optional[str] = None):
         """
@@ -69,18 +96,14 @@ LƯU Ý QUAN TRỌNG:
             }
         )
         
-        # Initialize output validator
-        self.validator = OutputValidator(
-            min_evidence_ratio=0.4,
-            strict_mode=False
-        )
-        
+        # Output validation belongs to the pipeline (single threshold). Doing it
+        # here too made the pipeline validate a substituted fallback text instead
+        # of the model's real answer.
         logger.info(
             f"LLMService initialized with {self.MODEL_NAME}",
             extra={
                 "max_tokens": self.MAX_TOKENS,
                 "temperature": self.TEMPERATURE,
-                "validator_enabled": True
             }
         )
     
@@ -103,14 +126,18 @@ LƯU Ý QUAN TRỌNG:
         """
         # Format context from retrieved chunks (Req 9.3)
         context_parts = []
-        for i, chunk in enumerate(retrieved_chunks, 1):
-            heading = chunk.heading_context or "Không có tiêu đề"
+        for chunk in retrieved_chunks:
+            chunk_citation = (chunk.metadata.get("citation") or "").strip()
+            citation_label = (chunk.metadata.get("citation_label") or "").strip()
+            source = chunk_citation or citation_label or "Văn bản tham khảo chưa có số hiệu"
+            safe_text = self.UUID_RE.sub("VNĐ", chunk.text or "")
+            safe_text = self.PROCEDURE_CODE_RE.sub("", safe_text)
             context_parts.append(
-                f"[Tài liệu {i}] (document_id: {chunk.document_id}; "
-                f"chunk: {chunk.chunk_index}; heading: {heading}):\n{chunk.text}"
+                f"NGUỒN PHÁP LÝ: {source}\n"
+                f"NỘI DUNG:\n{safe_text}"
             )
         
-        context = "\n\n".join(context_parts)
+        context = "\n\n---\n\n".join(context_parts)
         
         # Build complete prompt (Req 9.2)
         prompt = f"""{self.SYSTEM_INSTRUCTION}
@@ -192,32 +219,14 @@ TRẢ LỜI (bằng tiếng Việt, dựa trên tài liệu trên):"""
             }
         )
         
-        # Generate answer with retry (Req 9.1, 15.3)
+        # Generate with retry (Req 9.1, 15.3). No validation/substitution here:
+        # the pipeline validates this exact text, otherwise a "not found"
+        # placeholder is what gets checked and honest answers fail.
         try:
             answer_text = self._call_gemini_api(prompt)
         except Exception as e:
             logger.error(f"Answer generation failed after retries: {e}")
             raise LLMGenerationError(f"Failed to generate answer: {e}")
-        
-        # Validate output
-        is_valid, error = self.validator.validate(
-            answer_text,
-            query,
-            retrieved_chunks
-        )
-        
-        if not is_valid:
-            logger.warning(
-                f"Answer validation failed: {error}",
-                extra={"query": query[:50]}
-            )
-            
-            # Fallback to safe response
-            answer_text = (
-                "Tôi không tìm thấy đủ thông tin để trả lời câu hỏi này "
-                "dựa trên tài liệu hiện có. Vui lòng cung cấp thêm chi tiết "
-                "hoặc thử câu hỏi khác."
-            )
         
         # Estimate tokens (Gemini doesn't provide exact count)
         estimated_tokens = len(answer_text.split())
@@ -230,16 +239,27 @@ TRẢ LỜI (bằng tiếng Việt, dựa trên tài liệu trên):"""
             }
         )
         
-        # Create chunk references
-        chunk_references = [
-            ChunkReference(
-                document_id=chunk.document_id,
-                text=chunk.text[:200],  # First 200 chars as preview
-                similarity_score=chunk.similarity_score,
-                chunk_index=chunk.chunk_index
+        # Create chunk references, carrying citation metadata through to the
+        # API so source cards never rely on the LLM to repeat document numbers.
+        chunk_references = []
+        for chunk in retrieved_chunks:
+            meta = chunk.metadata or {}
+            chunk_references.append(
+                ChunkReference(
+                    document_id=chunk.document_id,
+                    text=chunk.text[:200],  # First 200 chars as preview
+                    similarity_score=chunk.similarity_score,
+                    chunk_index=chunk.chunk_index,
+                    citation=str(
+                        meta.get("citation") or meta.get("citation_label") or ""
+                    ).strip(),
+                    doc_number=str(meta.get("doc_number") or "").strip(),
+                    issued_date=str(meta.get("issued_date") or "").strip(),
+                    issuer=str(meta.get("issuer") or "").strip(),
+                    doc_scope=str(meta.get("doc_scope") or "").strip(),
+                    doc_type=str(meta.get("doc_type") or "").strip(),
+                )
             )
-            for chunk in retrieved_chunks
-        ]
         
         # Return result (Req 9.4, 9.7)
         return GeneratedAnswer(
@@ -247,4 +267,46 @@ TRẢ LỜI (bằng tiếng Việt, dựa trên tài liệu trên):"""
             source_chunks=chunk_references,
             model=self.MODEL_NAME,
             tokens_used=estimated_tokens
+        )
+
+    def generate_answer_without_context(self, query: str) -> GeneratedAnswer:
+        """
+        Answer directly with the LLM when RAG retrieval is unusable
+        (no chunks returned or retrieval errored).
+
+        The answer carries no source chunks and is required to state that it
+        does not come from local documents, so it cannot be mistaken for a
+        grounded RAG answer.
+
+        Args:
+            query: User question in Vietnamese
+
+        Returns:
+            GeneratedAnswer with empty source_chunks
+        """
+        prompt = f"""{self.NO_CONTEXT_INSTRUCTION}
+
+---
+
+CÂU HỎI CỦA NGƯỜI DÙNG:
+{query}
+
+TRẢ LỜI (bằng tiếng Việt):"""
+
+        logger.info(
+            "Generating answer without RAG context",
+            extra={"query": query[:50]}
+        )
+
+        try:
+            answer_text = self._call_gemini_api(prompt)
+        except Exception as e:
+            logger.error(f"Direct answer generation failed after retries: {e}")
+            raise LLMGenerationError(f"Failed to generate answer: {e}")
+
+        return GeneratedAnswer(
+            answer=answer_text,
+            source_chunks=[],
+            model=self.MODEL_NAME,
+            tokens_used=len(answer_text.split())
         )

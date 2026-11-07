@@ -12,6 +12,9 @@ from app.rag.generation.llm_service import LLMService
 from app.models.data_models import RetrievedChunk, GeneratedAnswer, ChunkReference
 from app.models.exceptions import LLMGenerationError
 
+RUN_REAL_LLM_TESTS = os.getenv("RUN_REAL_LLM_TESTS") == "1"
+REAL_LLM_REASON = "Set RUN_REAL_LLM_TESTS=1 to run live Gemini API tests"
+
 
 @pytest.fixture
 def llm_service():
@@ -31,8 +34,11 @@ def test_llm_service_initialization(llm_service):
     assert llm_service.api_key is not None
     assert llm_service.model is not None
     assert llm_service.MODEL_NAME.startswith("gemini-")
-    assert llm_service.MAX_TOKENS == 500
-    assert llm_service.TEMPERATURE == 0.3
+    # Tham số lấy từ .env qua settings, không hardcode trong code/test
+    from app.core.config import settings
+    assert llm_service.MODEL_NAME == settings.gemini_model
+    assert llm_service.MAX_TOKENS == settings.max_tokens
+    assert llm_service.TEMPERATURE == settings.temperature
 
 
 def test_llm_service_initialization_without_api_key():
@@ -61,7 +67,9 @@ def test_prompt_construction():
             metadata={
                 "document_id": "doc_1",
                 "heading_context": "Điều 10: Thủ tục đăng ký",
-                "chunk_index": 0
+                "chunk_index": 0,
+                "citation_label": "Nghị quyết số 01/NQ-HĐND ngày 1/7/2025 của HĐND phường An Phú",
+                "citation": "Nghị quyết số 01/NQ-HĐND ngày 1/7/2025 của HĐND phường An Phú, Điều 10"
             }
         ),
         RetrievedChunk(
@@ -81,14 +89,16 @@ def test_prompt_construction():
     assert "tiếng Việt" in prompt
     assert "tài liệu" in prompt.lower()
     
-    # Verify chunks are formatted (Req 9.3)
-    assert "[Tài liệu 1]" in prompt
-    assert "[Tài liệu 2]" in prompt
-    assert "document_id: doc_1" in prompt
-    assert "chunk: 0" in prompt
+    # Verify legal citation is the only source label (Req 9.3)
+    assert "NGUỒN PHÁP LÝ:" in prompt
+    assert "Nghị quyết số 01/NQ-HĐND ngày 1/7/2025" in prompt
     assert "Điều 10" in prompt
-    assert "Điều 11" in prompt
+    assert "Văn bản tham khảo chưa có số hiệu" in prompt
     assert "Đăng ký hộ khẩu" in prompt
+    assert "[Tài liệu" not in prompt
+    assert "document_id" not in prompt
+    assert "chunk:" not in prompt
+    assert "Điều 11" not in prompt
     
     # Verify query is included (Req 9.2)
     assert "Cần giấy tờ gì" in prompt
@@ -98,8 +108,32 @@ def test_prompt_construction():
     assert "chính quyền" in prompt
 
 
-def test_prompt_with_missing_heading_context():
-    """Test prompt construction when heading context is missing."""
+def test_prompt_strips_internal_uuid_and_adds_procedure_citation_rule():
+    with patch('google.generativeai.configure'):
+        with patch('google.generativeai.GenerativeModel'):
+            llm_service = LLMService(api_key='test_key')
+
+    chunks = [
+        RetrievedChunk(
+            text='Mã thủ tục: 2.001019\nLệ phí: 50000 019b3fb2-b5b8-70ac-85e2-9409ec1eaffa',
+            similarity_score=0.9,
+            metadata={
+                'document_id': 'dvc_procedure_1',
+                'chunk_index': 0,
+                'citation': 'Thủ tục Chứng thực di chúc, mã 2.001019, Cổng DVC quốc gia',
+            },
+        )
+    ]
+    prompt = llm_service._build_prompt('Chứng thực di chúc lệ phí bao nhiêu?', chunks)
+
+    assert '019b3fb2-b5b8-70ac-85e2-9409ec1eaffa' not in prompt
+    assert '50000 VNĐ' in prompt
+    assert 'Mã thủ tục:' not in prompt
+    assert 'Thủ tục <tên>, Cổng DVC quốc gia' in prompt
+
+
+def test_prompt_without_citation_uses_generic_source():
+    """Test prompt fallback when a chunk has no legal citation."""
     with patch('google.generativeai.configure'):
         with patch('google.generativeai.GenerativeModel'):
             llm_service = LLMService(api_key="test_key")
@@ -117,12 +151,13 @@ def test_prompt_with_missing_heading_context():
     
     prompt = llm_service._build_prompt("Test query", chunks)
     
-    # Should handle missing heading gracefully
-    assert "Không có tiêu đề" in prompt
+    # Should handle missing citation without exposing internal IDs.
+    assert "Văn bản tham khảo chưa có số hiệu" in prompt
     assert "Test content" in prompt
+    assert "document_id" not in prompt
 
 
-@pytest.mark.skipif(not os.getenv("GEMINI_API_KEY"), reason="GEMINI_API_KEY not set")
+@pytest.mark.skipif(not RUN_REAL_LLM_TESTS, reason=REAL_LLM_REASON)
 def test_generate_answer_with_real_api(llm_service):
     """
     Test answer generation with real Gemini API.
@@ -187,6 +222,7 @@ def test_insufficient_information_handling():
 
 
 @pytest.mark.skipif(not os.getenv("GEMINI_API_KEY"), reason="GEMINI_API_KEY not set")
+@pytest.mark.skipif(not RUN_REAL_LLM_TESTS, reason=REAL_LLM_REASON)
 def test_answer_with_multiple_chunks(llm_service):
     """Test answer generation with multiple document chunks."""
     chunks = [
@@ -195,8 +231,9 @@ def test_answer_with_multiple_chunks(llm_service):
             similarity_score=0.95,
             metadata={
                 "document_id": "doc_1",
-                "heading_context": "Điều 5: Điều kiện",
-                "chunk_index": 0
+                "heading_context": "Điều 10: Thủ tục đăng ký",
+                "chunk_index": 0,
+                "citation_label": "Nghị quyết số 01/NQ-HĐND ngày 1/7/2025 của HĐND phường An Phú"
             }
         ),
         RetrievedChunk(
@@ -250,7 +287,13 @@ def test_chunk_reference_creation():
             similarity_score=0.9,
             metadata={
                 "document_id": "doc_1",
-                "chunk_index": 0
+                "chunk_index": 0,
+                "citation": "Nghị quyết số 25/NQ-HĐND ngày 29/7/2026",
+                "doc_number": "25/NQ-HĐND",
+                "issued_date": "2026-07-29",
+                "issuer": "HĐND phường An Phú",
+                "doc_scope": "local",
+                "doc_type": "Nghị quyết",
             }
         )
     ]
@@ -266,6 +309,45 @@ def test_chunk_reference_creation():
     assert ref.similarity_score == 0.9
     # Text should be preview (first 200 chars)
     assert len(ref.text) <= 200
+    # Citation metadata flows to the reference (Phase 8)
+    assert ref.citation == "Nghị quyết số 25/NQ-HĐND ngày 29/7/2026"
+    assert ref.doc_number == "25/NQ-HĐND"
+    assert ref.issued_date == "2026-07-29"
+    assert ref.issuer == "HĐND phường An Phú"
+    assert ref.doc_scope == "local"
+    assert ref.doc_type == "Nghị quyết"
+
+
+def test_chunk_reference_citation_falls_back_to_label():
+    """citation uses citation_label when the chunk has no explicit citation."""
+    with patch('google.generativeai.configure'):
+        with patch('google.generativeai.GenerativeModel') as mock_model:
+            mock_response = Mock()
+            mock_response.text = "Test answer"
+            mock_model.return_value.generate_content.return_value = mock_response
+            llm_service = LLMService(api_key="test_key")
+
+    chunks = [
+        RetrievedChunk(
+            text="Nội dung",
+            similarity_score=0.8,
+            metadata={
+                "document_id": "doc_2",
+                "chunk_index": 1,
+                "citation_label": "Thông báo của UBND phường An Phú ngày 29/6/2026",
+                "doc_number": "",
+                "issued_date": "2026-06-29",
+                "issuer": "",
+                "doc_scope": "local",
+            }
+        )
+    ]
+
+    result = llm_service.generate_answer("Test query", chunks)
+    ref = result.source_chunks[0]
+    assert ref.citation == "Thông báo của UBND phường An Phú ngày 29/6/2026"
+    assert ref.doc_number == ""
+    assert ref.doc_scope == "local"
 
 
 def test_api_error_handling():
@@ -294,7 +376,60 @@ def test_api_error_handling():
         llm_service.generate_answer("Test query", chunks)
 
 
+def test_generate_answer_returns_raw_model_text():
+    """Câu trả lời thật phải tới pipeline, không bị thay bằng câu fallback."""
+    with patch('google.generativeai.configure'):
+        with patch('google.generativeai.GenerativeModel') as mock_model:
+            mock_response = Mock()
+            mock_response.text = "Paris là thủ đô của nước Pháp."
+            mock_model.return_value.generate_content.return_value = mock_response
+
+            llm_service = LLMService(api_key="test_key")
+
+    chunks = [
+        RetrievedChunk(
+            text="Nghị quyết quy định mục tiêu an sinh xã hội trên địa bàn phường.",
+            similarity_score=0.9,
+            metadata={"document_id": "doc_1", "chunk_index": 0},
+        )
+    ]
+
+    result = llm_service.generate_answer("Câu hỏi kiểm thử hợp lệ", chunks)
+
+    # Không còn validate/thay thế trong LLMService: pipeline mới là nơi quyết định
+    assert result.answer == "Paris là thủ đô của nước Pháp."
+
+
+def test_generate_answer_without_context_has_no_documents():
+    """Fallback khi không truy xuất được: prompt không có block tài liệu."""
+    with patch('google.generativeai.configure'):
+        with patch('google.generativeai.GenerativeModel') as mock_model:
+            mock_response = Mock()
+            mock_response.text = (
+                "Chưa có thông tin chính thức trong tài liệu của địa phương "
+                "(nguồn tổng quát, không có trong tài liệu)."
+            )
+            mock_model.return_value.generate_content.return_value = mock_response
+
+            llm_service = LLMService(api_key="test_key")
+
+    result = llm_service.generate_answer_without_context(
+        "Thủ tục đăng ký khai sinh ở đâu?"
+    )
+
+    assert isinstance(result, GeneratedAnswer)
+    assert result.source_chunks == []
+    assert result.model.startswith("gemini-")
+    assert result.tokens_used > 0
+
+    prompt = mock_model.return_value.generate_content.call_args[0][0]
+    assert "CÁC TÀI LIỆU THAM KHẢO" not in prompt
+    assert "Thủ tục đăng ký khai sinh ở đâu?" in prompt
+    assert "không lấy từ tài liệu của địa phương" in prompt
+
+
 @pytest.mark.skipif(not os.getenv("GEMINI_API_KEY"), reason="GEMINI_API_KEY not set")
+@pytest.mark.skipif(not RUN_REAL_LLM_TESTS, reason=REAL_LLM_REASON)
 def test_vietnamese_response_enforcement(llm_service):
     """
     Test that responses are in Vietnamese.

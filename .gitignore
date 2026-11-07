@@ -94,6 +94,9 @@ chroma_db/
 bm25s_index/
 ./bm25s_index/
 **/bm25s_index/
+# Plan Phase 0: backup trước khi ingest — không được commit index 600MB+
+chroma_db.backup*/
+bm25s_index.backup*/
 
 # --- Model Cache (HuggingFace, Sentence-Transformers) ---
 .cache/
@@ -169,6 +172,17 @@ $RECYCLE.BIN/
 data/nghi-dinh/
 data/28-nghi-dinh/
 *.pdf
+
+# --- Dữ liệu HF / An Phú tải về (không commit) ---
+local-government-ai-assistant/backend/data/legal_hf/
+local-government-ai-assistant/backend/data/localities/an_phu/raw/
+local-government-ai-assistant/backend/data/localities/an_phu/pdf/
+local-government-ai-assistant/backend/data/localities/an_phu/text/
+local-government-ai-assistant/backend/data/localities/an_phu/ocr/
+!local-government-ai-assistant/backend/data/localities/an_phu/manifest.json
+!local-government-ai-assistant/backend/data/localities/an_phu/schedules.json
+local-government-ai-assistant/backend/data/localities/an_phu/ingest_report.json
+local-government-ai-assistant/backend/data/localities/an_phu/context_ingest_report.json
 
 # --- Tập câu hỏi kiểm thử ---
 data/test_questions/

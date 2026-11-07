@@ -63,7 +63,7 @@ Created a simple, clean single-page HTML/CSS/JS chat interface that calls the ba
 
 **Configuration:**
 ```javascript
-const API_BASE_URL = 'http://localhost:8000/api/v1';
+const API_BASE_URL = window.APP_CONFIG?.API_BASE_URL || '/api/v1';
 ```
 
 **Key Functions:**
@@ -245,9 +245,9 @@ app.add_middleware(
 ## 🔧 Configuration
 
 ### Change Backend URL
-Edit `script.js`:
+Edit `config.js` or open the page with `?api=`:
 ```javascript
-const API_BASE_URL = 'http://your-server:port/api/v1';
+window.APP_CONFIG = { API_BASE_URL: 'https://your-server/api/v1' };
 ```
 
 ### Customize Colors
@@ -275,7 +275,7 @@ Edit `style.css`:
 ## 🚀 Deployment
 
 ### Production Checklist
-- [ ] Update `API_BASE_URL` to production backend
+- [ ] Update `config.js` / `APP_CONFIG.API_BASE_URL` to production backend
 - [ ] Test on multiple browsers
 - [ ] Test on mobile devices
 - [ ] Verify HTTPS if deployed

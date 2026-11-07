@@ -14,6 +14,7 @@ Based on research:
 
 from typing import List, Optional, Tuple, Set
 import re
+import unicodedata
 
 from app.models.data_models import RetrievedChunk
 from app.core.logging import get_logger
@@ -29,8 +30,30 @@ class OutputValidator:
     1. Structural validity (length, format)
     2. Language compliance (Vietnamese)
     3. Evidence grounding (uses provided context)
-    4. Confidence level (no uncertain phrases)
+    4. Legal citation present and grounded in retrieved metadata
+    5. No internal IDs/file references in the user-facing answer
+    6. Confidence level (no uncertain phrases)
     """
+    
+    INTERNAL_REFERENCE_RE = re.compile(
+        r"(?:\bdocument_id\b|\ban_phu_\d+\b|\bchunk\s*\d+\b|"
+        r"\bTài\s+liệu\s+\d+\b|\.pdf\b|\.txt\b)",
+        re.IGNORECASE,
+    )
+
+    # Citation contract is số hiệu/ngày/cơ quan only — a URL in the answer
+    # (Phase 8) means the model leaked a source link instead of that form.
+    URL_RE = re.compile(r"(?:https?://|www\.)\S+", re.IGNORECASE)
+    
+    # Honest "no information found" answer: it claims nothing, so demanding a
+    # legal citation would reject it even though it is the correct reply when
+    # the corpus has no matching document.
+    NO_INFO_RE = re.compile(
+        r"(không\s+tìm\s+thấy\s+(?:thông\s+tin|tài\s+liệu|dữ\s+liệu)"
+        r"|không\s+có\s+(?:thông\s+tin|tài\s+liệu|dữ\s+liệu)"
+        r"|chưa\s+(?:tìm\s+thấy|có)\s+(?:thông\s+tin|tài\s+liệu))",
+        re.IGNORECASE,
+    )
     
     MIN_ANSWER_LENGTH = 20      # Minimum chars for complete answer
     MAX_ANSWER_LENGTH = 2500    # Maximum chars; list answers in legal docs run long
@@ -107,12 +130,53 @@ class OutputValidator:
         if not valid:
             return False, f"Evidence check failed: {error}"
         
-        # Check 4: Confidence level
+        # Check 4: Legal citation must come from retrieved metadata
+        valid, error = self._check_citation(answer, context_chunks)
+        if not valid:
+            return False, f"Citation check failed: {error}"
+
+        # Check 5: Confidence level
         valid, error = self._check_confidence(answer)
         if not valid:
             return False, f"Confidence check failed: {error}"
         
         logger.debug("Answer passed all validation checks")
+        return True, None
+
+    def validate_direct(
+        self,
+        answer: str,
+        query: str,
+    ) -> Tuple[bool, Optional[str]]:
+        """
+        Validate an answer produced WITHOUT retrieved context
+        (direct LLM fallback when retrieval returned nothing).
+
+        Evidence overlap and legal citation cannot apply — there are no chunks —
+        so only the checks that still hold are run: structure, Vietnamese,
+        no internal IDs, no uncertain language.
+        """
+        valid, error = self._check_structure(answer)
+        if not valid:
+            return False, f"Structure check failed: {error}"
+
+        valid, error = self._check_vietnamese(answer)
+        if not valid:
+            return False, f"Language check failed: {error}"
+
+        internal = self.INTERNAL_REFERENCE_RE.search(answer)
+        if internal:
+            return False, f"Internal reference check failed: {internal.group(0)}"
+
+        url = self.URL_RE.search(answer)
+        if url:
+            return False, f"URL check failed: {url.group(0)}"
+
+        valid, error = self._check_confidence(answer)
+        if not valid:
+            return False, f"Confidence check failed: {error}"
+
+        logger.debug("Direct answer passed validation checks")
         return True, None
     
     def _check_structure(self, answer: str) -> Tuple[bool, Optional[str]]:
@@ -176,8 +240,17 @@ class OutputValidator:
         if not chunks:
             return False, "No context chunks provided"
         
-        # Combine all context
-        context_text = " ".join(chunk.text for chunk in chunks).lower()
+        # Combine all context. Citation metadata is trusted context too; the
+        # answer is required to repeat it, so excluding it would penalize a
+        # perfectly grounded legal answer.
+        context_parts = [chunk.text for chunk in chunks]
+        for chunk in chunks:
+            metadata = chunk.metadata or {}
+            context_parts.extend(
+                str(metadata.get(key) or "")
+                for key in ("citation", "citation_label", "doc_number")
+            )
+        context_text = " ".join(context_parts).lower()
         
         # Extract answer terms (words 3+ characters)
         answer_lower = answer.lower()
@@ -215,6 +288,76 @@ class OutputValidator:
         
         return True, None
     
+    @staticmethod
+    def _normalize_citation_text(text: str) -> str:
+        text = unicodedata.normalize("NFC", text or "").lower()
+        return re.sub(r"\s+", "", text)
+
+    def _check_citation(
+        self,
+        answer: str,
+        chunks: List[RetrievedChunk],
+    ) -> Tuple[bool, Optional[str]]:
+        """Require a legal citation from retrieved metadata when available.
+
+        Old corpus chunks may not have a citation; in that case this check is
+        skipped. For An Phú, every chunk has at least ``citation_label``.
+        """
+        internal = self.INTERNAL_REFERENCE_RE.search(answer)
+        if internal:
+            return False, f"Contains internal reference: {internal.group(0)}"
+
+        url = self.URL_RE.search(answer)
+        if url:
+            return False, f"Contains URL: {url.group(0)}"
+
+        if self.NO_INFO_RE.search(answer):
+            return True, None
+
+        numbers = []
+        labels = []
+        for chunk in chunks:
+            metadata = chunk.metadata or {}
+            number = str(metadata.get("doc_number") or "").strip()
+            label = str(
+                metadata.get("citation") or metadata.get("citation_label") or ""
+            ).strip()
+            if number:
+                numbers.append(number)
+            elif label:
+                labels.append(label)
+
+        if not numbers and not labels:
+            return True, None
+
+        answer_norm = self._normalize_citation_text(answer)
+        for number in numbers:
+            if self._normalize_citation_text(number) in answer_norm:
+                return True, None
+        for label in labels:
+            for candidate in self._label_candidates(label):
+                if self._normalize_citation_text(candidate) in answer_norm:
+                    return True, None
+
+        return False, "Missing legal citation from retrieved context"
+
+    def _label_candidates(self, label: str) -> List[str]:
+        """Full label plus its identifying tail after the local prefix.
+
+        Schedule/profile labels look like "Lịch làm việc UBND phường An Phú:
+        Lịch làm việc HĐND - UBND ngày 12/01/2026 đến 17/01/2026". The model
+        often cites only the part after the colon, which still uniquely
+        identifies the document (dates/numbers), so accept it too.
+        """
+        candidates = [label]
+        if ":" in label:
+            tail = label.split(":", 1)[1].strip()
+            # Only a substantial tail counts; short fragments could match
+            # unrelated text and weaken the hallucination guard.
+            if len(self._normalize_citation_text(tail)) >= 20:
+                candidates.append(tail)
+        return candidates
+
     def _check_confidence(self, answer: str) -> Tuple[bool, Optional[str]]:
         """
         Check answer doesn't contain uncertain language.

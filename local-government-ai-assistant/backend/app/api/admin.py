@@ -8,7 +8,7 @@ from app.core.dependencies import require_admin
 from app.core.dependencies import get_vector_store
 from app.database.session import get_db
 from app.database.vector_store import VectorStore
-from app.models.db_models import Conversation, Message, User
+from app.models.db_models import Conversation, Feedback, Message, User
 
 router = APIRouter(prefix="/api/v1/admin", tags=["admin"])
 
@@ -24,10 +24,16 @@ async def admin_stats(
         select(func.count()).select_from(Conversation)
     )
     messages = await db.scalar(select(func.count()).select_from(Message))
+    feedback = await db.scalar(select(func.count()).select_from(Feedback))
+    feedback_new = await db.scalar(
+        select(func.count()).select_from(Feedback).where(Feedback.status == "new")
+    )
 
     return {
         "users": users or 0,
         "conversations": conversations or 0,
         "messages": messages or 0,
+        "feedback": feedback or 0,
+        "feedback_new": feedback_new or 0,
         "document_chunks": vector_store.count(),
     }

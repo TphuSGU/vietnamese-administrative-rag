@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản trị hệ thống - Hành chính AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+    <div id="admin-loading" class="admin-gate">
+        <div class="admin-gate-card">
+            <h1>Đang kiểm tra quyền truy cập</h1>
+            <p>Vui lòng chờ trong giây lát.</p>
+        </div>
+    </div>
+
+    <div id="admin-denied" class="admin-gate hidden">
+        <div class="admin-gate-card">
+            <h1 id="denied-title">Không thể truy cập</h1>
+            <p id="denied-message">Bạn cần đăng nhập bằng tài khoản quản trị.</p>
+            <a class="admin-primary-link" href="index.html">Về trang chat</a>
+        </div>
+    </div>
+
+    <div id="admin-shell" class="admin-shell hidden">
+        <aside id="admin-sidebar" class="admin-sidebar">
+            <div class="admin-brand">
+                <span class="admin-brand-mark">HC</span>
+                <div>
+                    <strong>Hành chính AI</strong>
+                    <small>Quản trị hệ thống</small>
+                </div>
+            </div>
+
+            <nav class="admin-nav" aria-label="Điều hướng quản trị">
+                <button type="button" class="admin-nav-item active" data-view="dashboard">Tổng quan</button>
+                <button type="button" class="admin-nav-item" data-view="documents">Tài liệu</button>
+                <button type="button" class="admin-nav-item" data-view="feedback">Ý kiến người dân</button>
+                <button type="button" class="admin-nav-item" data-view="users">Người dùng</button>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <div class="admin-account">
+                    <span id="admin-email" class="admin-account-email"></span>
+                    <span id="admin-role" class="admin-account-role"></span>
+                </div>
+                <a class="admin-side-link" href="index.html">Về trang chat</a>
+                <button id="admin-logout" type="button" class="admin-side-link danger">Đăng xuất</button>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-topbar">
+                <button id="admin-menu" type="button" class="admin-menu-btn" aria-label="Mở menu">☰</button>
+                <div class="admin-title">
+                    <h1 id="page-title">Tổng quan</h1>
+                    <p id="page-subtitle">Theo dõi dữ liệu và tình trạng hệ thống.</p>
+                </div>
+                <button id="admin-refresh" type="button" class="admin-secondary-btn">Làm mới</button>
+            </header>
+
+            <div id="admin-alert" class="admin-alert hidden" role="status"></div>
+
+            <section id="view-dashboard" class="admin-view">
+                <div class="stat-grid">
+                    <article class="stat-card">
+                        <span class="stat-label">Người dùng</span>
+                        <strong id="stat-users" class="stat-value">--</strong>
+                        <small>Tài khoản trong hệ thống</small>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Hội thoại</span>
+                        <strong id="stat-conversations" class="stat-value">--</strong>
+                        <small>Tổng số cuộc hội thoại</small>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Tin nhắn</span>
+                        <strong id="stat-messages" class="stat-value">--</strong>
+                        <small>Câu hỏi và câu trả lời đã lưu</small>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Chunk tài liệu</span>
+                        <strong id="stat-chunks" class="stat-value">--</strong>
+                        <small>Đơn vị nội dung đã index</small>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Ý kiến người dân</span>
+                        <strong id="stat-feedback" class="stat-value">--</strong>
+                        <small><span id="stat-feedback-new">0</span> ý kiến mới chờ tiếp nhận</small>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">BM25</span>
+                        <strong id="stat-bm25" class="stat-value">--</strong>
+                        <small id="stat-bm25-detail">Chỉ mục từ khóa</small>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-label">Collection</span>
+                        <strong id="stat-collection" class="stat-value stat-value-small">--</strong>
+                        <small>ChromaDB đang sử dụng</small>
+                    </article>
+                </div>
+
+                <div class="dashboard-grid">
+                    <section class="panel">
+                        <div class="panel-head">
+                            <div>
+                                <h2>Tải tài liệu</h2>
+                                <p>Hỗ trợ PDF, DOCX, TXT. Tối đa 50MB mỗi tệp.</p>
+                            </div>
+                        </div>
+                        <div id="drop-zone" class="drop-zone" tabindex="0" role="button">
+                            <strong>Kéo thả tệp vào đây</strong>
+                            <span>hoặc bấm để chọn tệp</span>
+                            <input id="file-input" type="file" accept=".pdf,.docx,.txt" hidden>
+                        </div>
+                        <div id="upload-list" class="job-list"></div>
+                    </section>
+
+                    <section class="panel">
+                        <div class="panel-head">
+                            <div>
+                                <h2>Job gần đây</h2>
+                                <p>Trạng thái xử lý tài liệu trong phiên hiện tại.</p>
+                            </div>
+                            <button id="refresh-jobs" type="button" class="admin-text-btn">Làm mới</button>
+                        </div>
+                        <div id="jobs-list" class="job-list"></div>
+                    </section>
+                </div>
+            </section>
+
+            <section id="view-documents" class="admin-view hidden">
+                <section class="panel">
+                    <div class="panel-head panel-head-wrap">
+                        <div>
+                            <h2>Tài liệu đã index</h2>
+                            <p>Danh sách tài liệu đang có trong ChromaDB.</p>
+                        </div>
+                        <div class="admin-toolbar">
+                            <input id="doc-search" type="search" placeholder="Tìm theo tên hoặc mã tài liệu">
+                            <button id="refresh-docs" type="button" class="admin-secondary-btn">Làm mới</button>
+                            <button id="upload-btn" type="button" class="admin-primary-btn">Tải tài liệu</button>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Tên tài liệu</th>
+                                    <th>Mã tài liệu</th>
+                                    <th>Số chunk</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="docs-tbody"></tbody>
+                        </table>
+                    </div>
+                    <p id="docs-empty" class="empty-state hidden">Chưa có tài liệu nào.</p>
+                </section>
+            </section>
+
+            <section id="view-feedback" class="admin-view hidden">
+                <section class="panel">
+                    <div class="panel-head panel-head-wrap">
+                        <div>
+                            <h2>Ý kiến người dân</h2>
+                            <p>Tiếp nhận, theo dõi và ghi chú xử lý phản ánh, kiến nghị, góp ý.</p>
+                        </div>
+                        <div class="admin-toolbar">
+                            <input id="feedback-search" type="search" placeholder="Tìm tiêu đề, nội dung, người gửi">
+                            <select id="feedback-status-filter" aria-label="Lọc trạng thái">
+                                <option value="all">Tất cả trạng thái</option>
+                                <option value="new">Mới</option>
+                                <option value="received">Đã tiếp nhận</option>
+                                <option value="processing">Đang xử lý</option>
+                                <option value="resolved">Đã phản hồi</option>
+                                <option value="closed">Đã đóng</option>
+                            </select>
+                            <button id="refresh-feedback" type="button" class="admin-secondary-btn">Làm mới</button>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Ngày gửi</th>
+                                    <th>Người gửi</th>
+                                    <th>Tiêu đề</th>
+                                    <th>Loại</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="feedback-tbody"></tbody>
+                        </table>
+                    </div>
+                    <p id="feedback-empty" class="empty-state hidden">Chưa có ý kiến nào.</p>
+                    <div class="pagination">
+                        <span id="feedback-page-info">Trang 1/1</span>
+                        <div class="pagination-actions">
+                            <button id="feedback-prev" type="button" class="admin-secondary-btn">Trước</button>
+                            <button id="feedback-next" type="button" class="admin-secondary-btn">Sau</button>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <section id="view-users" class="admin-view hidden">
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <h2>Người dùng</h2>
+                            <p>Quản lý vai trò tài khoản. Không thể tự đổi vai trò của chính mình.</p>
+                        </div>
+                        <button id="refresh-users" type="button" class="admin-secondary-btn">Làm mới</button>
+                    </div>
+
+                    <div class="user-toolbar">
+                        <div id="user-role-tabs" class="role-tabs" role="tablist" aria-label="Lọc theo vai trò">
+                            <button type="button" class="role-tab active" data-role="all" role="tab" aria-selected="true">
+                                Tất cả <span id="role-count-all" class="role-count">0</span>
+                            </button>
+                            <button type="button" class="role-tab" data-role="admin" role="tab" aria-selected="false">
+                                Quản trị viên <span id="role-count-admin" class="role-count">0</span>
+                            </button>
+                            <button type="button" class="role-tab" data-role="user" role="tab" aria-selected="false">
+                                Người dùng <span id="role-count-user" class="role-count">0</span>
+                            </button>
+                        </div>
+                        <div class="admin-toolbar">
+                            <input id="user-search" type="search" placeholder="Tìm theo email hoặc họ tên">
+                            <select id="users-page-size" aria-label="Số người dùng mỗi trang">
+                                <option value="10">10 / trang</option>
+                                <option value="20">20 / trang</option>
+                                <option value="50">50 / trang</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Họ tên</th>
+                                    <th>Vai trò</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-tbody"></tbody>
+                        </table>
+                    </div>
+                    <p id="users-empty" class="empty-state hidden">Chưa có người dùng nào.</p>
+
+                    <div class="pagination">
+                        <span id="users-page-info">Trang 1/1</span>
+                        <div class="pagination-actions">
+                            <button id="users-prev" type="button" class="admin-secondary-btn">Trước</button>
+                            <button id="users-next" type="button" class="admin-secondary-btn">Sau</button>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <div id="feedback-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="feedback-modal-title">
+        <div class="modal-card feedback-admin-card">
+            <button id="feedback-modal-close" class="modal-close" type="button" aria-label="Đóng">×</button>
+            <h2 id="feedback-modal-title">Chi tiết ý kiến</h2>
+            <div id="feedback-detail" class="feedback-detail"></div>
+            <form id="feedback-status-form">
+                <label>
+                    Trạng thái xử lý
+                    <select id="feedback-status">
+                        <option value="new">Mới</option>
+                        <option value="received">Đã tiếp nhận</option>
+                        <option value="processing">Đang xử lý</option>
+                        <option value="resolved">Đã phản hồi</option>
+                        <option value="closed">Đã đóng</option>
+                    </select>
+                </label>
+                <label>
+                    Ghi chú nội bộ
+                    <textarea id="feedback-note" rows="4" maxlength="5000" placeholder="Ghi chú quá trình tiếp nhận/xử lý..."></textarea>
+                </label>
+                <p id="feedback-modal-error" class="form-error hidden"></p>
+                <button id="feedback-save" type="submit" class="admin-primary-btn">Lưu xử lý</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast hidden" role="status"></div>
+
+    <script src="config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

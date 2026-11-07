@@ -38,8 +38,8 @@ class FakeRetriever:
         self.chunks = chunks
         self.calls = []
 
-    def retrieve(self, query, k=5):
-        self.calls.append((query, k))
+    def retrieve(self, query, k=5, locality_code=None):
+        self.calls.append((query, k, locality_code))
         return self.chunks[:k]
 
 
@@ -155,7 +155,51 @@ class TestRetrievalEvaluator:
         assert report.metrics_by_k["document_hit_rate"]["mean"] == 0.5
         assert report.per_query_results[0]["first_relevant_rank"] == 1
         assert report.per_query_results[1]["first_relevant_rank"] is None
-        assert retriever.calls[0] == ("Câu hỏi một?", 3)
+        assert retriever.calls[0] == ("Câu hỏi một?", 3, None)
+
+    def test_passes_locality_code_to_retriever(self):
+        examples = [
+            EvaluationExample(
+                id="q1",
+                question="Câu hỏi?",
+                relevant_chunks=["a#1"],
+            )
+        ]
+        retriever = FakeRetriever([FakeChunk("a", 1)])
+
+        RetrievalEvaluator(
+            retriever,
+            ks=(1,),
+            locality_code="25975",
+        ).evaluate(examples)
+
+        assert retriever.calls[0] == ("Câu hỏi?", 1, "25975")
+
+    def test_document_level_example_and_metrics(self, tmp_path):
+        path = tmp_path / "documents.jsonl"
+        path.write_text(
+            json.dumps(
+                {
+                    "id": "d1",
+                    "question": "Thủ tục?",
+                    "relevance_level": "document",
+                    "relevant_documents": ["dvc_procedure_1"],
+                },
+                ensure_ascii=False,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        examples = load_dataset(path)
+        retriever = FakeRetriever([FakeChunk("dvc_procedure_1", 5)])
+
+        report = RetrievalEvaluator(retriever, ks=(1,)).evaluate(examples)
+
+        assert examples[0].relevance_level == "document"
+        assert report.metrics_by_k[1]["hit_rate"]["mean"] == 1.0
+        assert report.per_query_results[0]["relevant_chunks"] == [
+            "dvc_procedure_1"
+        ]
 
     def test_empty_dataset_is_rejected(self):
         with pytest.raises(DatasetError):
@@ -183,3 +227,28 @@ class TestAnswerEvaluator:
         assert result.per_query[0]["citation_recall"] == 1.0
         assert result.per_query[0]["expected_term_recall"] > 0.5
         assert result.summary["abstention_rate"]["mean"] == 0.0
+
+    def test_answer_document_level_citations(self):
+        example = EvaluationExample(
+            id="q1",
+            question="Thủ tục?",
+            relevant_chunks=[],
+            relevant_documents=["dvc_procedure_1"],
+            relevance_level="document",
+            expected_answer="Thủ tục đăng ký khai sinh.",
+        )
+        response = SimpleNamespace(
+            answer="Thủ tục đăng ký khai sinh.",
+            source_chunks=[ChunkReference("dvc_procedure_1", "text", 1.0, 5)],
+            processing_time=0.01,
+        )
+        pipeline = SimpleNamespace(
+            query=lambda question, k=5, locality_code=None: response
+        )
+
+        result = AnswerEvaluator(pipeline, locality_code="25975").evaluate(
+            [example], k=1
+        )
+
+        assert result.per_query[0]["citation_precision"] == 1.0
+        assert result.per_query[0]["citation_recall"] == 1.0

@@ -34,6 +34,7 @@ from app.rag.embedding.embedding_service import EmbeddingService
 from app.database.vector_store import VectorStore
 from app.rag.generation.llm_service import LLMService
 from app.rag.generation.output_validator import OutputValidator
+from app.core.config import settings as app_settings
 from app.core.logging import get_logger
 
 logger = get_logger(__name__)
@@ -51,7 +52,6 @@ class QueryRequest(BaseModel):
     query: str = Field(
         ...,
         min_length=10,
-        max_length=500,
         description="Câu hỏi của người dùng (tiếng Việt)"
     )
     k: int = Field(
@@ -63,6 +63,10 @@ class QueryRequest(BaseModel):
     conversation_id: Optional[UUID] = Field(
         None,
         description="ID cuộc hội thoại (cần đăng nhập) để lưu lịch sử"
+    )
+    locality_code: Optional[str] = Field(
+        "25975",
+        description="Mã địa phương cho local-first retrieval (mặc định An Phú)"
     )
     
     @validator('query')
@@ -103,12 +107,18 @@ class QueryResponse(BaseModel):
                         "document_id": "doc_001",
                         "text": "Điều 10. Hộ khẩu...",
                         "similarity_score": 0.95,
-                        "chunk_index": 5
+                        "chunk_index": 5,
+                        "citation": "Nghị quyết số 25/NQ-HĐND ngày 29/7/2026 của HĐND phường An Phú, Điều 3, khoản 2",
+                        "doc_number": "25/NQ-HĐND",
+                        "issued_date": "2026-07-29",
+                        "issuer": "HĐND phường An Phú",
+                        "doc_scope": "local",
+                        "doc_type": "Nghị quyết"
                     }
                 ],
                 "relevance_scores": [0.95, 0.89, 0.85],
                 "processing_time": 1.234,
-                "model": "gemini-2.0-flash-exp",
+                "model": app_settings.gemini_model,
                 "timestamp": "2024-01-15T10:30:00"
             }
         }
@@ -224,7 +234,8 @@ async def query_rag(
         # Execute pipeline
         rag_response: RAGResponse = pipeline.query(
             query=request.query,
-            k=request.k
+            k=request.k,
+            locality_code=request.locality_code,
         )
         
         # Convert to API response format

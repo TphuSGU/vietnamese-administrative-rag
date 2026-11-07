@@ -28,6 +28,7 @@ python-docx==1.1.0        # Xử lý DOCX
 markdown==3.5.1           # Parse Markdown
 beautifulsoup4==4.12.2    # Parse HTML/Markdown
 lxml==4.9.3               # Parser nhanh
+pyarrow==21.0.0           # Đọc/filter parquet HF legal dataset
 
 # --- Vietnamese Text Processing ---
 # underthesea==6.8.0      # Bỏ: lỗi build trên Python 3.12 (cần Rust + maturin)

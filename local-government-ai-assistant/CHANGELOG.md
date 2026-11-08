@@ -367,3 +367,28 @@ Kết quả: eval 2026-11-07 — HitRate@5 1.00, MRR 0.873, citation recall 1.00
 - `backend/tests/api/test_chat_api.py:62` — mock text có URL + assert `http` không trong response | Vi sao: chặn hồi quy portal URL lọt ra chat.
 - `backend/tests/unit/test_sources_payload.py` + `test_data_models.py` + `test_llm_service.py` — mở rộng `doc_type`, +2 test strip URL | Vi sao: mọi tầng serialize phải cùng có doc_type và sạch URL.
 - `docs/PLAN_AN_PHU.md` — tick Phase 9 (bảng DB + `legal_articles` ghi hoãn, demo file-backed) | Vi sao: checkbox còn treo dù việc đã xong đúng nghĩa.
+
+## 2026-11-07 - Rerank chuyển sang model AITeamVN + script đánh giá A/B
+
+- `backend/app/core/config.py:48` — thêm setting `reranker_model_name` (env `RERANKER_MODEL_NAME`, mặc định `AITeamVN/Vietnamese_Reranker`) | Vi sao: model rerank phải đổi được qua env thay vì hardcode trong class như ms-marco cũ.
+- `backend/app/rag/retrieval/reranker.py:26` — default model → AITeamVN Vietnamese_Reranker (XLM-R 0.6B, fine-tune bge-reranker-v2-m3) | Vi sao: user yêu cầu rerank = AITeamVN cho tiếng Việt thay cross-encoder Anh ms-marco 22M.
+- `backend/app/rag/retrieval/reranker.py:66` — load TRỄ (`_ensure_loaded` ở lần `rerank()` đầu, `max_length=1024`) | Vi sao: model 2.27GB — nếu load eager thì server/test sẽ tải nặng ngay lúc khởi động, dễ OOM với chunk dài.
+- `backend/app/rag/retrieval/hybrid_retriever.py:97` — thêm tham số `reranker_model_name` truyền vào `Reranker()` | Vi sao: script eval A/B cần chỉ định model khác mà không sửa env giữa chừng.
+- `backend/app/rag/retrieval/hybrid_retriever.py:681` — `get_stats()` trả thêm `reranker_model` | Vi sao: cần thấy đang rerank bằng model nào khi chẩn đoán.
+- `backend/.env:55` — bật `RETRIEVAL_USE_RERANKING=true` + `RERANKER_MODEL_NAME` | Vi sao: bật rerank thật cho production/eval, trước đó env không có cờ nên rerank luôn tắt.
+- `backend/.env.example` — thêm 2 biến rerank (mặc định false) | Vi sao: dev mới biết có tùy chọn rerank và cách tắt.
+- `backend/scripts/evaluate_rerank.py:1` — script A/B baseline vs rerank (3 lần eval: baseline/cold/warm + bảng Δ + ms/query, không cần Gemini) | Vi sao: cần đo rerank có cải thiện retrieval T4 và thêm bao nhiêu latency.
+- `backend/tests/unit/test_reranker.py:1` — 4 test: default = AITeamVN + lazy, xếp hạng theo score, top_k, rỗng không tải model | Vi sao: khóa 2 hành vi mới (model env + lazy) mà không tải 2.27GB trong pytest.
+- `backend/tests/integration/test_hybrid_rag_pipeline.py:466` — inject fake cross-encoder cho test retrieve có rerank | Vi sao: test này gọi `rerank()` thật → nếu không fake sẽ tải 2.27GB mỗi lần chạy pytest/CI.
+- `backend/tests/unit/test_hybrid_retriever.py:213` — assert `cross_encoder is None` sau init | Vi sao: chứng minh lazy-load thực sự không tải model lúc khởi tạo.
+- `docs/COLAB_HF_INGEST.md` — thêm §10.5 chạy `evaluate_rerank.py` trên Colab T4 | Vi sao: user cần hướng dẫn đánh giá rerank trên GPU T4.
+
+Kết quả: 12 test rerank/retriever pass; `evaluate_rerank.py --help` OK; tải model 2.27GB sẽ diễn ra ở lần rerank thật đầu tiên (máy local hoặc Colab §10.5).
+
+## 2026-11-07 - Khôi phục corpus tham chiếu sau rebuild 10k hf (hết eval 0/0/0)
+
+- `backend/scripts/merge_backup_corpus.py:1` — script merge backup→live bằng upsert (idempotent, `--dry-run`, `--rebuild-bm25`, bỏ chunk thiếu embedding) | Vi sao: eval 0/0/0 vì collection sống chỉ còn `hf_*` — phải copy 23.949 chunk tham chiếu từ `chroma_db.backup.2026-11-07` mà không re-embed.
+- `backend/tests/unit/test_merge_backup_corpus.py:1` — 7 test fake collection: copy hết, idempotent, dry-run không ghi, batch split, skip emb None, validate batch_size, limit | Vi sao: khóa hành vi merge (đặc biệt idempotent + không upsert emb None) mà không cần Chroma thật.
+- `backend/chroma_db/vietnamese_documents` (merge thật) — 155.167 → 179.116 chunk + BM25 rebuild 179.116 docs | Vi sao: phải có đủ 10k hf + an_phu/dvc/schedule/3 PDF thì gold id mới ánh xạ được, trả metric thật.
+- `docs/COLAB_HF_INGEST.md` — thêm §10.0: chẩn đoán 0/0/0, lệnh merge local, zip 14MB + 3 lệnh ingest cho Colab fresh (~179k), bảng verify; §10.1 làm rõ 2 flow zip | Vi sao: lần sau gặp lại triệu chứng này biết ngay nguyên nhân (hf ghi đè) và cách khắc phục không kéo 600MB.
+- `backend/evaluation/results/post_merge_anphu.json` + `post_merge_50cau.json` — eval rerank OFF sau merge | Vi sao: bằng chứng 30 câu khớp baseline từng số (1.000/0.905/0.873) và 50 câu chunk-level 0.82→0.30 do nhiễu 10k → cơ sở chạy A/B rerank.
